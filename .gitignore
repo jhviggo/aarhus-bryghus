@@ -1,0 +1,19 @@
+# Editor ignores
+.idea/
+.vscode
+.settings/
+build/
+bin/
+.project
+.classpath
+
+# Mac file
+.DS_Store
+
+# Local enviroment files
+.env.local
+.env
+/venv/
+__pycache__/
+
+
