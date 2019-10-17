@@ -1,10 +1,14 @@
 package model;
 
-public abstract class Product {
+public class Product {
 
 	private String productName;
-	
-	public abstract String getProductName();
-	
-	public abstract String setProductName(String name);
+
+	public String getProductName() {
+	    return productName;
+    }
+
+	public String setProductName(String name) {
+	    this.productName = name;
+    }
 }
