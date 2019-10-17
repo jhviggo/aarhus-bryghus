@@ -25,7 +25,7 @@ public class Order {
 		this.startTimestamp = startTimestamp;
 		this.endTimestamp = endTimestamp;
 		this.status = status;
-		this.orderline = new ArrayList<>();
+		this.orderlines = new ArrayList<>();
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class Order {
 	 */
 	public OrderLine createOrderLine(Product product) {
 		OrderLine orderLine = new OrderLine(product);
-		orderline.add(orderLine);
+		orderlines.add(orderLine);
 		return orderLine;
 	}
 	/**
@@ -95,8 +95,8 @@ public class Order {
 	 * @param order
 	 */
 	public void deleteOrderline(OrderLine orderLine) {
-		if (orderline.contains(orderLine)) {
-			orderline.remove(orderLine);
+		if (orderlines.contains(orderLine)) {
+			orderlines.remove(orderLine);
 		}
 	}
 	
