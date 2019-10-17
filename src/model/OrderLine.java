@@ -5,7 +5,6 @@ public class OrderLine {
 	/**
 	 * Attributes
 	 */
-	private Order order;
 	private PriceList priceList;
 	private Product product;
 	
@@ -25,10 +24,4 @@ public class OrderLine {
 		return 0.0;
 	}
 	
-	/**
-	 * Method to set order to null value.
-	 */
-	public void removeOrder() {
-		this.order = null;
-	}
 }

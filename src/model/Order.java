@@ -94,10 +94,9 @@ public class Order {
 	 * Method to delete a OrderLine.
 	 * @param order
 	 */
-	public void deleteOrderline(OrderLine order) {
-		if (orderline.contains(order)) {
-			orderline.remove(order);
-			order.removeOrder();
+	public void deleteOrderline(OrderLine orderLine) {
+		if (orderline.contains(orderLine)) {
+			orderline.remove(orderLine);
 		}
 	}
 	
