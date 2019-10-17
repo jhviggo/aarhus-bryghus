@@ -14,7 +14,7 @@ public class Order {
 	private LocalDateTime startTimestamp;
 	private LocalDateTime endTimestamp;
 	private OrderStatusType status;
-	private ArrayList<OrderLine> orderline;
+	private ArrayList<OrderLine> orderlines;
 	
 	/**
 	 * Constructor
@@ -85,8 +85,8 @@ public class Order {
 	 * Method to create a new OrderLine.
 	 * @return a new instance of OrderLine.
 	 */
-	public OrderLine createOrderLine(this, Product product) {
-		OrderLine orderLine = new OrderLine(this, product);
+	public OrderLine createOrderLine(Product product) {
+		OrderLine orderLine = new OrderLine(product);
 		orderline.add(orderLine);
 		return orderLine;
 	}
