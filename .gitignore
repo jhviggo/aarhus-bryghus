@@ -6,6 +6,7 @@ build/
 bin/
 .project
 .classpath
+*.iml
 
 # Mac file
 .DS_Store
