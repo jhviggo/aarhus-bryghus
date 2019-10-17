@@ -1,5 +1,8 @@
 package model;
 
-public class Product {
+public abstract class Product {
 
+	public abstract String getProductName();
+	
+	public abstract String setProductName(String name);
 }
