@@ -28,31 +28,30 @@ public class GiftBox extends Product {
     }
 
     public boolean addProduct(Product product) {
-        if (amountOfProducts == maxAmountOfProducts) {
+        if (amountOfProducts == maxAmountOfProducts ||
+                !(product instanceof Beer)) {
             return false;
-        } else {
-            if (productsInGiftCase.containsKey(product)) {
-                productsInGiftCase.put(product,
-                        productsInGiftCase.get(product)+1);
-            } else {
-                productsInGiftCase.put(product, 1);
-            }
-            return true;
         }
+        if (productsInGiftCase.containsKey(product)) {
+            productsInGiftCase.put(product,
+                    productsInGiftCase.get(product)+1);
+        } else {
+            productsInGiftCase.put(product, 1);
+        }
+        return true;
     }
 
     public boolean removeProduct(Product product) {
         if (!productsInGiftCase.containsKey(product)) {
             return false;
-        } else {
-            if (productsInGiftCase.get(product) == 1) {
-                productsInGiftCase.remove(product);
-            } else {
-                productsInGiftCase.put(product,
-                        productsInGiftCase.get(product)-1);
-            }
-            return true;
         }
+        if (productsInGiftCase.get(product) == 1) {
+            productsInGiftCase.remove(product);
+        } else {
+            productsInGiftCase.put(product,
+                    productsInGiftCase.get(product)-1);
+        }
+        return true;
     }
 
     public GiftBoxType getType() {
