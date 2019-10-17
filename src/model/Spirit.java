@@ -1,5 +1,5 @@
 package model;
 
-public class Spirit {
+public class Spirit extends Consumable {
 
 }

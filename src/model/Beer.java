@@ -1,5 +1,5 @@
 package model;
 
-public class Beer {
+public class Beer extends Consumable {
 
 }
