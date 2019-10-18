@@ -33,4 +33,10 @@ public class Product {
 			productGroup.addProduct(this);
 		}
 	}
+
+	public void removeProductGroup() {
+		ProductGroup old = productGroup;
+		productGroup = null;
+		old.removeProduct(this);
+	}
 }
