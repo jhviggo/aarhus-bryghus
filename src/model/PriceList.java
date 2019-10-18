@@ -8,14 +8,30 @@ public class PriceList {
 	 * Attributes
 	 */
 	private String type;
-	private double prices;
 	HashMap<Product, Double> productsInPriceList;
+	HashMap<GiftBoxType, Double> giftBoxPrices;
+
+	public PriceList(String type) {
+		this.type = type;
+	}
+
+	public PriceList(String type, HashMap<Product, Double> productsInPriceList,
+					 HashMap<GiftBoxType, Double> giftBoxPrices) {
+		this.type = type;
+		this.productsInPriceList = productsInPriceList;
+		this.giftBoxPrices = giftBoxPrices;
+	}
+
 	/**
 	 * Method to set price on product.
 	 * @param product
 	 */
 	public void setPrice(Product product, double price) {
-		productsInPriceList.put(product, price);
+		if (product instanceof GiftBox) {
+			giftBoxPrices.put(((GiftBox) product).getType(), price);
+		} else {
+			productsInPriceList.put(product, price);
+		}
 	}
 	
 	/**
@@ -25,6 +41,9 @@ public class PriceList {
 	 * @return product price.
 	 */
 	public double getPrice(Product product) {
+		if (product instanceof GiftBox) {
+			return giftBoxPrices.get(((GiftBox) product).getType());
+		}
 	    return productsInPriceList.get(product);
 	}
 }
