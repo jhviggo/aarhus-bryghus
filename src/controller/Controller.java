@@ -6,9 +6,12 @@ import java.time.LocalDateTime;
 
 public class Controller {
 
-    public Order createOrder(int id, LocalDateTime startTimeStamp,
+    private static int nextOrderId = 0;
+
+    public Order createOrder(LocalDateTime startTimeStamp,
                              OrderStatusType status) {
-        Order order = new Order(id, startTimeStamp, status);
+        Order order = new Order(nextOrderId, startTimeStamp, status);
+        nextOrderId++;
         return order;
     }
 
