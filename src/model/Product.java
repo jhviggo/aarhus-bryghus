@@ -8,6 +8,7 @@ public class Product {
 	public Product(String productName, ProductGroup productGroup) {
 		this.productName = productName;
 		this.productGroup = productGroup;
+		productGroup.addProduct(this);
 	}
 
 	public String getProductName() {

@@ -9,9 +9,9 @@ public class GuidedTour extends Product {
     //Duration in minutes
     private int duration;
 
-    public GuidedTour(String productName, LocalDateTime dateTime,
+    public GuidedTour(String productName, ProductGroup productGroup, LocalDateTime dateTime,
                       int duration) {
-        super(productName);
+        super(productName, productGroup);
         this.dateTime = dateTime;
         this.duration = duration;
     }
