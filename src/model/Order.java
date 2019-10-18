@@ -3,8 +3,6 @@ package model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import model.OrderLine;
-
 public class Order {
 
 	/**
@@ -15,10 +13,10 @@ public class Order {
 	private LocalDateTime endTimestamp;
 	private OrderStatusType status;
 	private ArrayList<OrderLine> orderlines;
-	
+
 	/**
 	 * Constructor
-	 * @param ID, startTimestamp, endTimestamp, status
+	 * @param id, startTimestamp, endTimestamp, status
 	 */
 	public Order(int id, LocalDateTime startTimestamp, LocalDateTime endTimestamp, OrderStatusType status) {
 		this.ID = id;
@@ -74,32 +72,29 @@ public class Order {
 	}
 	/**
 	 * Get method.
-	 * Method to get start time stamp. 
+	 * Method to get start time stamp.
 	 * @return startTimestamp
 	 */
 	public LocalDateTime getStartTimestamp() {
 		return startTimestamp;
 	}
-	
+
 	/**
 	 * Method to create a new OrderLine.
 	 * @return a new instance of OrderLine.
 	 */
-	public OrderLine createOrderLine(Product product) {
-		OrderLine orderLine = new OrderLine(product);
+	public OrderLine createOrderLine(Product product, PriceList priceList, int amount) {
+		OrderLine orderLine = new OrderLine(product, priceList, amount);
 		orderlines.add(orderLine);
 		return orderLine;
 	}
 	/**
 	 * Method to delete a OrderLine.
-	 * @param order
+	 * @param orderLine
 	 */
 	public void deleteOrderline(OrderLine orderLine) {
 		if (orderlines.contains(orderLine)) {
 			orderlines.remove(orderLine);
 		}
 	}
-	
-	
-	
 }

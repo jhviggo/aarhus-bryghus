@@ -11,8 +11,7 @@ public class GiftBox extends Product {
     private int maxAmountOfProducts;
     private GiftBoxType type;
 
-    public GiftBox(String productName, GiftBoxType type,
-                   ProductGroup productGroup) {
+    public GiftBox(String productName, ProductGroup productGroup, GiftBoxType type) {
         super(productName, productGroup);
         productsInGiftCase = new HashMap<>();
         amountOfProducts = 0;

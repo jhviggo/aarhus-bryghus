@@ -7,8 +7,8 @@ public abstract class Consumable extends Product {
     private String type;
 
     public Consumable(int size, String unit, double alcoholPercentage,
-                      String type, String productName) {
-        super(productName);
+                      String type, String productName, ProductGroup productGroup) {
+        super(productName, productGroup);
         this.size = size;
         this.unit = unit;
         this.alcoholPercentage = alcoholPercentage;
