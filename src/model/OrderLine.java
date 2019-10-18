@@ -43,10 +43,7 @@ public class OrderLine {
 	 * @return total price.
 	 */
 	public double getPrice() {
-		double sum = 0.0;
-		for (int i = 0; i < amount; i++) {
-			sum += priceList.getPrice(product);
-		}
+		return priceList.getPrice(product)*amount;
 	}
 	
 }
