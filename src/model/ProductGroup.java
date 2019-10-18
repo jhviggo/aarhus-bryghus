@@ -33,7 +33,7 @@ public class ProductGroup {
     }
 
     public void removeProduct(Product p) {
-        if (p.getProductGroup() != null) {
+        if (p.getProductGroup() == this) {
             throw new RuntimeException("Produktet skal flyttes til en ny produktgruppe før det kan fjernes fra " + type);
         }
         if(products.contains(p)) {
