@@ -13,6 +13,8 @@ public class PriceList {
 
 	public PriceList(String type) {
 		this.type = type;
+		productsInPriceList = new HashMap<>();
+		giftBoxPrices = new HashMap<>();
 	}
 
 	public PriceList(String type, HashMap<Product, Double> productsInPriceList,
@@ -33,7 +35,7 @@ public class PriceList {
 			productsInPriceList.put(product, price);
 		}
 	}
-	
+
 	/**
 	 * Get method.
 	 * Method to get product price.
