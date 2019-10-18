@@ -2,11 +2,7 @@ package storage;
 
 import java.util.ArrayList;
 
-import model.GiftBox;
-import model.Order;
-import model.OrderLine;
-import model.Product;
-import model.ProductGroup;
+import model.*;
 
 public class Storage {
 
@@ -16,9 +12,10 @@ public class Storage {
 	private static final ArrayList<Order> orders = new ArrayList<>();
 	private static final ArrayList<OrderLine> orderLines = new ArrayList<>();
 	private static final ArrayList<Product> products = new ArrayList<>();
-	private static final ArrayList<ProductGroup> productgroups = new ArrayList<>();
-	private static final ArrayList<GiftBox> giftboxes = new ArrayList<>();
-	
+	private static final ArrayList<ProductGroup> productGroups = new ArrayList<>();
+	private static final ArrayList<GiftBox> giftBoxes = new ArrayList<>();
+	private static final ArrayList<PriceList> priceLists = new ArrayList<PriceList>();
+
 	/**
 	 * Get method.
 	 * Method to grab all orders from storage.
@@ -27,7 +24,7 @@ public class Storage {
 	public static ArrayList<Order> getAllOrders() {
 		return new ArrayList<>(orders);
 	}
-	
+
 	/**
 	 * Method to add an order to storage.
 	 * @param order
@@ -37,7 +34,7 @@ public class Storage {
 			orders.add(order);
 		}
 	}
-	
+
 	/**
 	 * Method to remove an order from storage.
 	 * @param order
@@ -47,7 +44,7 @@ public class Storage {
 			orders.remove(order);
 		}
 	}
-	
+
 	/**
 	 * Get method.
 	 * Method to grab all OrderLines from storage.
@@ -56,7 +53,7 @@ public class Storage {
 	public static ArrayList<OrderLine> getAllOrderLines() {
 		return new ArrayList<>(orderLines);
 	}
-	
+
 	/**
 	 * Method to add an OrderLine to storage.
 	 * @param orderline
@@ -66,7 +63,7 @@ public class Storage {
 			orderLines.add(orderline);
 		}
 	}
-	
+
 	/**
 	 * Method to remove an OrderLine from storage.
 	 * @param orderline
@@ -76,7 +73,7 @@ public class Storage {
 			orderLines.remove(orderline);
 		}
 	}
-	
+
 	/**
 	 * Get method.
 	 * Method to grab all products from storage.
@@ -85,7 +82,7 @@ public class Storage {
 	public static ArrayList<Product> getAllProducts() {
 		return new ArrayList<>(products);
 	}
-	
+
 	/**
 	 * Method to add an products to storage.
 	 * @param product
@@ -104,60 +101,88 @@ public class Storage {
 			products.remove(product);
 		}
 	}
-	
+
 	/**
 	 * Get Method
 	 * Method to grab all product groups from storage.
 	 * @return ArrayList<ProductGroup>();
 	 */
-	public static ArrayList<ProductGroup> getAllProductGroups() {
-		return new ArrayList<>(productgroups);
+	public static ArrayList<ProductGroup> getAllproductGroups() {
+		return new ArrayList<>(productGroups);
 	}
-	
+
 	/**
 	 * Method to add a ProductGroup to storage.
 	 */
 	public static void addProductGroup(ProductGroup productgroup) {
-		if (!productgroups.contains(productgroup)) {
-			productgroups.add(productgroup);
+		if (!productGroups.contains(productgroup)) {
+			productGroups.add(productgroup);
 		}
 	}
-	
+
 	/**
 	 * Method to remove an ProductGroup from storage.
 	 */
 	public static void removeProductGroup(ProductGroup productgroup) {
-		if (productgroups.contains(productgroup)) {
-			productgroups.remove(productgroup);
+		if (productGroups.contains(productgroup)) {
+			productGroups.remove(productgroup);
 		}
 	}
-	
+
 	/**
 	 * Get Method.
 	 * Method to grab all gift boxes from storage.
 	 * @return ArrayList<GiftBox>();
 	 */
-	public static ArrayList<GiftBox> getAllGiftBoxes() {
-		return new ArrayList<>(giftboxes);
+	public static ArrayList<GiftBox> getAllgiftBoxes() {
+		return new ArrayList<>(giftBoxes);
 	}
-	
+
 	/**
 	 * Method to add an gift box to storage.
 	 * @param giftbox
 	 */
 	public static void addGiftBox(GiftBox giftbox) {
-		if (!giftboxes.contains(giftbox)) {
-			giftboxes.add(giftbox);
+		if (!giftBoxes.contains(giftbox)) {
+			giftBoxes.add(giftbox);
 		}
 	}
-	
+
 	/**
 	 * Method to remove an gift box from storage.
 	 * @param giftbox
 	 */
 	public static void removeGiftBox(GiftBox giftbox) {
-		if (giftboxes.contains(giftbox)) {
-			giftboxes.add(giftbox);
+		if (giftBoxes.contains(giftbox)) {
+			giftBoxes.add(giftbox);
+		}
+	}
+
+	/**
+	 * return price lists
+	 * @return
+	 */
+	public static ArrayList<PriceList> getPriceLists() {
+		return new ArrayList<>(priceLists);
+	}
+
+	/**
+	 * add price list
+	 * @param priceList
+	 */
+	public static void addPriceList(PriceList priceList) {
+		if (!priceLists.contains(priceList)) {
+			priceLists.add(priceList);
+		}
+	}
+
+	/**
+	 * remove price list
+	 * @param priceList
+	 */
+	public static void removePriceList(PriceList priceList) {
+		if (priceLists.contains(priceList)) {
+			priceLists.remove(priceList);
 		}
 	}
 }

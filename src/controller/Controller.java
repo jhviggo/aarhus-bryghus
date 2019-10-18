@@ -4,6 +4,7 @@ import model.*;
 import java.lang.IllegalStateException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import storage.Storage;
 
 public class Controller {
 
@@ -52,11 +53,13 @@ public class Controller {
     // Product
     public Product createProduct(String productName, ProductGroup productGroup) {
         Product product = new Product(productName, productGroup);
+        Storage.addProduct(product);
         return product;
     }
 
     public void deleteProduct(Product product) {
         product.removeProductGroup();
+        Storage.removeProduct(product);
     }
 
     public void moveProductToProductGroup(Product product, ProductGroup productGroup) {
@@ -66,6 +69,7 @@ public class Controller {
     // ProductGroup
     public ProductGroup addProductGroup(String type, double tax) {
         ProductGroup productGroup = new ProductGroup(type, tax);
+        Storage.addProductGroup(productGroup);
         return productGroup;
     }
 
@@ -73,22 +77,24 @@ public class Controller {
         if (productGroup.getProducts().size() > 0) {
             throw new RuntimeException("Gruppen som ønskes slette skal være tom");
         }
-        // storage call
+        Storage.removeProductGroup(productGroup);
     }
 
     // PriceList
     public PriceList createPriceList(String type, HashMap<Product, Double> productsInPriceList,
                                      HashMap<GiftBoxType, Double> giftBoxPrices) {
         PriceList priceList = new PriceList(type, productsInPriceList, giftBoxPrices);
+        Storage.addPriceList(priceList);
         return priceList;
     }
 
     public PriceList createPriceList(String type) {
         PriceList priceList = new PriceList(type);
+        Storage.addPriceList(priceList);
         return priceList;
     }
 
     public void deletePriceList(PriceList priceList) {
-        // storage call
+        Storage.removePriceList(priceList);
     }
 }
