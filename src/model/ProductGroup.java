@@ -28,10 +28,14 @@ public class ProductGroup {
     public void addProduct(Product p) {
         if(!products.contains(p)) {
             products.add(p);
+            p.setProductGroup(this);
         }
     }
 
     public void removeProduct(Product p) {
+        if (p.getProductGroup() != null) {
+            throw new RuntimeException("Produktet skal flyttes til en ny produktgruppe før det kan fjernes fra " + type);
+        }
         if(products.contains(p)) {
             products.remove(p);
         }
