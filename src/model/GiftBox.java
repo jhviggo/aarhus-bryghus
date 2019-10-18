@@ -2,15 +2,18 @@ package model;
 
 import java.util.HashMap;
 
+import static model.BeerType.BOTTLE;
+
 public class GiftBox extends Product {
 
-    private HashMap<Product, Integer> productsInGiftCase;
+    private HashMap<Beer, Integer> productsInGiftCase;
     private int amountOfProducts;
     private int maxAmountOfProducts;
     private GiftBoxType type;
 
-    public GiftBox(String productName, GiftBoxType type) {
-        super(productName);
+    public GiftBox(String productName, GiftBoxType type,
+                   ProductGroup productGroup) {
+        super(productName, productGroup);
         productsInGiftCase = new HashMap<>();
         amountOfProducts = 0;
         this.type = type;
@@ -27,29 +30,29 @@ public class GiftBox extends Product {
         }
     }
 
-    public boolean addProduct(Product product) {
+    public boolean addProduct(Beer beer) {
         if (amountOfProducts == maxAmountOfProducts ||
-                !(product instanceof Beer)) {
+                beer.getBeerType() != BOTTLE) {
             return false;
         }
-        if (productsInGiftCase.containsKey(product)) {
-            productsInGiftCase.put(product,
-                    productsInGiftCase.get(product)+1);
+        if (productsInGiftCase.containsKey(beer)) {
+            productsInGiftCase.put(beer,
+                    productsInGiftCase.get(beer)+1);
         } else {
-            productsInGiftCase.put(product, 1);
+            productsInGiftCase.put(beer, 1);
         }
         return true;
     }
 
-    public boolean removeProduct(Product product) {
-        if (!productsInGiftCase.containsKey(product)) {
+    public boolean removeProduct(Beer beer) {
+        if (!productsInGiftCase.containsKey(beer)) {
             return false;
         }
-        if (productsInGiftCase.get(product) == 1) {
-            productsInGiftCase.remove(product);
+        if (productsInGiftCase.get(beer) == 1) {
+            productsInGiftCase.remove(beer);
         } else {
-            productsInGiftCase.put(product,
-                    productsInGiftCase.get(product)-1);
+            productsInGiftCase.put(beer,
+                    productsInGiftCase.get(beer)-1);
         }
         return true;
     }
