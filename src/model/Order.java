@@ -18,10 +18,9 @@ public class Order {
 	 * Constructor
 	 * @param id, startTimestamp, endTimestamp, status
 	 */
-	public Order(int id, LocalDateTime startTimestamp, LocalDateTime endTimestamp, OrderStatusType status) {
+	public Order(int id, LocalDateTime startTimestamp, OrderStatusType status) {
 		this.ID = id;
 		this.startTimestamp = startTimestamp;
-		this.endTimestamp = endTimestamp;
 		this.status = status;
 		this.orderlines = new ArrayList<>();
 	}
