@@ -71,6 +71,42 @@ public class Controller {
         return product;
     }
 
+    public Product createProductAccessory(String productName, ProductGroup productGroup, String size) {
+        Product product = new Accessory(productName, productGroup, size);
+        Storage.addProduct(product);
+        return product;
+    }
+
+    public Product createProductGuidedTour(String productName, ProductGroup productGroup, LocalDateTime dateTime, int duration) {
+        Product product = new GuidedTour(productName, productGroup, dateTime, duration);
+        Storage.addProduct(product);
+        return product;
+    }
+
+    public Product createProductGrain(String productName, ProductGroup productGroup, double weight) {
+        Product product = new Grain(productName, productGroup, weight);
+        Storage.addProduct(product);
+        return product;
+    }
+
+    public Product createProductDraughtBeerSystem(String productName, ProductGroup productGroup, int numberOfTabs) {
+        Product product = new DraughtBeerSystem(productName, productGroup, numberOfTabs);
+        Storage.addProduct(product);
+        return product;
+    }
+
+    public Product createProductBeer(String productName, ProductGroup productGroup, int size, String unit, double alcoholPercentage, String type, BeerType beerType) {
+        Product product = new Beer(size, unit, alcoholPercentage, type, productName, productGroup, beerType);
+        Storage.addProduct(product);
+        return product;
+    }
+
+    public Product createProductSpirit(String productName, ProductGroup productGroup, int size, String unit, double alcoholPercentage, String type) {
+        Product product = new Spirit(size, unit, alcoholPercentage, type, productName, productGroup);
+        Storage.addProduct(product);
+        return product;
+    }
+
     public void deleteProduct(Product product) {
         product.removeProductGroup();
         Storage.removeProduct(product);
