@@ -39,4 +39,9 @@ public class Product {
 		productGroup = null;
 		old.removeProduct(this);
 	}
+
+	@Override
+	public String toString() {
+		return productName;
+	}
 }

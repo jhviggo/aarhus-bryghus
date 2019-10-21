@@ -45,5 +45,10 @@ public class OrderLine {
 	public double getPrice() {
 		return priceList.getPrice(product)*amount;
 	}
+
+	@Override
+	public String toString() {
+		return amount + " - " + product + " - " + getPrice();
+	}
 	
 }
