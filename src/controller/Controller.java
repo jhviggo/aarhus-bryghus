@@ -13,6 +13,7 @@ public class Controller {
     public Order createOrder(LocalDateTime startTimeStamp,
                              OrderStatusType status) {
         Order order = new Order(nextOrderId, startTimeStamp, status);
+        Storage.addOrder(order);
         nextOrderId++;
         return order;
     }
@@ -24,16 +25,19 @@ public class Controller {
     public OrderLine createOrderLine(Product product, PriceList priceList,
                                      int amount, Order order) {
         OrderLine line = order.createOrderLine(product, priceList, amount);
+        Storage.addOrderLine(line);
         return line;
     }
 
     public void deleteOrderLineOnOrder(OrderLine orderLine, Order order) {
         order.deleteOrderline(orderLine);
+        Storage.removeOrderLine(orderLine);
     }
 
     public GiftBox createGiftBox(String productName, ProductGroup productGroup,
                                  GiftBoxType type) {
         GiftBox giftBox = new GiftBox(productName, productGroup, type);
+        Storage.addGiftBox(giftBox);
         return giftBox;
     }
 
