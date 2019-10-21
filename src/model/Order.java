@@ -11,6 +11,7 @@ public class Order {
 	private int ID;
 	private LocalDateTime startTimestamp;
 	private LocalDateTime endTimestamp;
+	private LocalDateTime deliveryDate;
 	private OrderStatusType status;
 	private ArrayList<OrderLine> orderlines;
 
@@ -23,6 +24,22 @@ public class Order {
 		this.startTimestamp = startTimestamp;
 		this.status = status;
 		this.orderlines = new ArrayList<>();
+	}
+
+	/**
+	 * Returns delivery date
+	 * @return LocalDate
+	 */
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	/**
+	 * Sets delivery date
+	 * @param deliveryDate
+	 */
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
 	/**
@@ -69,6 +86,7 @@ public class Order {
 	public int getID() {
 		return ID;
 	}
+
 	/**
 	 * Get method.
 	 * Method to get start time stamp.
@@ -87,6 +105,7 @@ public class Order {
 		orderlines.add(orderLine);
 		return orderLine;
 	}
+
 	/**
 	 * Method to delete a OrderLine.
 	 * @param orderLine
