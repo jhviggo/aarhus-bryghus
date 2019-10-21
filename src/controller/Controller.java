@@ -9,6 +9,16 @@ import storage.Storage;
 public class Controller {
 
     private static int nextOrderId = 0;
+    private static Controller controller;
+
+    private Controller() {}
+
+    public static Controller getController() {
+        if (controller == null) {
+            controller = new Controller();
+        }
+        return controller;
+    }
 
     public Order createOrder(LocalDateTime startTimeStamp,
                              OrderStatusType status) {
