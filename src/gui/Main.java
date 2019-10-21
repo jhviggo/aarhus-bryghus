@@ -48,6 +48,8 @@ public class Main extends Application {
         //Tab ikke aflevere produkter
         //Tab rundvisning
 
+        tabOrder.setContent(new RegisterSalePane());
+
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);
         tabPane.getTabs().add(tabPriceList);
