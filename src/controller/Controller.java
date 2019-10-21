@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import java.lang.IllegalStateException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import storage.Storage;
 
@@ -28,6 +29,10 @@ public class Controller {
         return order;
     }
 
+    public ArrayList<Order> getOrders() {
+        return Storage.getAllOrders();
+    }
+
     public void setEndTimestampOnOrder(Order order) {
         order.setEndTimestamp(LocalDateTime.now());
     }
@@ -42,6 +47,10 @@ public class Controller {
     public void deleteOrderLineOnOrder(OrderLine orderLine, Order order) {
         order.deleteOrderline(orderLine);
         Storage.removeOrderLine(orderLine);
+    }
+
+    public ArrayList<OrderLine> getOrderLines() {
+        return Storage.getAllOrderLines();
     }
 
     public GiftBox createGiftBox(String productName, ProductGroup productGroup,
@@ -62,6 +71,10 @@ public class Controller {
         if (!giftBox.removeProduct(beer)) {
             throw new IllegalStateException("Product not found in giftbox");
         }
+    }
+
+    public ArrayList<GiftBox> getGiftBoxes() {
+        return Storage.getAllgiftBoxes();
     }
 
     // Product
@@ -116,6 +129,10 @@ public class Controller {
         product.setProductGroup(productGroup);
     }
 
+    public ArrayList<Product> getProducts() {
+        return Storage.getAllProducts();
+    }
+
     // ProductGroup
     public ProductGroup createProductGroup(String type, double tax) {
         ProductGroup productGroup = new ProductGroup(type, tax);
@@ -128,6 +145,10 @@ public class Controller {
             throw new RuntimeException("Gruppen som ønskes slette skal være tom");
         }
         Storage.removeProductGroup(productGroup);
+    }
+
+    public ArrayList<ProductGroup> getProductGroups() {
+        return Storage.getAllproductGroups();
     }
 
     // PriceList
@@ -153,6 +174,10 @@ public class Controller {
 
     public void deletePriceList(PriceList priceList) {
         Storage.removePriceList(priceList);
+    }
+
+    public ArrayList<PriceList> getPriceLists() {
+        return Storage.getPriceLists();
     }
 
     public void initializeData() {
