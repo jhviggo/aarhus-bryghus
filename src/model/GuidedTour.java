@@ -24,6 +24,8 @@ public class GuidedTour extends Product {
         return duration;
     }
 
-
-
+    @Override
+    public String toString() {
+        return super.toString() + " " + duration + "min";
+    }
 }

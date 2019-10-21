@@ -48,4 +48,9 @@ public class PriceList {
 		}
 	    return productsInPriceList.get(product);
 	}
+
+	@Override
+	public String toString() {
+		return type;
+	}
 }

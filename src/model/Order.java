@@ -96,4 +96,9 @@ public class Order {
 			orderlines.remove(orderLine);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Order " + ID;
+	}
 }

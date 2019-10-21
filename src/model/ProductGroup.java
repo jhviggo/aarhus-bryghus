@@ -40,4 +40,9 @@ public class ProductGroup {
             products.remove(p);
         }
     }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }
