@@ -8,11 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
+import java.time.LocalDateTime;
 
 import model.*;
 import controller.Controller;
 
 public class RegisterSalePane extends GridPane {
+
+    private Controller controller;
 
     private ListView<Product> lstProducts = new ListView<>();
     private ListView<OrderLine> lstOrderLines = new ListView<>();
@@ -24,37 +27,51 @@ public class RegisterSalePane extends GridPane {
     private Button btnIncrementAmount;
     private Button btnDeductAmount;
     private Button btnCheckout;
+    private Button btnCreateOrder;
     private Label lblTotal;
+    private Label lblOrderId;
+    private Order order;
 
     public RegisterSalePane() {
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
         this.setGridLinesVisible(false);
+        controller = Controller.getController();
+        controller.initializeData();
 
-        this.add(new Label("Price list:"), 0, 0);
+        btnCreateOrder = new Button("Create new order");
+        btnCreateOrder.setOnAction(event -> this.createOrder());
+        this.add(btnCreateOrder, 0, 0);
+        lblOrderId = new Label("");
+        this.add(lblOrderId, 1, 0);
+
+        this.add(new Label("Price list:"), 0, 1);
         cmbPriceList = new ComboBox<>();
         cmbPriceList.setPrefWidth(400);
-        this.add(cmbPriceList, 0, 1);
+        cmbPriceList.getItems().setAll(controller.getPriceLists());
+        this.add(cmbPriceList, 0, 2);
         btnLockPriceList = new Button("\uD83D\uDD13");
         btnLockPriceList.setOnAction(event -> this.setLockPriceList());
-        this.add(btnLockPriceList, 1, 1);
+        this.add(btnLockPriceList, 1, 2);
 
-        this.add(new Label("Choose product"), 0, 2);
+        this.add(new Label("Choose product"), 0, 3);
         lstProducts.setPrefSize(400,400);
-        this.add(lstProducts, 0, 3, 1, 4);
+        lstProducts.getItems().setAll(controller.getProducts());
+        this.add(lstProducts, 0, 4, 1, 3);
 
-        this.add(new Label("Amount"), 1, 2);
+        this.add(new Label("Amount"), 1, 3);
 
         txfAmount = new TextField();
-        this.add(txfAmount, 1, 3);
+        this.add(txfAmount, 1, 4);
 
         btnAdd = new Button("Add");
-        this.add(btnAdd, 1, 4);
+        btnAdd.setOnAction(event -> this.addOrderLine());
+        this.add(btnAdd, 1, 5);
 
-        this.add(new Label("Order lines"), 0, 7);
+        this.add(new Label("Order lines"), 0, 8);
         lstOrderLines.setPrefSize(400, 200);
-        this.add(lstOrderLines, 0, 8, 1, 4);
+        this.add(lstOrderLines, 0, 9, 1, 4);
 
         btnIncrementAmount = new Button("+");
         btnDeductAmount = new Button("-");
@@ -63,17 +80,17 @@ public class RegisterSalePane extends GridPane {
         editAmountControlBox.getChildren().add(btnIncrementAmount);
         editAmountControlBox.getChildren().add(btnDeductAmount);
         editAmountControlBox.setSpacing(10);
-        this.add(editAmountControlBox, 1, 8);
+        this.add(editAmountControlBox, 1, 9);
 
         btnRemove = new Button("Remove");
-        this.add(btnRemove, 1, 9);
+        this.add(btnRemove, 1, 10);
 
         lblTotal = new Label("Total: ");
-        this.add(lblTotal, 1, 10);
+        this.add(lblTotal, 1, 11);
 
         btnCheckout = new Button("Checkout");
         btnCheckout.setOnAction(event -> this.checkoutAction());
-        this.add(btnCheckout, 1, 11);
+        this.add(btnCheckout, 1, 12);
     }
 
     private void setLockPriceList() {
@@ -87,8 +104,39 @@ public class RegisterSalePane extends GridPane {
     }
 
     private void checkoutAction() {
-        CheckoutOrderDialog checkoutDialog = new CheckoutOrderDialog();
-        checkoutDialog.showAndWait();
+        if (order != null) {
+            CheckoutOrderDialog checkoutDialog = new CheckoutOrderDialog(order);
+            checkoutDialog.showAndWait();
+        } else {
+            noOrderError();
+        }
+    }
+
+    private void createOrder() {
+        order = controller.createOrder(LocalDateTime.now(),
+                OrderStatusType.CREATED);
+        lblOrderId.setText(order.toString());
+    }
+
+    private void addOrderLine() {
+        try {
+            OrderLine orderLine = controller.createOrderLine(
+                    lstProducts.getSelectionModel().getSelectedItem(),
+                    cmbPriceList.getSelectionModel().getSelectedItem(),
+                    Integer.parseInt(txfAmount.getText()), order);
+            updateContent();
+        }
+        catch (Exception e) {
+
+        }
+    }
+
+    private void updateContent() {
+
+    }
+
+    private void noOrderError() {
+
     }
 
 }
