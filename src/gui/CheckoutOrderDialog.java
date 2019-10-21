@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Order;
 
 public class CheckoutOrderDialog extends Stage {
 
@@ -23,9 +24,11 @@ public class CheckoutOrderDialog extends Stage {
     private CheckBox chbOverride;
     private RadioButton rbCreditCard, rbCash, rbPayLater, rbCreated, rbProgress,
                         rbDone;
+    private Order order;
 
-    public CheckoutOrderDialog() {
+    public CheckoutOrderDialog(Order order) {
         controller = Controller.getController();
+        this.order = order;
 
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
