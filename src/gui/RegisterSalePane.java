@@ -72,6 +72,7 @@ public class RegisterSalePane extends GridPane {
         this.add(lblTotal, 1, 10);
 
         btnCheckout = new Button("Checkout");
+        btnCheckout.setOnAction(event -> this.checkoutAction());
         this.add(btnCheckout, 1, 11);
     }
 
@@ -83,6 +84,11 @@ public class RegisterSalePane extends GridPane {
             cmbPriceList.setDisable(true);
             btnLockPriceList.setText("\uD83D\uDD12");
         }
+    }
+
+    private void checkoutAction() {
+        CheckoutOrderDialog checkoutDialog = new CheckoutOrderDialog();
+        checkoutDialog.showAndWait();
     }
 
 }
