@@ -11,4 +11,9 @@ public class Grain extends Product {
     public double getWeight() {
         return weight;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + weight + "kg";
+    }
 }

@@ -30,4 +30,9 @@ public abstract class Consumable extends Product {
     public String getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (" + type + ") " + alcoholPercentage + "%, " + size + unit;
+    }
 }

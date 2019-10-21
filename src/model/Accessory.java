@@ -11,4 +11,9 @@ public class Accessory extends Product {
     public String getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (" + size + ")";
+    }
 }

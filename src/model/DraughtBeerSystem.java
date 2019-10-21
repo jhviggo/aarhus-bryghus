@@ -11,4 +11,9 @@ public class DraughtBeerSystem extends Product {
     public int getNumberOfTaps() {
         return numberOfTaps;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + numberOfTaps + " taps";
+    }
 }
