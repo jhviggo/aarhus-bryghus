@@ -29,6 +29,10 @@ public class Controller {
         return order;
     }
 
+    public void setDeliveryDateOnOrder(Order order, LocalDateTime deliveryDate) {
+        order.setDeliveryDate(deliveryDate);
+    }
+
     public ArrayList<Order> getOrders() {
         return Storage.getAllOrders();
     }
