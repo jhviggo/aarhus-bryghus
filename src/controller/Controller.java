@@ -67,7 +67,7 @@ public class Controller {
     }
 
     // ProductGroup
-    public ProductGroup addProductGroup(String type, double tax) {
+    public ProductGroup createProductGroup(String type, double tax) {
         ProductGroup productGroup = new ProductGroup(type, tax);
         Storage.addProductGroup(productGroup);
         return productGroup;
@@ -94,7 +94,60 @@ public class Controller {
         return priceList;
     }
 
+    public void addProductToPriceList(Product product, double price, PriceList priceList) {
+        if (price <= 0) {
+            throw new RuntimeException("Produckpriser må ikke være negative");
+        }
+        priceList.setPrice(product, price);
+    }
+
     public void deletePriceList(PriceList priceList) {
         Storage.removePriceList(priceList);
+    }
+
+    public void initializeData() {
+        ProductGroup pg1 = createProductGroup("flaske", 0);
+        ProductGroup pg2 = createProductGroup("fadøl", 0);
+        ProductGroup pg3 = createProductGroup("spiritus", 0);
+        ProductGroup pg4 = createProductGroup("fustage", 200);
+        ProductGroup pg5 = createProductGroup("kulsyre", 1000);
+
+        Product p1 = createProduct("Klosterbryg", pg1);
+        Product p2 = createProduct("Sweet Georgie Brown", pg1);
+        Product p3 = createProduct("Extra Pilsner", pg1);
+        Product p4 = createProduct("Klosterbryg", pg2);
+        Product p5 = createProduct("Jazz Classic", pg2);
+        Product p6 = createProduct("Blondie", pg2);
+        Product p7 = createProduct("Spirit of Aarhus", pg3);
+        Product p8 = createProduct("Whiskey", pg3);
+        Product p9 = createProduct("Imperial Stout, 20L", pg4);
+        Product p10 = createProduct("Jazz Classic, 20L", pg4);
+        Product p11 = createProduct("Julebryg, 20L", pg4);
+        Product p12 = createProduct("6kg", pg5);
+        Product p13 = createProduct("10kg", pg5);
+
+        PriceList pl1 = createPriceList("default");
+        PriceList pl2 = createPriceList("fredagsbar");
+
+        addProductToPriceList(p1, 36, pl1);
+        addProductToPriceList(p2, 36, pl1);
+        addProductToPriceList(p3, 36, pl1);
+        addProductToPriceList(p4, 30, pl1);
+        addProductToPriceList(p5, 30, pl1);
+        addProductToPriceList(p6, 30, pl1);
+        addProductToPriceList(p7, 300, pl1);
+        addProductToPriceList(p8, 500, pl1);
+        addProductToPriceList(p9, 775, pl1);
+        addProductToPriceList(p10, 625, pl1);
+        addProductToPriceList(p11, 775, pl1);
+        addProductToPriceList(p12, 400, pl1);
+        addProductToPriceList(p13, 400, pl1);
+
+        addProductToPriceList(p1, 50, pl2);
+        addProductToPriceList(p2, 50, pl2);
+        addProductToPriceList(p3, 50, pl2);
+        addProductToPriceList(p4, 50, pl2);
+        addProductToPriceList(p5, 50, pl2);
+        addProductToPriceList(p6, 50, pl2);
     }
 }
