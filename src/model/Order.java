@@ -161,6 +161,17 @@ public class Order {
 		}
 	}
 
+	public ArrayList<OrderLine> getOrderlines() {
+		return new ArrayList<>(orderlines);
+	}
+
+	public double getTotalPrice() {
+		return orderlines
+				.stream()
+				.mapToDouble(OrderLine::getPrice)
+				.reduce(0, Double::sum);
+	}
+
 	@Override
 	public String toString() {
 		return "Order " + ID;
