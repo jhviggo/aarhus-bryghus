@@ -136,6 +136,10 @@ public class CheckoutOrderDialog extends Stage {
             case PROGRESS: rbProgress.setSelected(true); break;
             case DONE: rbDone.setSelected(true); break;
         }
+        if (order.getPriceOverride() != -1) {
+            chbOverride.setSelected(true);
+            txfOverridePrice.setText("" + order.getPriceOverride());
+        }
     }
 
     private void updateOrder() {
@@ -152,6 +156,19 @@ public class CheckoutOrderDialog extends Stage {
                     order);
             if (status == OrderStatusType.DONE) {
                 controller.setEndTimestampOnOrder(order);
+            }
+            if (chbOverride.isSelected()) {
+                double priceOverride =
+                        Double.parseDouble(txfOverridePrice.getText());
+                if (priceOverride >= 0) {
+                    controller.setPriceOverrideOnOrder(priceOverride, order);
+                } else {
+                    throw new IllegalArgumentException(
+                            "You cannot set a negative price override"
+                    );
+                }
+            } else {
+                controller.setPriceOverrideOnOrder(-1, order);
             }
         }
         catch (Exception e) {

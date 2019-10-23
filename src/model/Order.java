@@ -15,6 +15,7 @@ public class Order {
 	private OrderStatusType status;
 	private ArrayList<OrderLine> orderlines;
 	private PaymentMethod paymentMethod;
+	private double priceOverride;
 
 	/**
 	 * Constructor
@@ -25,6 +26,7 @@ public class Order {
 		this.startTimestamp = startTimestamp;
 		this.status = status;
 		this.orderlines = new ArrayList<>();
+		priceOverride = -1;
 	}
 
 	/**
@@ -121,6 +123,22 @@ public class Order {
 	 */
 	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+
+	/**
+	 * Sets priceOverride
+	 * @param price
+	 */
+	public void setPriceOverride(double price) {
+		priceOverride = price;
+	}
+
+	/**
+	 * Returns value of priceOverride
+	 * @return priceOverride
+	 */
+	public double getPriceOverride() {
+		return priceOverride;
 	}
 
 	/**
