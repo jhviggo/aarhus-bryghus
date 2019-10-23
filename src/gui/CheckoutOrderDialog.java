@@ -1,6 +1,9 @@
 package gui;
 
 import controller.Controller;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,12 +12,14 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Order;
+import model.OrderStatusType;
 
 public class CheckoutOrderDialog extends Stage {
 
@@ -25,6 +30,9 @@ public class CheckoutOrderDialog extends Stage {
     private RadioButton rbCreditCard, rbCash, rbPayLater, rbCreated, rbProgress,
                         rbDone;
     private Order order;
+    private DatePicker startDate, endDate;
+    private TextField startTime, endTime;
+    private ToggleGroup statusGroup;
 
     public CheckoutOrderDialog(Order order) {
         controller = Controller.getController();
@@ -39,6 +47,7 @@ public class CheckoutOrderDialog extends Stage {
         Scene scene = new Scene(pane);
         this.initContent(pane);
         this.setScene(scene);
+        this.updateControls();
     }
 
     private void initContent(GridPane pane) {
@@ -68,15 +77,18 @@ public class CheckoutOrderDialog extends Stage {
 
         pane.add(new Label("Choose order status"), 0, 2);
 
-        final ToggleGroup statusGroup = new ToggleGroup();
+        statusGroup = new ToggleGroup();
         VBox statusBox = new VBox();
         statusBox.setSpacing(10);
 
         rbCreated = new RadioButton("Created");
+        rbCreated.setUserData(OrderStatusType.CREATED);
         rbCreated.setToggleGroup(statusGroup);
         rbProgress = new RadioButton("In progress");
+        rbProgress.setUserData(OrderStatusType.PROGRESS);
         rbProgress.setToggleGroup(statusGroup);
         rbDone = new RadioButton("Done");
+        rbDone.setUserData(OrderStatusType.DONE);
         rbDone.setToggleGroup(statusGroup);
 
         statusBox.getChildren().add(rbCreated);
@@ -91,9 +103,41 @@ public class CheckoutOrderDialog extends Stage {
         txfOverridePrice = new TextField();
         pane.add(txfOverridePrice, 1, 4);
 
-        btnCheckout = new Button("Checkout order");
-        pane.add(btnCheckout, 0, 5, 2, 1);
+        pane.add(new Label("Start date and time"), 0, 5);
+        startDate = new DatePicker(order.getStartTimestamp().toLocalDate());
+        pane.add(startDate, 0, 6);
+        startTime = new TextField(order.getStartTimestamp().toLocalTime().toString());
+        pane.add(startTime, 1, 6);
 
+        btnCheckout = new Button("Checkout order");
+        btnCheckout.setOnAction(event -> updateOrder());
+        pane.add(btnCheckout, 0, 10, 2, 1);
+
+    }
+
+    private void updateControls() {
+        switch(order.getStatus()) {
+            case CREATED: rbCreated.setSelected(true); break;
+            case PROGRESS: rbProgress.setSelected(true); break;
+            case DONE: rbDone.setSelected(true); break;
+        }
+    }
+
+    private void updateOrder() {
+        try {
+            OrderStatusType status =
+                    (OrderStatusType) statusGroup.getSelectedToggle().getUserData();
+            LocalDateTime startDateTime = LocalDateTime.of(startDate.getValue(),
+                    LocalTime.parse(startTime.getText()));
+            controller.updateOrder(startDateTime,
+                    status,
+                    order);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+        this.hide();
     }
 
 }
