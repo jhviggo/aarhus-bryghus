@@ -44,14 +44,17 @@ public class Main extends Application {
         Tab tabOrder = new Tab("Register sale");
         Tab tabRegister = new Tab("Register new product");
         Tab tabPriceList = new Tab("Manage pricelists");
+        Tab tabExportInventory = new Tab("Export inventory");
         //Tab udtræk
         //Tab ikke aflevere produkter
         //Tab rundvisning
 
         tabOrder.setContent(new RegisterSalePane());
+        tabExportInventory.setContent(new InventoryExportPane());
 
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);
         tabPane.getTabs().add(tabPriceList);
+        tabPane.getTabs().add(tabExportInventory);
     }
 }
