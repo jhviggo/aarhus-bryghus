@@ -38,6 +38,10 @@ public class Controller {
         order.setPaymentMethod(paymentMethod);
     }
 
+    public void setPriceOverrideOnOrder(double priceOverride, Order order) {
+        order.setPriceOverride(priceOverride);
+    }
+
     public void setDeliveryDateOnOrder(Order order, LocalDateTime deliveryDate) {
         order.setDeliveryDate(deliveryDate);
     }
