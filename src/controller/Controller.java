@@ -29,6 +29,13 @@ public class Controller {
         return order;
     }
 
+    public void updateOrder(LocalDateTime startTimeStamp,
+                            OrderStatusType status,
+                            Order order) {
+        order.setStartTimestamp(startTimeStamp);
+        order.setStatus(status);
+    }
+
     public void setDeliveryDateOnOrder(Order order, LocalDateTime deliveryDate) {
         order.setDeliveryDate(deliveryDate);
     }

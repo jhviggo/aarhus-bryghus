@@ -113,7 +113,7 @@ public class RegisterSalePane extends GridPane {
     }
 
     private void createOrder() {
-        order = controller.createOrder(LocalDateTime.now(),
+        order = controller.createOrder(LocalDateTime.now().withNano(0),
                 OrderStatusType.CREATED);
         lblOrderId.setText(order.toString());
     }

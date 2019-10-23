@@ -65,6 +65,16 @@ public class Order {
 	 * Method to get order status
 	 * @return status
 	 */
+
+	/**
+	 * Set method
+	 * sets startTimestamp attribute value
+	 * @param startTimeStamp
+	 */
+	public void setStartTimestamp(LocalDateTime startTimeStamp) {
+		this.startTimestamp = startTimeStamp;
+	}
+
 	public OrderStatusType getStatus() {
 		return status;
 	}
