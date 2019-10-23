@@ -31,9 +31,11 @@ public class Controller {
 
     public void updateOrder(LocalDateTime startTimeStamp,
                             OrderStatusType status,
+                            PaymentMethod paymentMethod,
                             Order order) {
         order.setStartTimestamp(startTimeStamp);
         order.setStatus(status);
+        order.setPaymentMethod(paymentMethod);
     }
 
     public void setDeliveryDateOnOrder(Order order, LocalDateTime deliveryDate) {
@@ -45,7 +47,7 @@ public class Controller {
     }
 
     public void setEndTimestampOnOrder(Order order) {
-        order.setEndTimestamp(LocalDateTime.now());
+        order.setEndTimestamp(LocalDateTime.now().withNano(0));
     }
 
     public OrderLine createOrderLine(Product product, PriceList priceList,
