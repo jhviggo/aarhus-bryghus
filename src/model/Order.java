@@ -162,15 +162,14 @@ public class Order {
 	}
 
 	public ArrayList<OrderLine> getOrderlines() {
-		return new ArrayList(orderlines);
+		return new ArrayList<>(orderlines);
 	}
 
 	public double getTotalPrice() {
-		double sum = 0;
-		for (OrderLine o : orderlines) {
-			sum += o.getPrice();
-		}
-		return sum;
+		return orderlines
+				.stream()
+				.mapToDouble(OrderLine::getPrice)
+				.reduce(0, Double::sum);
 	}
 
 	@Override
