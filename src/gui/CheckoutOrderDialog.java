@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Order;
 import model.OrderStatusType;
+import model.PaymentMethod;
 
 public class CheckoutOrderDialog extends Stage {
 
@@ -32,7 +33,7 @@ public class CheckoutOrderDialog extends Stage {
     private Order order;
     private DatePicker startDate, endDate;
     private TextField startTime, endTime;
-    private ToggleGroup statusGroup;
+    private ToggleGroup paymentGroup, statusGroup;
 
     public CheckoutOrderDialog(Order order) {
         controller = Controller.getController();
@@ -58,15 +59,18 @@ public class CheckoutOrderDialog extends Stage {
 
         pane.add(new Label("Choose payment option"), 0,0);
 
-        final ToggleGroup paymentGroup = new ToggleGroup();
+        paymentGroup = new ToggleGroup();
         VBox paymentBox = new VBox();
         paymentBox.setSpacing(10);
 
         rbCreditCard = new RadioButton("Credit card");
+        rbCreditCard.setUserData(PaymentMethod.CREDITCARD);
         rbCreditCard.setToggleGroup(paymentGroup);
         rbCash = new RadioButton("Cash");
+        rbCash.setUserData(PaymentMethod.CASH);
         rbCash.setToggleGroup(paymentGroup);
         rbPayLater = new RadioButton("Pay later");
+        rbPayLater.setUserData(PaymentMethod.PAYLATER);
         rbPayLater.setToggleGroup(paymentGroup);
 
         paymentBox.getChildren().add(rbCreditCard);
@@ -116,6 +120,17 @@ public class CheckoutOrderDialog extends Stage {
     }
 
     private void updateControls() {
+        rbPayLater.setSelected(true);
+        if (order.getPaymentMethod() != null) {
+            switch (order.getPaymentMethod()) {
+                case CREDITCARD:
+                    rbCreditCard.setSelected(true);
+                    break;
+                case CASH:
+                    rbCash.setSelected(true);
+                    break;
+            }
+        }
         switch(order.getStatus()) {
             case CREATED: rbCreated.setSelected(true); break;
             case PROGRESS: rbProgress.setSelected(true); break;
@@ -127,11 +142,17 @@ public class CheckoutOrderDialog extends Stage {
         try {
             OrderStatusType status =
                     (OrderStatusType) statusGroup.getSelectedToggle().getUserData();
+            PaymentMethod paymentMethod =
+                    (PaymentMethod) paymentGroup.getSelectedToggle().getUserData();
             LocalDateTime startDateTime = LocalDateTime.of(startDate.getValue(),
                     LocalTime.parse(startTime.getText()));
             controller.updateOrder(startDateTime,
                     status,
+                    paymentMethod,
                     order);
+            if (status == OrderStatusType.DONE) {
+                controller.setEndTimestampOnOrder(order);
+            }
         }
         catch (Exception e) {
             System.out.println(e);

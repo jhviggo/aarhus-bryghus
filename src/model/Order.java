@@ -14,6 +14,7 @@ public class Order {
 	private LocalDateTime deliveryDate;
 	private OrderStatusType status;
 	private ArrayList<OrderLine> orderlines;
+	private PaymentMethod paymentMethod;
 
 	/**
 	 * Constructor
@@ -104,6 +105,22 @@ public class Order {
 	 */
 	public LocalDateTime getStartTimestamp() {
 		return startTimestamp;
+	}
+
+	/**
+	 * Get mehod
+	 * @return paymentMethod
+	 */
+	public PaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	/**
+	 * Sets paymentMethod
+	 * @param paymentMethod
+	 */
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
 	/**
