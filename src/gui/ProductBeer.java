@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -14,6 +15,7 @@ public class ProductBeer {
 	private Label lblUnit;
 	private Label lblAlcoholPercentage;
 	private Label lblBeerType;
+	private Button btnOpret;
 	private TextField txtSize;
 	private TextField txtUnit;
 	private TextField txtAlcoholPercentage;
@@ -55,5 +57,18 @@ public class ProductBeer {
         lblBeerType = new Label("choose Beer Type:");
         grid.add(lblBeerType, 1, 2);
         
+        btnOpret = new Button("Opret");
+        grid.add(btnOpret, 1, 5);
+       
+        
+       // Add Click event to button btnOpret.
+       btnOpret.setOnAction(event -> this.createProductBeer());
+	}
+	
+	/**
+	 * Method to create new product beer.
+	 */
+	private void createProductBeer() {
+		
 	}
 }
