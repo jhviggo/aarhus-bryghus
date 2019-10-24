@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import model.ProductGroup;
 
 public class RegisterProductPane extends GridPane {
@@ -19,6 +20,8 @@ public class RegisterProductPane extends GridPane {
 	private TextField txtProductName;
 	private Label lblProductGroup;
 	private Label lblProductName;
+	
+	private GridPane grid;
 
 	/**
 	 * Pane constructor
@@ -42,11 +45,13 @@ public class RegisterProductPane extends GridPane {
         
         txtProductName = new TextField();
         this.add(txtProductName, 1, 1);
+        // Grid Pane.
+        grid = new GridPane();
+        this.add(grid, 0, 2, 5, 5);
         
         btnOpret = new Button("Opret");
         this.add(btnOpret, 1, 5);
-        
-        
+       
         
        // Add Click event to button btnOpret.
        btnOpret.setOnAction(event -> this.openCreateProductDialog());
