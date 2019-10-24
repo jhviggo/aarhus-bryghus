@@ -54,6 +54,7 @@ public class Main extends Application {
         tabPriceList.setContent(new PriceListPane());
         tabPriceList.setContent(new PriceListPane());
         tabJourneyTicket.setContent(new TicketPane());
+        tabRegister.setContent(new RegisterProductPane());
 
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);
