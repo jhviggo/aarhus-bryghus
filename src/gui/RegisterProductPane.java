@@ -19,9 +19,13 @@ public class RegisterProductPane extends GridPane {
 	private TextField txtProductName;
 	private Label lblProductGroup;
 	private Label lblProductName;
+	private Button btnOpret;
 	
 	private GridPane grid;
 	private ProductBeer productBeer;
+	private ProductType selectedProductType;
+	private ProductGroup selectedProductGroup;
+	private String productName;
 
 	/**
 	 * Pane constructor
@@ -46,21 +50,21 @@ public class RegisterProductPane extends GridPane {
         
         txtProductName = new TextField();
         this.add(txtProductName, 1, 1);
-        // Grid Pane.
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setMinSize(300, 300);
-        grid.setVgap(5);
-        grid.setHgap(5);
-        productBeer = new ProductBeer(grid);
+
+        productBeer = new ProductBeer(this);
         
         this.add(productBeer, 0, 5, 5, 5);
         
+        btnOpret = new Button("Opret");
+        this.add(btnOpret, 1, 7);
+       
+        
+       // Add Click event to button btnOpret.
+       btnOpret.setOnAction(event -> this.selectedProductType.create(selectedProductGroup, productName));
+        
 	}
 
-	private void add(ProductBeer productBeer2, int columnIndex, int rowIndex, int colspan, int rowspan) {
-		
-	}
+	
 
 }
 
