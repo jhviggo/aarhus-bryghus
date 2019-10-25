@@ -1,5 +1,6 @@
 package gui;
 
+import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -26,6 +27,7 @@ public class RegisterProductPane extends GridPane {
 	private ProductType selectedProductType;
 	private ProductGroup selectedProductGroup;
 	private String productName;
+	private Controller controller;
 
 	/**
 	 * Pane constructor
@@ -36,13 +38,16 @@ public class RegisterProductPane extends GridPane {
         this.setHgap(20);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-
+        
+        this.controller = Controller.getController();
        
         lblProductGroup = new Label("choose Product group:");
         this.add(lblProductGroup, 0,0);
         
         cmbProductGroup = new ComboBox<>();
         cmbProductGroup.setPrefWidth(400);
+        cmbProductGroup.getItems().setAll(controller.getProductGroups());
+        System.out.println(controller.getProductGroups());
         this.add(cmbProductGroup, 0, 1);
         
         lblProductName = new Label("enter product name:");
@@ -57,7 +62,7 @@ public class RegisterProductPane extends GridPane {
         
         btnOpret = new Button("Opret");
         this.add(btnOpret, 1, 7);
-       
+      //  selectedProductGroup
         
        // Add Click event to button btnOpret.
        btnOpret.setOnAction(event -> this.selectedProductType.create(selectedProductGroup, productName));
