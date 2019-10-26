@@ -2,13 +2,19 @@ package gui;
 
 import controller.Controller;
 import javafx.geometry.Insets;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.Product;
 import model.ProductGroup;
+import model.Spirit;
 
 public class ProductSpirit extends GridPane implements ProductType {
 
+	/**
+	 * Components
+	 */
 	private Label lblSize;
 	private Label lblUnit;
 	private Label lblAlcoholPercentage;
@@ -16,12 +22,20 @@ public class ProductSpirit extends GridPane implements ProductType {
 	private TextField txtSize;
 	private TextField txtUnit;
 	private TextField txtAlcoholPercentage;
+	private ComboBox<String> cmbType;
+	private String selectedType;
 	private Controller controller;
 	
+	/**
+	 * Constructor to create a ProductSpirit pane.
+	 * @param grid
+	 */
 	public ProductSpirit(GridPane grid) {
 		grid.setPadding(new Insets(20));
         // grabs controller
         controller = Controller.getController();
+        // Array containing different types of spirit
+        String[] types = {""};
         
         // label size input.
         lblSize = new Label("enter size:");
@@ -47,7 +61,14 @@ public class ProductSpirit extends GridPane implements ProductType {
         txtAlcoholPercentage = new TextField();
         grid.add(txtAlcoholPercentage, 0, 5, 1, 1);
         
+        // feeds the comboBox with array types
+        cmbType = new ComboBox<>();
+        cmbType.setPrefWidth(175);
+        cmbType.getItems().addAll(types);
+        grid.add(cmbType, 1, 5, 1, 1);
         
+        // grabs the selectedValue from cmbType
+        selectedType = cmbType.getSelectionModel().getSelectedItem();
 	}
 	
 	/**
@@ -55,14 +76,34 @@ public class ProductSpirit extends GridPane implements ProductType {
 	 * @param ProductGroup productgroup, String productName
 	 */
 	public void create(ProductGroup productgroup, String productName) {
+		int size = 0;
+		String unit = "";
+		double alcoholPercentage = 0;
+		
 		try {
+			// checks if the input value size is a valid Integer
+			size = Integer.parseInt(txtSize.getText().trim());
+			
+			// checks if a unit has been entered in the input field.
+			if (txtUnit.getText().length() < 1) {
+				unit = txtUnit.getText().trim();
+			}
+			
+			// checks if the input value alcoholpercentage is a valid double
+			alcoholPercentage = Double.parseDouble(txtUnit.getText().trim());
+			
+			if (cmbType.hasProperties()) {
+				selectedType.trim();
+				System.out.println("value has changed" + selectedType.trim());
+			}
 			
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 		} catch (NumberFormatException err) {
 			System.out.println(err.getMessage());
 		} finally {
-			
+			// creates the new instance of product object. 
+			Product newProduct = controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
 		}
 		
 	}
