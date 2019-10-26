@@ -9,8 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.PriceList;
+import model.ProductGroup;
 
-public class ProductTour {
+public class ProductTour extends GridPane implements ProductType {
 	
 	/**
 	 * Components.
@@ -18,7 +19,6 @@ public class ProductTour {
 	private Label lblDato;
 	private Label lblHour;
 	private Label lblMinut;
-	private Button btnCreate;
 	private DatePicker dpDato;
 	private ComboBox<String> cmbHour;
 	private ComboBox<String> cmbMin;
@@ -68,18 +68,14 @@ public class ProductTour {
         container.getChildren().add(cmbHour);
         container.getChildren().add(cmbMin);
         
-        
-        btnCreate = new Button("Opret");
-        grid.add(btnCreate, 1, 6);
-        
-        // click event wired with method createProductTour.
-        btnCreate.setOnAction(event -> this.createProductTour());
-	}
+    }
 	
 	/**
 	 * Method to create new product tour.
 	 */
-	private void createProductTour() {
+	@Override
+	public void create(ProductGroup productgroup, String productName) {
+		
 		
 	}
 
