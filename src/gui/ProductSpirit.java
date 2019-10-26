@@ -61,6 +61,10 @@ public class ProductSpirit extends GridPane implements ProductType {
         txtAlcoholPercentage = new TextField();
         grid.add(txtAlcoholPercentage, 0, 5, 1, 1);
         
+        // label type input field
+        lblType = new Label("Choose type:");
+        grid.add(lblType, 1, 4);
+        
         // feeds the comboBox with array types
         cmbType = new ComboBox<>();
         cmbType.setPrefWidth(175);
@@ -92,9 +96,12 @@ public class ProductSpirit extends GridPane implements ProductType {
 			// checks if the input value alcoholpercentage is a valid double
 			alcoholPercentage = Double.parseDouble(txtUnit.getText().trim());
 			
+			// checks if cmbType has changed value
 			if (cmbType.hasProperties()) {
 				selectedType.trim();
 				System.out.println("value has changed" + selectedType.trim());
+			} else {
+				throw new NullPointerException("Du skal vælge en type");
 			}
 			
 		} catch (NullPointerException e) {
@@ -102,8 +109,8 @@ public class ProductSpirit extends GridPane implements ProductType {
 		} catch (NumberFormatException err) {
 			System.out.println(err.getMessage());
 		} finally {
-			// creates the new instance of product object. 
-			Product newProduct = controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
+			// calls controller method to create product spirit
+			this.controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
 		}
 		
 	}
