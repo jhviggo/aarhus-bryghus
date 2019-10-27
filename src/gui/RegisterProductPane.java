@@ -22,8 +22,12 @@ public class RegisterProductPane extends GridPane {
 	private Label lblProductName;
 	private Button btnCreate;
 	
+	/**
+	 * Dynamic components.
+	 */
 	private GridPane grid;
-	private ProductBeer productBeer;
+	private ProductBeer productBeerPane;
+	private ProductSpirit productSpiritusPane;
 	private ProductType selectedProductType;
 	private ProductGroup selectedProductGroup;
 	private String selectedProductGroupName;
@@ -84,12 +88,18 @@ public class RegisterProductPane extends GridPane {
 		switch(this.selectedProductGroupName) {
 			case "flaske": 
 				System.out.println("flaske"); 
+				// Creates a new instance of productbeer pane with input fields
+				productBeerPane = new ProductBeer(this);
             break; 
 			case "fadøl": 
 				System.out.println("fadøl"); 
+				// Creates a new instance of productbeer pane with input fields
+				productBeerPane = new ProductBeer(this);
             break; 
 			case "spiritus": 
 				System.out.println("spiritus"); 
+				// Creates a new instance of productspirit pane with input fields
+				productSpiritusPane = new ProductSpirit(this);
             break;
 			case "fustage":
 				System.out.println("fustage"); 
@@ -100,8 +110,6 @@ public class RegisterProductPane extends GridPane {
 			default: 
             System.out.println("no match"); 
 		}
-		 
-		 this.add(productBeer, 0, 5, 5, 5);
 	}
 	
 
