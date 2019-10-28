@@ -153,7 +153,7 @@ public class RegisterSalePane extends GridPane {
     }
 
     private void updateContent() {
-        lstOrderLines.getItems().setAll(controller.getOrderLinesForOrder(order));
+        lstOrderLines.getItems().setAll(controller.getOrderLinesOnOrder(order));
         lblTotal.setText("Total: " + controller.getTotalPriceForOrder(order));
     }
 
