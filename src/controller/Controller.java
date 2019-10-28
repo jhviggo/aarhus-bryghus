@@ -250,35 +250,35 @@ public class Controller {
 
         //Draught beer and soda
         Product p15 = createProductBeer("Klosterbryg", pg2, 40,
-                "cl", 6.0, "India Pale Lager", BeerType.DRAUGT);
+                "cl", 6.0, "India Pale Lager", BeerType.DRAUGHT);
         Product p16 = createProductBeer("Jazz Classic", pg2, 40,
-                "cl", 5.0, "English Mild Ale", BeerType.DRAUGT);
+                "cl", 5.0, "English Mild Ale", BeerType.DRAUGHT);
         Product p17 = createProductBeer("Extra Pilsner", pg2, 40,
-                "cl", 5.0, "Pilsner", BeerType.DRAUGT);
+                "cl", 5.0, "Pilsner", BeerType.DRAUGHT);
         Product p18 = createProductBeer("Celebration", pg2, 40,
-                "cl", 6.5, "Pale Ale", BeerType.DRAUGT);
+                "cl", 6.5, "Pale Ale", BeerType.DRAUGHT);
         Product p19 = createProductBeer("Blondie", pg2, 40,
-                "cl", 5.0, "Pale Ale", BeerType.DRAUGT);
+                "cl", 5.0, "Pale Ale", BeerType.DRAUGHT);
         Product p20 = createProductBeer("Forårsbryg", pg2, 40,
-                "cl", 7.0, "Dortmunder", BeerType.DRAUGT);
+                "cl", 7.0, "Dortmunder", BeerType.DRAUGHT);
         Product p21 = createProductBeer("India Pale Ale", pg2, 40,
-                "cl", 6.0, "India Pale Ale", BeerType.DRAUGT);
+                "cl", 6.0, "India Pale Ale", BeerType.DRAUGHT);
         Product p22 = createProductBeer("Julebryg", pg2, 40,
-                "cl", 6.0, "Spiced / Herbed Beer", BeerType.DRAUGT);
+                "cl", 6.0, "Spiced / Herbed Beer", BeerType.DRAUGHT);
         Product p23 = createProductBeer("Imperial Stout", pg2, 40,
-                "cl", 8.0, "Imperial Stout", BeerType.DRAUGT);
+                "cl", 8.0, "Imperial Stout", BeerType.DRAUGHT);
         Product p24 = createProductBeer("Special", pg2, 40,
-                "cl", 0.0, "??", BeerType.DRAUGT);
+                "cl", 0.0, "??", BeerType.DRAUGHT);
         Product p25 = createProductBeer("Æblebrus", pg2, 40,
-                "cl", 0.0, "Alcoholfree Cider", BeerType.DRAUGT);
+                "cl", 0.0, "Alcoholfree Cider", BeerType.DRAUGHT);
         Product p26 = createProductBeer("Cola", pg2, 40,
-                "cl", 0.0, "Cola", BeerType.DRAUGT);
+                "cl", 0.0, "Cola", BeerType.DRAUGHT);
         Product p27 = createProductBeer("Nikoline", pg2, 40,
-                "cl", 0.0, "Squash", BeerType.DRAUGT);
+                "cl", 0.0, "Squash", BeerType.DRAUGHT);
         Product p28 = createProductBeer("7-Up", pg2, 40,
-                "cl", 0.0, "Soda", BeerType.DRAUGT);
+                "cl", 0.0, "Soda", BeerType.DRAUGHT);
         Product p29 = createProductBeer("Water", pg2, 40,
-                "cl", 0.0, "Water", BeerType.DRAUGT);
+                "cl", 0.0, "Water", BeerType.DRAUGHT);
 
         //Snacks
         Product p30 = createProduct("Chips", pg7);
