@@ -85,6 +85,7 @@ public class RegisterSalePane extends GridPane {
         this.add(editAmountControlBox, 1, 9);
 
         btnRemove = new Button("Remove");
+        btnRemove.setOnAction(event -> this.removeSelectedOrderLine());
         this.add(btnRemove, 1, 10);
 
         lblTotal = new Label("Total: ");
@@ -152,12 +153,19 @@ public class RegisterSalePane extends GridPane {
     }
 
     private void updateContent() {
-        lstOrderLines.getItems().setAll(controller.getOrderLinesOnOrder(order));
-        lblTotal.setText("Total: " + order.getTotalPrice());
+        lstOrderLines.getItems().setAll(controller.getOrderLinesForOrder(order));
+        lblTotal.setText("Total: " + controller.getTotalPriceForOrder(order));
     }
 
+    //TODO: Register Sale skal måske flyttes til en dialog
     private void noOrderError() {
 
+    }
+
+    private void removeSelectedOrderLine() {
+        OrderLine orderLine = lstOrderLines.getSelectionModel().getSelectedItem();
+        controller.deleteOrderLineOnOrder(orderLine, order);
+        updateContent();
     }
 
 }

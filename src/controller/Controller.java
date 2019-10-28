@@ -42,6 +42,10 @@ public class Controller {
         order.setPriceOverride(priceOverride);
     }
 
+    public double getTotalPriceForOrder(Order order) {
+        return order.getTotalPrice();
+    }
+
     public void setDeliveryDateOnOrder(Order order, LocalDateTime deliveryDate) {
         order.setDeliveryDate(deliveryDate);
     }
@@ -69,7 +73,7 @@ public class Controller {
     public ArrayList<OrderLine> getOrderLines() {
         return Storage.getAllOrderLines();
     }
-
+  
     public ArrayList<OrderLine> getOrderLinesOnOrder(Order order) {
         return order.getOrderlines();
     }
