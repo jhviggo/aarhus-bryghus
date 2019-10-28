@@ -40,6 +40,7 @@ public class RegisterProductPane extends GridPane {
 	private ProductBeer productBeerPane;
 	private ProductSpirit productSpiritusPane;
 	private ProductDraughtBeerSystem productDraughtBeerSystem;
+	private ProductGrain productGrain;
 	private ProductType selectedProductType;
 	private ProductGroup selectedProductGroup;
 	private String selectedProductGroupName;
@@ -146,9 +147,15 @@ public class RegisterProductPane extends GridPane {
 			break;
 			case "kulsyre":
 				System.out.println("kulsyre"); 
+				// Creates a new instance of productGrain pane with input fields
+				productGrain = new ProductGrain(this);
+				this.add(productDraughtBeerSystem, 0, 5);
+				
 		    break;
 			default: 
-            System.out.println("no match"); 
+			// Default set to ProductBeer Pane
+            productBeerPane = new ProductBeer(this);
+			this.add(productBeerPane, 0, 5);
 		}
 	}
 	
