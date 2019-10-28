@@ -28,6 +28,7 @@ public class RegisterSalePane extends GridPane {
     private Button btnDeductAmount;
     private Button btnCheckout;
     private Button btnCreateOrder;
+    private Button btnExport;
     private Label lblTotal;
     private Label lblOrderId;
     private Order order;
@@ -94,6 +95,10 @@ public class RegisterSalePane extends GridPane {
         btnCheckout = new Button("Checkout");
         btnCheckout.setOnAction(event -> this.checkoutAction());
         this.add(btnCheckout, 1, 12);
+
+        btnExport = new Button("Export all previous orders");
+        btnExport.setOnAction(event -> controller.exportOrders());
+        this.add(btnExport, 2, 12);
     }
 
     private void setLockPriceList() {

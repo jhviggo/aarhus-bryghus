@@ -8,7 +8,7 @@ public class OrderLine {
 	private PriceList priceList;
 	private Product product;
 	private int amount;
-	
+
 	/**
 	 * Constructor
 	 * @param product
@@ -46,9 +46,27 @@ public class OrderLine {
 		return priceList.getPrice(product)*amount;
 	}
 
+	/**
+	 * Get method
+	 * Get price list
+	 * @return price list
+	 */
+	public PriceList getPriceList() {
+		return priceList;
+	}
+
+	/**
+	 * Get method
+	 * Get product
+	 * @return product
+	 */
+	public Product getProduct() {
+		return product;
+	}
+
 	@Override
 	public String toString() {
 		return amount + " - " + product + " - " + getPrice();
 	}
-	
+
 }
