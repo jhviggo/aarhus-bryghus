@@ -96,7 +96,7 @@ public class ProductSpirit extends GridPane implements ProductType {
 			}
 			
 			// checks if the input value alcoholpercentage is a valid double
-			alcoholPercentage = Double.parseDouble(txtUnit.getText().trim());
+			alcoholPercentage = Double.parseDouble(txtAlcoholPercentage.getText().trim());
 			
 			// checks if cmbType has changed value
 			if (cmbType.hasProperties()) {
@@ -113,7 +113,6 @@ public class ProductSpirit extends GridPane implements ProductType {
 		} finally {
 			// calls controller method to create product spirit
 			this.controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
-			delete();
 		}
 		
 	}
@@ -123,7 +122,9 @@ public class ProductSpirit extends GridPane implements ProductType {
 	 */
 	public void delete() {
 		// deleting all elements from grid.
-		grid.getChildren().clear();
+		grid.getChildren().removeAll(
+				lblSize, lblUnit,lblAlcoholPercentage, lblType,
+				txtSize, txtUnit, txtAlcoholPercentage, cmbType
+				);
 	}
-	
 }

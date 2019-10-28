@@ -46,6 +46,7 @@ public class RegisterProductPane extends GridPane {
 	private String selectedProductGroupName;
 	private String productName;
 	private Controller controller;
+	private GridPane selectedPane;
 
 	/**
 	 * Pane constructor
@@ -122,43 +123,78 @@ public class RegisterProductPane extends GridPane {
 	public void buildPane() {
 		switch(this.selectedProductGroupName) {
 			case "flaske": 
-				System.out.println("flaske"); 
+				// checks if a selectedPane has been selected
+				// if so we clear pane
+				if (selectedPane != null) {
+					clearPane();
+				}
 				// Creates a new instance of productbeer pane with input fields
 				productBeerPane = new ProductBeer(this);
+				selectedPane = this.productBeerPane;
 				this.add(productBeerPane, 0, 5);
             break; 
 			case "fadøl": 
 				System.out.println("fadøl"); 
+				clearPane();
 				// Creates a new instance of productbeer pane with input fields
 				productBeerPane = new ProductBeer(this);
+				selectedPane = this.productBeerPane;
 				this.add(productBeerPane, 0, 5);
+
             break; 
 			case "spiritus": 
+				clearPane();
 				System.out.println("spiritus"); 
 				// Creates a new instance of productspirit pane with input fields
 				productSpiritusPane = new ProductSpirit(this);
+				selectedPane = this.productSpiritusPane;
 				this.add(productSpiritusPane, 0, 5);
             break;
 			case "fustage":
 				System.out.println("fustage"); 
+				clearPane();
 				// Creates a new instance of productDraughtBeerSystem pane with input fields
 				productDraughtBeerSystem = new ProductDraughtBeerSystem(this);
+				selectedPane = this.productDraughtBeerSystem;
 				this.add(productDraughtBeerSystem, 0, 5);
+
 			break;
 			case "kulsyre":
 				System.out.println("kulsyre"); 
+				clearPane();
 				// Creates a new instance of productGrain pane with input fields
 				productGrain = new ProductGrain(this);
-				this.add(productDraughtBeerSystem, 0, 5);
-				
+				selectedPane = this.productGrain;
+				this.add(productGrain, 0, 5);
 		    break;
 			default: 
 			// Default set to ProductBeer Pane
+			if (selectedPane != null) {
+				clearPane();
+			}
             productBeerPane = new ProductBeer(this);
+            selectedPane = this.productBeerPane;
 			this.add(productBeerPane, 0, 5);
 		}
 	}
 	
+	/**
+	 * Method to clear pane
+	 */
+	public void clearPane() {
+		// Check witch pane was chosen last, then clears with view when user selects
+		// a new productgroup 
+		if (selectedPane.equals(productBeerPane)) {
+			productBeerPane.delete();
+		} else if (selectedPane.equals(productSpiritusPane)) {
+			productSpiritusPane.delete();
+		} else if (selectedPane.equals(productDraughtBeerSystem)) {
+			productDraughtBeerSystem.delete();
+		} else if (selectedPane.equals(productGrain)) {
+			productGrain.delete();
+		}
+		
+	}
 
 }
 

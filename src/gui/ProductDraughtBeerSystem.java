@@ -54,7 +54,6 @@ public class ProductDraughtBeerSystem extends GridPane implements ProductType {
 		} finally {
 			// finally we create a new instance of productDraughtBeerSystem
 			this.controller.createProductDraughtBeerSystem(productName, productgroup, numberOfTaps);
-			delete();
 		}
 	}
 
@@ -63,6 +62,8 @@ public class ProductDraughtBeerSystem extends GridPane implements ProductType {
 	 */
 	public void delete() {
 		// deleting all elements from grid.
-		grid.getChildren().clear();
+		grid.getChildren().removeAll(
+				lblNumberOfTaps, txtNumberOfTaps
+				);
 	}
 }

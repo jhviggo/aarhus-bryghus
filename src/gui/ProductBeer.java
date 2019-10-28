@@ -14,6 +14,12 @@ import model.ProductGroup;
 public class ProductBeer extends GridPane implements ProductType {
 	/**
 	 * Components
+	 * 
+	 * lblSize;
+	   lblUnit;
+	   lblAlcoholPercentage;
+	   lblBeerType;
+	   lblType;
 	 */
 	private Label lblSize;
 	private Label lblUnit;
@@ -80,10 +86,6 @@ public class ProductBeer extends GridPane implements ProductType {
         
         // label for type textfield
         lblType = new Label("enter a type:");
-        grid.add(lblType, 0, 5);
-        
-        // Label for type textfield
-        lblType = new Label("enter a type:");
         grid.add(lblType, 0, 6);
         
         // type textfield
@@ -127,8 +129,6 @@ public class ProductBeer extends GridPane implements ProductType {
 			System.out.println(err.getMessage());
 		} finally {
 			this.controller.createProductBeer(productName, productgroup, size, unit, alcoholPercentage, type, selectedBeerType);
-			// calls clear method to cleanse view
-			delete();
 		}
 	}
 
@@ -137,6 +137,9 @@ public class ProductBeer extends GridPane implements ProductType {
 	 */
 	public void delete() {
 		// deleting all elements from grid.
-		grid.getChildren().clear();
+		grid.getChildren().removeAll(
+				lblSize, lblUnit, lblAlcoholPercentage,
+				lblBeerType, lblType, txtSize, txtUnit, txtAlcoholPercentage, cmbBeerType, txtType
+				);
 	}
 }

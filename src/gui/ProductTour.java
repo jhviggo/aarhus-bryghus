@@ -122,8 +122,6 @@ public class ProductTour extends GridPane implements ProductType {
 			System.out.println("please select a date and enter a valid duration");
 		} finally {
 			this.controller.createProductGuidedTour(productName, productgroup, selectedDateTime, duration);
-			// calls delete to clear pane.
-			this.delete();
 		}
 		
 	}
@@ -133,7 +131,9 @@ public class ProductTour extends GridPane implements ProductType {
 	 */
 	public void delete() {
 		// deleting all elements from grid.
-		grid.getChildren().clear();
+		grid.getChildren().removeAll(
+				lblDato, lblHour, lblHour,lblMinut, lblDuration,
+				dpDato, cmbHour, cmbMin, txtDuration
+				);
 	}
-
 }

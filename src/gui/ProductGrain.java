@@ -5,7 +5,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import model.Grain;
 import model.ProductGroup;
 
 public class ProductGrain extends GridPane implements ProductType {
@@ -53,7 +52,6 @@ public class ProductGrain extends GridPane implements ProductType {
 		finally {
 			// call createProductGrain method from controller.
 			this.controller.createProductGrain(productName, productgroup, weight);	
-			delete();
 		}
 		
 	}
@@ -63,7 +61,8 @@ public class ProductGrain extends GridPane implements ProductType {
 	 */
 	public void delete() {
 		// deleting all elements from grid.
-		grid.getChildren().clear();
+		grid.getChildren().removeAll(
+				lblWeight, txtWeight
+				);
 	}
-
 }
