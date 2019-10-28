@@ -212,46 +212,253 @@ public class Controller {
         ProductGroup pg4 = createProductGroup("fustage", 200);
         ProductGroup pg5 = createProductGroup("kulsyre", 1000);
         ProductGroup pg6 = createProductGroup("Gaveæsker", 0);
+        ProductGroup pg7 = createProductGroup("Snacks", 0);
+        ProductGroup pg8 = createProductGroup("Beklædning", 0);
+        ProductGroup pg9 = createProductGroup("Fadølsanlæg", 0);
+        ProductGroup pg10 = createProductGroup("Rundvisning", 0);
+        ProductGroup pg11 = createProductGroup("Malt", 0);
 
+        //Bottled beer
         Product p1 = createProductBeer("Klosterbryg", pg1, 60,
                 "cl", 6.0, "India Pale Lager", BeerType.BOTTLE);
-        Product p2 = createProduct("Sweet Georgie Brown", pg1);
-        Product p3 = createProduct("Extra Pilsner", pg1);
-        Product p4 = createProduct("Klosterbryg", pg2);
-        Product p5 = createProduct("Jazz Classic", pg2);
-        Product p6 = createProduct("Blondie", pg2);
-        Product p7 = createProduct("Spirit of Aarhus", pg3);
-        Product p8 = createProduct("Whiskey", pg3);
-        Product p9 = createProduct("Imperial Stout, 20L", pg4);
-        Product p10 = createProduct("Jazz Classic, 20L", pg4);
-        Product p11 = createProduct("Julebryg, 20L", pg4);
-        Product p12 = createProduct("6kg", pg5);
-        Product p13 = createProduct("10kg", pg5);
-        Product p14 = createGiftBox("GiftboxTest", pg6, GiftBoxType.SIXBEERSTWOGLASSES);
+        Product p2 = createProductBeer("Sweet Georgia Brown", pg1, 60,
+                "cl", 5.5, "Brown Ale", BeerType.BOTTLE);
+        Product p3 = createProductBeer("Extra Pilsner", pg1, 60,
+                "cl", 5.0, "Pilsner", BeerType.BOTTLE);
+        Product p4 = createProductBeer("Celebration", pg1, 60,
+                "cl", 6.5, "Pale Ale", BeerType.BOTTLE);
+        Product p5 = createProductBeer("Blondie", pg1, 60,
+                "cl", 5.0, "Pale Ale", BeerType.BOTTLE);
+        Product p6 = createProductBeer("Forårsbryg", pg1, 60,
+                "cl", 7.0, "Dortmunder", BeerType.BOTTLE);
+        Product p7 = createProductBeer("India Pale Ale", pg1, 60,
+                "cl", 6.0, "India Pale Ale", BeerType.BOTTLE);
+        Product p8 = createProductBeer("Julebryg", pg1, 60,
+                "cl", 6.0, "Spiced / Herbed Beer", BeerType.BOTTLE);
+        Product p9 = createProductBeer("Juletønden", pg1, 60,
+                "cl", 8.0, "Winter Ale", BeerType.BOTTLE);
+        Product p10 = createProductBeer("Old Strong Ale", pg1, 60,
+                "cl", 8.0, "Old Ale", BeerType.BOTTLE);
+        Product p11 = createProductBeer("Fregatten Jylland", pg1, 60,
+                "cl", 8.0, "Winter Warmer", BeerType.BOTTLE);
+        Product p12 = createProductBeer("Imperial Stout", pg1, 60,
+                "cl", 8.0, "Imperial Stout", BeerType.BOTTLE);
+        Product p13 = createProductBeer("Tribute", pg1, 60,
+                "cl", 9.0, "Barley Wine", BeerType.BOTTLE);
+        Product p14 = createProductBeer("Black Monster", pg1, 60,
+                "cl", 10.0, "Porter", BeerType.BOTTLE);
 
-        PriceList pl1 = createPriceList("default");
-        PriceList pl2 = createPriceList("fredagsbar");
+        //Draught beer and soda
+        Product p15 = createProductBeer("Klosterbryg", pg2, 40,
+                "cl", 6.0, "India Pale Lager", BeerType.DRAUGT);
+        Product p16 = createProductBeer("Jazz Classic", pg2, 40,
+                "cl", 5.0, "English Mild Ale", BeerType.DRAUGT);
+        Product p17 = createProductBeer("Extra Pilsner", pg2, 40,
+                "cl", 5.0, "Pilsner", BeerType.DRAUGT);
+        Product p18 = createProductBeer("Celebration", pg2, 40,
+                "cl", 6.5, "Pale Ale", BeerType.DRAUGT);
+        Product p19 = createProductBeer("Blondie", pg2, 40,
+                "cl", 5.0, "Pale Ale", BeerType.DRAUGT);
+        Product p20 = createProductBeer("Forårsbryg", pg2, 40,
+                "cl", 7.0, "Dortmunder", BeerType.DRAUGT);
+        Product p21 = createProductBeer("India Pale Ale", pg2, 40,
+                "cl", 6.0, "India Pale Ale", BeerType.DRAUGT);
+        Product p22 = createProductBeer("Julebryg", pg2, 40,
+                "cl", 6.0, "Spiced / Herbed Beer", BeerType.DRAUGT);
+        Product p23 = createProductBeer("Imperial Stout", pg2, 40,
+                "cl", 8.0, "Imperial Stout", BeerType.DRAUGT);
+        Product p24 = createProductBeer("Special", pg2, 40,
+                "cl", 0.0, "??", BeerType.DRAUGT);
+        Product p25 = createProductBeer("Æblebrus", pg2, 40,
+                "cl", 0.0, "Alcoholfree Cider", BeerType.DRAUGT);
+        Product p26 = createProductBeer("Cola", pg2, 40,
+                "cl", 0.0, "Cola", BeerType.DRAUGT);
+        Product p27 = createProductBeer("Nikoline", pg2, 40,
+                "cl", 0.0, "Squash", BeerType.DRAUGT);
+        Product p28 = createProductBeer("7-Up", pg2, 40,
+                "cl", 0.0, "Soda", BeerType.DRAUGT);
+        Product p29 = createProductBeer("Water", pg2, 40,
+                "cl", 0.0, "Water", BeerType.DRAUGT);
 
-        addProductToPriceList(p1, 36, pl1);
-        addProductToPriceList(p2, 36, pl1);
-        addProductToPriceList(p3, 36, pl1);
-        addProductToPriceList(p4, 30, pl1);
-        addProductToPriceList(p5, 30, pl1);
-        addProductToPriceList(p6, 30, pl1);
-        addProductToPriceList(p7, 300, pl1);
-        addProductToPriceList(p8, 500, pl1);
-        addProductToPriceList(p9, 775, pl1);
-        addProductToPriceList(p10, 625, pl1);
-        addProductToPriceList(p11, 775, pl1);
-        addProductToPriceList(p12, 400, pl1);
-        addProductToPriceList(p13, 400, pl1);
-        addProductToPriceList(p14, 555, pl1);
+        //Snacks
+        Product p30 = createProduct("Chips", pg7);
+        Product p31 = createProduct("Peanuts", pg7);
 
-        addProductToPriceList(p1, 50, pl2);
-        addProductToPriceList(p2, 50, pl2);
-        addProductToPriceList(p3, 50, pl2);
-        addProductToPriceList(p4, 50, pl2);
-        addProductToPriceList(p5, 50, pl2);
-        addProductToPriceList(p6, 50, pl2);
+        //Spirits
+        Product p32 = createProductSpirit("Spirit of Aarhus", pg3, 50,
+                "cl", 40.0, "Whisky");
+        Product p33 = createProductSpirit("Spirit of Aarhus (med egesplint", pg3, 50,
+                "cl", 40.0, "Whisky");
+        Product p34 = createProductSpirit("Whisky", pg3, 50,
+                "cl", 45.0, "Whisky");
+        Product p35 = createProductSpirit("Liquor of Aarhus", pg3, 35,
+                "cl", 30.0, "Liquor");
+
+        //Kegs
+        Product p36 = createProductBeer("Klosterbryg", pg4, 20,
+                "l", 6.0, "India Pale Lager", BeerType.KEG);
+        Product p37 = createProductBeer("Jazz Classic", pg4, 25,
+                "l", 5.0, "English Mild Ale", BeerType.KEG);
+        Product p38 = createProductBeer("Extra Pilsner", pg4, 25,
+                "l", 5.0, "Pilsner", BeerType.KEG);
+        Product p39 = createProductBeer("Celebration", pg4, 20,
+                "l", 6.5, "Pale Ale", BeerType.KEG);
+        Product p40 = createProductBeer("Blondie", pg4, 25,
+                "l", 5.0, "Pale Ale", BeerType.KEG);
+        Product p41 = createProductBeer("Forårsbryg", pg4, 20,
+                "l", 7.0, "Dortmunder", BeerType.KEG);
+        Product p42 = createProductBeer("India Pale Ale", pg4, 20,
+                "l", 6.0, "India Pale Ale", BeerType.KEG);
+        Product p43 = createProductBeer("Julebryg", pg4, 20,
+                "l", 6.0, "Spiced / Herbed Beer", BeerType.KEG);
+        Product p44 = createProductBeer("Imperial Stout", pg4, 20,
+                "l", 8.0, "Imperial Stout", BeerType.KEG);
+
+        //Carbon dioxide
+        Product p45 = createProduct("Kulsyre 6kg", pg5);
+        Product p46 = createProduct("Kulsyre 4kg", pg5);
+        Product p47 = createProduct("Kulsyre 10kg", pg5);
+
+        //Clothes
+        Product p48 = createProductAccessory("T-Shirt", pg8, "L");
+        Product p49 = createProductAccessory("Polo", pg8, "L");
+        Product p50 = createProductAccessory("Cap", pg8, "One-size");
+
+        //Draught Beer Systems
+        Product p51 = createProductDraughtBeerSystem("Fadølsanlæg 1 hane", pg9, 1);
+        Product p52 = createProductDraughtBeerSystem("Fadølsanlæg 2 haner", pg9, 2);
+        Product p53 = createProductDraughtBeerSystem("Fadølsanlæg med flere haner",
+                pg9, 0);
+
+        //Giftboxes
+        Product p54 = createGiftBox("Gaveæske 2 øl, 2 glas",
+                pg6, GiftBoxType.TWOBEERSTWOGLASSES);
+        Product p55 = createGiftBox("Gaveæske 4 øl",
+                pg6, GiftBoxType.FOURBEERS);
+        Product p56 = createGiftBox("Trækasse 6 øl",
+                pg6, GiftBoxType.SIXBEERS);
+        Product p57 = createGiftBox("Gavekurv 6 øl, 2 glas",
+                pg6, GiftBoxType.SIXBEERSTWOGLASSES);
+        Product p58 = createGiftBox("Trækasse 6 øl, 6 glas",
+                pg6, GiftBoxType.SIXBEERSSIXGLASSES);
+        Product p59 = createGiftBox("Trækasse 12 øl",
+                pg6, GiftBoxType.TWELVEBEERSWOOD);
+        Product p60 = createGiftBox("Papkasse 12 øl",
+                pg6, GiftBoxType.TWELVEBEERSCARDBOARD);
+
+        //Grains
+        Product p61 = createProductGrain("Malt 25kg", pg11, 25);
+
+
+
+        PriceList pl1 = createPriceList("Default");
+        PriceList pl2 = createPriceList("Fredagsbar");
+
+        //Bottled beer default
+        pl1.setPrice(p1, 36);
+        pl1.setPrice(p2, 36);
+        pl1.setPrice(p3, 36);
+        pl1.setPrice(p4, 36);
+        pl1.setPrice(p5, 36);
+        pl1.setPrice(p6, 36);
+        pl1.setPrice(p7, 36);
+        pl1.setPrice(p8, 36);
+        pl1.setPrice(p9, 36);
+        pl1.setPrice(p10, 36);
+        pl1.setPrice(p11, 36);
+        pl1.setPrice(p12, 36);
+        pl1.setPrice(p13, 36);
+        pl1.setPrice(p14, 50);
+
+        //Spirits default
+        pl1.setPrice(p32, 300);
+        pl1.setPrice(p33, 350);
+        pl1.setPrice(p34, 500);
+        pl1.setPrice(p35, 175);
+
+        //Kegs default
+        pl1.setPrice(p36, 775);
+        pl1.setPrice(p37, 625);
+        pl1.setPrice(p38, 575);
+        pl1.setPrice(p39, 775);
+        pl1.setPrice(p40, 700);
+        pl1.setPrice(p41, 775);
+        pl1.setPrice(p42, 775);
+        pl1.setPrice(p43, 775);
+        pl1.setPrice(p44, 775);
+
+        //Carbon dioxide default
+        pl1.setPrice(p45, 400);
+
+        //Grains default
+        pl1.setPrice(p61, 300);
+
+        //Clothing default
+        pl1.setPrice(p48, 70);
+        pl1.setPrice(p49, 100);
+        pl1.setPrice(p50, 30);
+
+        //Draught beer systems default
+        pl1.setPrice(p51, 250);
+        pl1.setPrice(p52, 400);
+        pl1.setPrice(p53, 500);
+
+        //Giftboxes default
+        pl1.setPrice(p54, 100);
+        pl1.setPrice(p55, 130);
+        pl1.setPrice(p56, 240);
+        pl1.setPrice(p57, 250);
+        pl1.setPrice(p58, 290);
+        pl1.setPrice(p59, 390);
+        pl1.setPrice(p60, 360);
+
+
+        //Bottled beer friday bar
+        pl2.setPrice(p1, 50);
+        pl2.setPrice(p2, 50);
+        pl2.setPrice(p3, 50);
+        pl2.setPrice(p4, 50);
+        pl2.setPrice(p5, 50);
+        pl2.setPrice(p6, 50);
+        pl2.setPrice(p7, 50);
+        pl2.setPrice(p8, 50);
+        pl2.setPrice(p9, 50);
+        pl2.setPrice(p10, 50);
+        pl2.setPrice(p11, 50);
+        pl2.setPrice(p12, 50);
+        pl2.setPrice(p13, 50);
+        pl2.setPrice(p14, 50);
+
+        //Draught beer friday bar
+        pl2.setPrice(p15, 30);
+        pl2.setPrice(p16, 30);
+        pl2.setPrice(p17, 30);
+        pl2.setPrice(p18, 30);
+        pl2.setPrice(p19, 30);
+        pl2.setPrice(p20, 30);
+        pl2.setPrice(p21, 30);
+        pl2.setPrice(p22, 30);
+        pl2.setPrice(p23, 30);
+        pl2.setPrice(p24, 30);
+        pl2.setPrice(p25, 15);
+        pl2.setPrice(p26, 15);
+        pl2.setPrice(p27, 15);
+        pl2.setPrice(p28, 15);
+        pl2.setPrice(p29, 10);
+
+        //Snacks friday bar
+        pl2.setPrice(p30, 15);
+        pl2.setPrice(p31, 15);
+
+        //Spirits friday bar
+        pl2.setPrice(p32, 300);
+        pl2.setPrice(p33, 350);
+        pl2.setPrice(p34, 500);
+        pl2.setPrice(p35, 175);
+
+        //Clothing friday bar
+        pl2.setPrice(p48, 70);
+        pl2.setPrice(p49, 100);
+        pl2.setPrice(p50, 30);
     }
 }
