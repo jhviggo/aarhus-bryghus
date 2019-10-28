@@ -73,7 +73,7 @@ public class Controller {
     public GiftBox createGiftBox(String productName, ProductGroup productGroup,
                                  GiftBoxType type) {
         GiftBox giftBox = new GiftBox(productName, productGroup, type);
-        Storage.addGiftBox(giftBox);
+        Storage.addProduct(giftBox);
         return giftBox;
     }
 
@@ -203,6 +203,7 @@ public class Controller {
         ProductGroup pg3 = createProductGroup("spiritus", 0);
         ProductGroup pg4 = createProductGroup("fustage", 200);
         ProductGroup pg5 = createProductGroup("kulsyre", 1000);
+        ProductGroup pg6 = createProductGroup("Gaveæsker", 0);
 
         Product p1 = createProduct("Klosterbryg", pg1);
         Product p2 = createProduct("Sweet Georgie Brown", pg1);
@@ -217,6 +218,7 @@ public class Controller {
         Product p11 = createProduct("Julebryg, 20L", pg4);
         Product p12 = createProduct("6kg", pg5);
         Product p13 = createProduct("10kg", pg5);
+        Product p14 = createGiftBox("GiftboxTest", pg6, GiftBoxType.SIXBEERS);
 
         PriceList pl1 = createPriceList("default");
         PriceList pl2 = createPriceList("fredagsbar");
@@ -234,6 +236,7 @@ public class Controller {
         addProductToPriceList(p11, 775, pl1);
         addProductToPriceList(p12, 400, pl1);
         addProductToPriceList(p13, 400, pl1);
+        addProductToPriceList(p14, 555, pl1);
 
         addProductToPriceList(p1, 50, pl2);
         addProductToPriceList(p2, 50, pl2);

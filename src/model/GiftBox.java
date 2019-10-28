@@ -29,6 +29,10 @@ public class GiftBox extends Product {
         }
     }
 
+    public int getMaxAmountOfProducts() {
+        return maxAmountOfProducts;
+    }
+
     public boolean addProduct(Beer beer) {
         if (amountOfProducts == maxAmountOfProducts ||
                 beer.getBeerType() != BOTTLE) {

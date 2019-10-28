@@ -120,8 +120,21 @@ public class RegisterSalePane extends GridPane {
 
     private void addOrderLine() {
         try {
+            Product product = lstProducts.getSelectionModel().getSelectedItem();
+            if (product instanceof GiftBox) {
+                product = controller.createGiftBox(
+                        "",
+                        product.getProductGroup(),
+                        ((GiftBox) product).getType());
+                AddGiftboxDialog giftboxDialog = new AddGiftboxDialog(
+                        (GiftBox) product);
+                giftboxDialog.showAndWait();
+                if (!giftboxDialog.getIsFilled()) {
+                    return;
+                }
+            }
             OrderLine orderLine = controller.createOrderLine(
-                    lstProducts.getSelectionModel().getSelectedItem(),
+                    product,
                     cmbPriceList.getSelectionModel().getSelectedItem(),
                     Integer.parseInt(txfAmount.getText()), order);
             updateContent();
