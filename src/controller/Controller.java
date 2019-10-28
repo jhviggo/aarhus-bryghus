@@ -121,8 +121,8 @@ public class Controller {
         return product;
     }
 
-    public Product createProductGrain(String productName, ProductGroup productGroup, double weight) {
-        Product product = new Grain(productName, productGroup, weight);
+    public Product createProductRawMaterial(String productName, ProductGroup productGroup, double weight) {
+        Product product = new RawMaterial(productName, productGroup, weight);
         Storage.addProduct(product);
         return product;
     }
@@ -347,7 +347,7 @@ public class Controller {
                 pg6, GiftBoxType.TWELVEBEERSCARDBOARD);
 
         //Grains
-        Product p61 = createProductGrain("Malt 25kg", pg11, 25);
+        Product p61 = createProductRawMaterial("Malt 25kg", pg11, 25);
 
 
 

@@ -1,9 +1,9 @@
 package model;
 
-public class Grain extends Product {
+public class RawMaterial extends Product {
     private double weight;
 
-    public Grain(String productName, ProductGroup productGroup, double weight) {
+    public RawMaterial(String productName, ProductGroup productGroup, double weight) {
         super(productName, productGroup);
         this.weight = weight;
     }
