@@ -2,6 +2,6 @@ package model;
 
 public enum BeerType {
     BOTTLE,
-    DRAUGT,
+    DRAUGHT,
     KEG
 }
