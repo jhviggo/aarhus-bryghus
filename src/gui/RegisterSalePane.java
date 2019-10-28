@@ -51,6 +51,7 @@ public class RegisterSalePane extends GridPane {
         cmbPriceList.setPrefWidth(400);
         cmbPriceList.getItems().setAll(controller.getPriceLists());
         this.add(cmbPriceList, 0, 2);
+        cmbPriceList.getSelectionModel().select(0);
         btnLockPriceList = new Button("\uD83D\uDD13");
         btnLockPriceList.setOnAction(event -> this.setLockPriceList());
         this.add(btnLockPriceList, 1, 2);
@@ -67,6 +68,7 @@ public class RegisterSalePane extends GridPane {
 
         btnAdd = new Button("Add");
         btnAdd.setOnAction(event -> this.addOrderLine());
+        btnAdd.setDisable(true);
         this.add(btnAdd, 1, 5);
 
         this.add(new Label("Order lines"), 0, 8);
@@ -116,20 +118,25 @@ public class RegisterSalePane extends GridPane {
         order = controller.createOrder(LocalDateTime.now().withNano(0),
                 OrderStatusType.CREATED);
         lblOrderId.setText(order.toString());
+        btnAdd.setDisable(false);
     }
 
     private void addOrderLine() {
         try {
+            if (lstProducts.getSelectionModel().getSelectedItem() == null) {
+                throw new NullPointerException("You have not chosen a product" +
+                        " to add");
+            }
             Product product = lstProducts.getSelectionModel().getSelectedItem();
             if (product instanceof GiftBox) {
                 product = controller.createGiftBox(
-                        "",
+                        "Gift Box",
                         product.getProductGroup(),
                         ((GiftBox) product).getType());
                 AddGiftboxDialog giftboxDialog = new AddGiftboxDialog(
                         (GiftBox) product);
                 giftboxDialog.showAndWait();
-                if (!giftboxDialog.getIsFilled()) {
+                if (giftboxDialog.getCancelled()) {
                     return;
                 }
             }
@@ -140,12 +147,13 @@ public class RegisterSalePane extends GridPane {
             updateContent();
         }
         catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 
     private void updateContent() {
-
+        lstOrderLines.getItems().setAll(controller.getOrderLinesOnOrder(order));
+        lblTotal.setText("Total: " + order.getTotalPrice());
     }
 
     private void noOrderError() {

@@ -13,10 +13,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Modality;
 import model.Beer;
+import model.BeerType;
 import model.GiftBox;
 import model.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AddGiftboxDialog extends Stage {
 
@@ -25,7 +27,7 @@ public class AddGiftboxDialog extends Stage {
 
     private int currentAmount;
     private int maxAmount;
-    private boolean isFilled;
+    private boolean cancelled;
 
     private Label lblMax, lblCurrent;
     private ListView<Beer> lstBeers;
@@ -35,7 +37,7 @@ public class AddGiftboxDialog extends Stage {
         controller = Controller.getController();
         this.giftBox = giftBox;
         maxAmount = giftBox.getMaxAmountOfProducts();
-        isFilled = false;
+        cancelled = true;
 
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
@@ -47,7 +49,7 @@ public class AddGiftboxDialog extends Stage {
 
         this.initContent(pane);
         this.setScene(scene);
-        this.updateControls();
+        this.updateBeerList();
     }
 
     private void initContent(GridPane pane) {
@@ -92,15 +94,27 @@ public class AddGiftboxDialog extends Stage {
         pane.add(confirmBox, 0, 6, 2 ,1);
     }
 
-    private void updateControls() {
-
+    private void updateBeerList() {
+        for (Product p : controller.getProducts()) {
+            if (p instanceof Beer &&
+                    ((Beer) p).getBeerType() == BeerType.BOTTLE) {
+                lstBeers.getItems().add((Beer) p);
+            }
+        }
     }
 
-    public boolean getIsFilled() {
-        if (currentAmount == maxAmount) {
-            return true;
+    private void updateGiftBoxList() {
+        HashMap<Beer, Integer> beersInCase = giftBox.getProductsInGiftCase();
+        lstBeersInGiftBox.getItems().clear();
+        for (Beer b : beersInCase.keySet()) {
+            for (int i = 0; i < beersInCase.get(b); i++) {
+                lstBeersInGiftBox.getItems().add(b);
+            }
         }
-        return false;
+    }
+
+    public boolean getCancelled() {
+        return cancelled;
     }
 
     private void addBeer() {
@@ -110,7 +124,10 @@ public class AddGiftboxDialog extends Stage {
         }
         catch (Exception e) {
             System.out.println(e);
+            return;
         }
+        currentAmount++;
+        updateGiftBoxList();
     }
 
     private void removeBeer() {
@@ -120,7 +137,10 @@ public class AddGiftboxDialog extends Stage {
         }
         catch (Exception e) {
             System.out.println(e);
+            return;
         }
+        currentAmount--;
+        updateGiftBoxList();
     }
 
     private void confirmAndAdd() {
@@ -133,6 +153,7 @@ public class AddGiftboxDialog extends Stage {
             System.out.println(e);
             return;
         }
+        cancelled = false;
         this.hide();
     }
 

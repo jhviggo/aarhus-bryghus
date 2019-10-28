@@ -70,6 +70,10 @@ public class Controller {
         return Storage.getAllOrderLines();
     }
 
+    public ArrayList<OrderLine> getOrderLinesOnOrder(Order order) {
+        return order.getOrderlines();
+    }
+
     public GiftBox createGiftBox(String productName, ProductGroup productGroup,
                                  GiftBoxType type) {
         GiftBox giftBox = new GiftBox(productName, productGroup, type);
@@ -205,7 +209,8 @@ public class Controller {
         ProductGroup pg5 = createProductGroup("kulsyre", 1000);
         ProductGroup pg6 = createProductGroup("Gaveæsker", 0);
 
-        Product p1 = createProduct("Klosterbryg", pg1);
+        Product p1 = createProductBeer("Klosterbryg", pg1, 60,
+                "cl", 6.0, "India Pale Lager", BeerType.BOTTLE);
         Product p2 = createProduct("Sweet Georgie Brown", pg1);
         Product p3 = createProduct("Extra Pilsner", pg1);
         Product p4 = createProduct("Klosterbryg", pg2);
@@ -218,7 +223,7 @@ public class Controller {
         Product p11 = createProduct("Julebryg, 20L", pg4);
         Product p12 = createProduct("6kg", pg5);
         Product p13 = createProduct("10kg", pg5);
-        Product p14 = createGiftBox("GiftboxTest", pg6, GiftBoxType.SIXBEERS);
+        Product p14 = createGiftBox("GiftboxTest", pg6, GiftBoxType.SIXBEERSTWOGLASSES);
 
         PriceList pl1 = createPriceList("default");
         PriceList pl2 = createPriceList("fredagsbar");

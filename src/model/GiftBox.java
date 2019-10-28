@@ -44,6 +44,7 @@ public class GiftBox extends Product {
         } else {
             productsInGiftCase.put(beer, 1);
         }
+        amountOfProducts++;
         return true;
     }
 
@@ -57,6 +58,7 @@ public class GiftBox extends Product {
             productsInGiftCase.put(beer,
                     productsInGiftCase.get(beer)-1);
         }
+        amountOfProducts--;
         return true;
     }
 
@@ -64,7 +66,7 @@ public class GiftBox extends Product {
         return type;
     }
 
-    public HashMap<Product, Integer> getProductsInGiftCase() {
+    public HashMap<Beer, Integer> getProductsInGiftCase() {
         return new HashMap(productsInGiftCase);
     }
 }
