@@ -16,6 +16,7 @@ public class ProductGrain extends GridPane implements ProductType {
 	private Controller controller;
 	private Label lblWeight;
 	private TextField txtWeight;
+	private GridPane grid;
 	
 	/**
 	 * Constructor for productGrain pane.
@@ -23,6 +24,7 @@ public class ProductGrain extends GridPane implements ProductType {
 	 */
 	public ProductGrain(GridPane grid) {
         grid.setPadding(new Insets(20));
+        this.grid = grid;
         // grabs controller
         controller = Controller.getController();
         
@@ -51,8 +53,17 @@ public class ProductGrain extends GridPane implements ProductType {
 		finally {
 			// call createProductGrain method from controller.
 			this.controller.createProductGrain(productName, productgroup, weight);	
+			delete();
 		}
 		
+	}
+	
+	/**
+	 * Method to delete all components, used to cleanse pane.
+	 */
+	public void delete() {
+		// deleting all elements from grid.
+		grid.getChildren().clear();
 	}
 
 }

@@ -25,6 +25,7 @@ public class ProductSpirit extends GridPane implements ProductType {
 	private ComboBox<String> cmbType;
 	private String selectedType;
 	private Controller controller;
+	private GridPane grid;
 	
 	/**
 	 * Constructor to create a ProductSpirit pane.
@@ -32,6 +33,7 @@ public class ProductSpirit extends GridPane implements ProductType {
 	 */
 	public ProductSpirit(GridPane grid) {
 		grid.setPadding(new Insets(20));
+		this.grid = grid;
         // grabs controller
         controller = Controller.getController();
         // Array containing different types of spirit
@@ -111,8 +113,17 @@ public class ProductSpirit extends GridPane implements ProductType {
 		} finally {
 			// calls controller method to create product spirit
 			this.controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
+			delete();
 		}
 		
+	}
+
+	/**
+	 * Method to delete all components, used to cleanse pane.
+	 */
+	public void delete() {
+		// deleting all elements from grid.
+		grid.getChildren().clear();
 	}
 	
 }
