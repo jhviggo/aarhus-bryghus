@@ -15,15 +15,18 @@ public class ProductDraughtBeerSystem extends GridPane implements ProductType {
 	private TextField txtNumberOfTaps;
 	private Label lblNumberOfTaps; 
 	private Controller controller;
+	private GridPane grid;
 	
 	/**
 	 * Constructor product draught beer system
 	 */
 	public ProductDraughtBeerSystem(GridPane grid) {
 		grid.setPadding(new Insets(20));
+		this.grid = grid;
 		
-		// grabs our controller
+		// grabs controller
 		this.controller = Controller.getController();
+	
 		
 		// Label for NumberOfTaps input field.
 		lblNumberOfTaps = new Label("Enter number of taps:");
@@ -51,6 +54,15 @@ public class ProductDraughtBeerSystem extends GridPane implements ProductType {
 		} finally {
 			// finally we create a new instance of productDraughtBeerSystem
 			this.controller.createProductDraughtBeerSystem(productName, productgroup, numberOfTaps);
+			delete();
 		}
+	}
+
+	/**
+	 * Method to delete all components, used to cleanse pane.
+	 */
+	public void delete() {
+		// deleting all elements from grid.
+		grid.getChildren().clear();
 	}
 }
