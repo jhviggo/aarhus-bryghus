@@ -1,6 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Set;
 
 public class PriceList {
 
@@ -47,6 +50,26 @@ public class PriceList {
 			return giftBoxPrices.get(((GiftBox) product).getType());
 		}
 	    return productsInPriceList.get(product);
+	}
+
+	/**
+	 * Get method.
+	 * Method to get PriceList type
+	 * @return PriceList type
+	 */
+	public String getType() {
+		return this.type;
+	}
+
+	public ArrayList<String> getProductsWithPriceInPriceList() {
+		ArrayList<String> productPricesList = new ArrayList<>();
+
+		productsInPriceList
+				.entrySet()
+				.forEach(item -> productPricesList.add(item.getKey().getProductName() + "  -  " + item.getValue() + "kr"));
+
+		return productPricesList;
+
 	}
 
 	@Override
