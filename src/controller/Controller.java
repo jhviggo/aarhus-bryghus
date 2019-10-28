@@ -120,7 +120,7 @@ public class Controller {
         return product;
     }
 
-    public Product createProductGuidedTour(String productName, ProductGroup productGroup, LocalDateTime dateTime, int duration) {
+    public Product createProductGuidedTour(String productName, ProductGroup productGroup, LocalDateTime dateTime, double duration) {
         Product product = new GuidedTour(productName, productGroup, dateTime, duration);
         Storage.addProduct(product);
         return product;
