@@ -15,6 +15,7 @@ public class Storage {
 	private static final ArrayList<ProductGroup> productGroups = new ArrayList<>();
 	private static final ArrayList<GiftBox> giftBoxes = new ArrayList<>();
 	private static final ArrayList<PriceList> priceLists = new ArrayList<PriceList>();
+	private static final ArrayList<ClipCard> clipCards = new ArrayList<ClipCard>();
 
 	/**
 	 * Get method.
@@ -159,7 +160,7 @@ public class Storage {
 	}
 
 	/**
-	 * return price lists
+	 * Method to return price lists
 	 * @return
 	 */
 	public static ArrayList<PriceList> getPriceLists() {
@@ -167,7 +168,7 @@ public class Storage {
 	}
 
 	/**
-	 * add price list
+	 * Method to add price list
 	 * @param priceList
 	 */
 	public static void addPriceList(PriceList priceList) {
@@ -177,12 +178,40 @@ public class Storage {
 	}
 
 	/**
-	 * remove price list
+	 * Method to remove price list from priceLists
 	 * @param priceList
 	 */
 	public static void removePriceList(PriceList priceList) {
 		if (priceLists.contains(priceList)) {
 			priceLists.remove(priceList);
+		}
+	}
+	
+	/**
+	 * Method to get clipCards from storage
+	 * @return clipCards
+	 */
+	public static ArrayList<ClipCard> getClipCards() {
+		return new ArrayList<>(clipCards);
+	}
+	
+	/**
+	 * Method to add a clipCard to clipCards
+	 * @param clipCard
+	 */
+	public static void addClipCard(ClipCard clipCard) {
+		if (!clipCards.contains(clipCard)) {
+			clipCards.add(clipCard);
+		}
+	}
+	
+	/**
+	 * Method to remove a clipCard from clipCards
+	 * @param clipCard
+	 */
+	public static void removeClipCard(ClipCard clipCard) {
+		if (clipCards.contains(clipCard)) {
+			clipCards.remove(clipCard);
 		}
 	}
 }
