@@ -1,6 +1,10 @@
 package controller;
 
 import model.*;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.IllegalStateException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,7 +77,7 @@ public class Controller {
     public ArrayList<OrderLine> getOrderLines() {
         return Storage.getAllOrderLines();
     }
-  
+
     public ArrayList<OrderLine> getOrderLinesOnOrder(Order order) {
         return order.getOrderlines();
     }
@@ -203,6 +207,38 @@ public class Controller {
 
     public ArrayList<PriceList> getPriceLists() {
         return Storage.getPriceLists();
+    }
+
+    public void exportOrders() {
+        for(Order o : this.getOrders()) {
+            if (o.getStatus() == OrderStatusType.DONE && o.getOrderlines().size() > 0) {
+                this.exportOrderAsCSV(o);
+            }
+        }
+    }
+
+    public void exportOrderAsCSV(Order order) {
+        StringBuilder csvOutput = new StringBuilder();
+        csvOutput.append("ID,STATUS,DATE,PAYMENT METHOD,PRODUCT,AMOUNT,SINGLE PRICE,TOTAL PRICE;\n");
+        for (OrderLine ol : order.getOrderlines()) {
+            csvOutput
+                .append(order.getID()).append(',')
+                .append(order.getStatus()).append(',')
+                .append(order.getStartTimestamp()).append(',')
+                .append(order.getPaymentMethod()).append(',')
+                .append(ol.getProduct().getProductName()).append(',')
+                .append(ol.getAmount()).append(',')
+                .append(ol.getPriceList().getPrice(ol.getProduct())).append(',')
+                .append(ol.getPrice()).append(";\n");
+        }
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("order" + order.getID() + ".csv"));
+            writer.write(csvOutput.toString());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Failed to write file");
+        }
     }
 
     public void initializeData() {
