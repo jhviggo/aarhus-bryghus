@@ -284,6 +284,7 @@ public class Controller {
     }
 
     public void initializeData() {
+    	// Productgroups
         ProductGroup pg1 = createProductGroup("flaske", 0);
         ProductGroup pg2 = createProductGroup("fadøl", 0);
         ProductGroup pg3 = createProductGroup("spiritus", 0);
@@ -545,21 +546,7 @@ public class Controller {
         createOrderLine(p2, pl1, 5, o2);
         createOrderLine(p4, pl1, 3, o2);
         updateOrder(LocalDateTime.now(), OrderStatusType.DONE, PaymentMethod.CREDITCARD, o2);
-        
-        // ClipCards
-        Product clip1 = createProductClipCard("klippe kort", pg1);
-        Product clip2 = createProductClipCard("klippe kort", pg2);
-        Product clip3 = createProductClipCard("klippe kort", pg1);
-        Product clip4 = createProductClipCard("klippe kort", pg2);
-        Product clip5 = createProductClipCard("klippe kort", pg1);
-        Product clip6 = createProductClipCard("klippe kort", pg2);
-        
-        addProductToPriceList(clip1, 100, pl2);
-        addProductToPriceList(clip2, 100, pl2);
-        addProductToPriceList(clip3, 100, pl2);
-        addProductToPriceList(clip4, 100, pl2);
-        addProductToPriceList(clip5, 100, pl1);
-        addProductToPriceList(clip6, 100, pl1);
+     
         
         addProductToPriceList(p1, 36, pl1);
         addProductToPriceList(p2, 36, pl1);
@@ -583,6 +570,22 @@ public class Controller {
         addProductToPriceList(p5, 50, pl2);
         addProductToPriceList(p6, 50, pl2);
         
+        // ClipCards
+        Product clip1 = createProductClipCard("klippe kort", pg1);
+        Product clip2 = createProductClipCard("klippe kort", pg2);
+        Product clip3 = createProductClipCard("klippe kort", pg1);
+        Product clip4 = createProductClipCard("klippe kort", pg2);
+        Product clip5 = createProductClipCard("klippe kort", pg1);
+        Product clip6 = createProductClipCard("klippe kort", pg2);
+        
+        // adds clipcards to pricelists
+        addProductToPriceList(clip1, 100, pl2);
+        addProductToPriceList(clip2, 100, pl2);
+        addProductToPriceList(clip3, 100, pl2);
+        addProductToPriceList(clip4, 100, pl2);
+        addProductToPriceList(clip5, 100, pl1);
+        addProductToPriceList(clip6, 100, pl1);
+        
         // Orders
         Order co1 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.AUGUST, 11), LocalTime.of(17, 45)), OrderStatusType.DONE);
         Order co2 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.AUGUST, 12), LocalTime.of(14, 31)), OrderStatusType.DONE);
@@ -591,15 +594,12 @@ public class Controller {
         Order co5 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.OCTOBER, 10), LocalTime.of(16, 30)), OrderStatusType.PROGRESS);
         Order co6 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.OCTOBER, 10), LocalTime.of(17, 15)), OrderStatusType.PROGRESS);
         
-        
-        // Orderlins containing order on clipcards
-        OrderLine ol1 = createOrderLine(clip1, pl2, 1, co1);
-        OrderLine ol2 = createOrderLine(clip1, pl2, 3, co2);
-        OrderLine ol3 = createOrderLine(clip1, pl2, 5, co3);
-        OrderLine ol4 = createOrderLine(clip1, pl2, 7, co4);
-        OrderLine ol5 = createOrderLine(clip1, pl1, 2, co5);
-        OrderLine ol6 = createOrderLine(clip1, pl1, 1, co6);
-
-
+        // adds a new orderline to each Order.
+        co1.createOrderLine(clip1, pl2, 10);
+        co2.createOrderLine(clip2, pl2, 25);
+        co3.createOrderLine(clip3, pl2, 3);
+        co4.createOrderLine(clip4, pl2, 4);
+        co5.createOrderLine(clip5, pl1, 2);
+        co6.createOrderLine(clip6, pl1, 2);
     }
 }
