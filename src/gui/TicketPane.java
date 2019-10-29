@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -7,6 +9,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import model.Order;
+import model.OrderLine;
 import model.Product;
 
 public class TicketPane extends GridPane {
@@ -19,8 +23,9 @@ public class TicketPane extends GridPane {
 	private Label lblShowClipBoardStatus;
 	private DatePicker dpFrom;
 	private DatePicker dpTill;
-	private ListView<Product> lvShowClipBoardStatus;
+	private ListView<OrderLine> lvShowClipBoardStatus;
 	private Button btnExport;
+	private Button btnHent;
 	private Controller controller;
 	
 	/**
@@ -61,9 +66,17 @@ public class TicketPane extends GridPane {
 		lvShowClipBoardStatus.setPrefSize(400,400);
 	//	lvShowClipBoardStatus.getItems().setAll();
 		
+		
+		// button hent
+		btnHent = new Button("Hent");
+		this.add(btnHent, 0, 6);
+		
+		// EventHandler selected date in DatePicker
+		btnHent.setOnAction(e -> this.populateClipBoard());
+		
 		// button export
 		btnExport = new Button("Export");
-		this.add(btnExport, 0, 6);
+		this.add(btnExport, 1, 6);
 		
 		// on click event handler
 		btnExport.setOnAction(e -> this.exportClipBoard());
@@ -80,6 +93,25 @@ public class TicketPane extends GridPane {
 	 * populate ClipBoard with clipboard status
 	 */
 	public void populateClipBoard() {
+		// Arraylist orders & arrayList result containing matching objects
+		ArrayList<Order> orders = controller.getOrders(); 
+		ArrayList<OrderLine> results = new ArrayList<OrderLine>();
+		// iteration over each oder
+		for (int i = 0; i < orders.size(); i++) {
+			// checks to find orders within the selected date interval
+			if (orders.get(i).getEndTimestamp() != null && dpFrom.getValue().compareTo(orders.get(i).getStartTimestamp().toLocalDate()) < 0 &&
+					dpTill.getValue().compareTo(orders.get(i).getEndTimestamp().toLocalDate()) > 0) {
+				System.out.println("kommer herind");
+				// Arraylist orderlines within interval 
+				ArrayList<OrderLine> orderlines = controller.getOrders().get(i).getOrderlines();
+				// iteration over each oderline
+				for (int j = 0; j < orderlines.size(); j++) {
+					results.add(orderlines.get(j));
+				}
+			}
+			// fills listView.
+			lvShowClipBoardStatus.getItems().setAll(results);
+		}
 		
 	}
 }

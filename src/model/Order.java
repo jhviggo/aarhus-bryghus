@@ -27,6 +27,10 @@ public class Order {
 		this.status = status;
 		this.orderlines = new ArrayList<>();
 		priceOverride = -1;
+		
+		if (status == OrderStatusType.DONE) {
+			this.endTimestamp = startTimestamp;
+		}
 	}
 
 	/**
