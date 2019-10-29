@@ -174,6 +174,6 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order " + ID;
+		return status + " - Order " + ID + " - " + getTotalPrice() + " DKK - " + paymentMethod;
 	}
 }

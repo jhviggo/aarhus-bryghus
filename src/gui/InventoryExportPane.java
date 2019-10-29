@@ -2,11 +2,16 @@ package gui;
 
 import controller.Controller;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import model.Order;
+import model.OrderStatusType;
+
+import java.time.LocalDateTime;
 
 public class InventoryExportPane extends GridPane {
 
@@ -25,10 +30,37 @@ public class InventoryExportPane extends GridPane {
         this.add(new Label("Orders"), 0, 0);
         lstOrders = new ListView<>();
         lstOrders.setPrefSize(760,400);
-        this.add(lstOrders, 0, 1, 1, 4);
+        this.add(lstOrders, 0, 1, 2, 1);
 
+        HBox buttonBoxLeft = new HBox();
+        buttonBoxLeft.setSpacing(10);
+
+        Button btnCreateOrder = new Button("Create order");
+        btnCreateOrder.setOnAction(event -> this.createOrder());
+        buttonBoxLeft.getChildren().add(btnCreateOrder);
+        Button btnUpdateOrder = new Button("Update order");
+        buttonBoxLeft.getChildren().add(btnUpdateOrder);
+        this.add(buttonBoxLeft, 0, 2);
+
+        HBox buttonBoxRight = new HBox();
+        buttonBoxRight.setSpacing(10);
+        buttonBoxRight.setAlignment(Pos.BASELINE_RIGHT);
         Button btnExport = new Button("Export to CSV");
-        this.add(btnExport, 0, 5);
+        buttonBoxRight.getChildren().add(btnExport);
+        this.add(buttonBoxRight, 1, 2);
 
+        updateContent();
+    }
+
+    private void updateContent() {
+        lstOrders.getItems().setAll(controller.getOrders());
+    }
+
+    private void createOrder() {
+        Order order = controller.createOrder(LocalDateTime.now().withNano(0),
+                OrderStatusType.CREATED);
+        CreateUpdateOrderDialog createUpdateOrderDialog =
+                new CreateUpdateOrderDialog(order, controller.getPriceLists().get(0));
+        createUpdateOrderDialog.showAndWait();
     }
 }
