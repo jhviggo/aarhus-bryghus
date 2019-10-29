@@ -41,21 +41,18 @@ public class Main extends Application {
     private void initTabPane(TabPane tabPane) {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-        Tab tabOrder = new Tab("Register sale");
+        Tab tabOrder = new Tab("Orders");
         Tab tabRegister = new Tab("Register new product");
         Tab tabPriceList = new Tab("Manage pricelists");
-        Tab tabExportInventory = new Tab("Export inventory");
         //Tab udtræk
         //Tab ikke aflevere produkter
         //Tab rundvisning
 
-        tabOrder.setContent(new RegisterSalePane());
-        tabExportInventory.setContent(new InventoryExportPane());
+        tabOrder.setContent(new OrdersPane());
         tabPriceList.setContent(new PriceListPane());
 
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);
         tabPane.getTabs().add(tabPriceList);
-        tabPane.getTabs().add(tabExportInventory);
     }
 }
