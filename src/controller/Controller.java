@@ -211,13 +211,15 @@ public class Controller {
 
     public void exportOrders() {
         for(Order o : this.getOrders()) {
-            this.exportOrderAsCSV(o);
+            if (o.getStatus() == OrderStatusType.DONE && o.getOrderlines().size() > 0) {
+                this.exportOrderAsCSV(o);
+            }
         }
     }
 
     public void exportOrderAsCSV(Order order) {
         StringBuilder csvOutput = new StringBuilder();
-        csvOutput.append("ID,STATUS,DATE,PAYMENT METHOD,PRODUCT,AMOUNT,SINGLE PRICE,TOTAL PRICE;");
+        csvOutput.append("ID,STATUS,DATE,PAYMENT METHOD,PRODUCT,AMOUNT,SINGLE PRICE,TOTAL PRICE;\n");
         for (OrderLine ol : order.getOrderlines()) {
             csvOutput
                 .append(order.getID()).append(',')
@@ -227,7 +229,7 @@ public class Controller {
                 .append(ol.getProduct().getProductName()).append(',')
                 .append(ol.getAmount()).append(',')
                 .append(ol.getPriceList().getPrice(ol.getProduct())).append(',')
-                .append(ol.getPrice()).append(';');
+                .append(ol.getPrice()).append(";\n");
         }
 
         try {
