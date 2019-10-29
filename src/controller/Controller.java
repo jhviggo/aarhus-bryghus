@@ -551,13 +551,6 @@ public class Controller {
         Product clip4 = createProductClipCard("klippe kort", pg2);
         Product clip5 = createProductClipCard("klippe kort", pg1);
         Product clip6 = createProductClipCard("klippe kort", pg2);
-        
-        addProductToPriceList(clip1, 100, pl2);
-        addProductToPriceList(clip2, 100, pl2);
-        addProductToPriceList(clip3, 100, pl2);
-        addProductToPriceList(clip4, 100, pl2);
-        addProductToPriceList(clip5, 100, pl1);
-        addProductToPriceList(clip6, 100, pl1);
 
         addProductToPriceList(p1, 36, pl1);
         addProductToPriceList(p2, 36, pl1);
