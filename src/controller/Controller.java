@@ -460,5 +460,14 @@ public class Controller {
         pl2.setPrice(p48, 70);
         pl2.setPrice(p49, 100);
         pl2.setPrice(p50, 30);
+
+        Order o1 = createOrder(LocalDateTime.now(), OrderStatusType.CREATED);
+        createOrderLine(p1, pl1, 4, o1);
+        createOrderLine(p3, pl1, 2, o1);
+        updateOrder(LocalDateTime.now(), OrderStatusType.PROGRESS, PaymentMethod.PAYLATER, o1);
+        Order o2 = createOrder(LocalDateTime.now(), OrderStatusType.CREATED);
+        createOrderLine(p2, pl1, 5, o2);
+        createOrderLine(p4, pl1, 3, o2);
+        updateOrder(LocalDateTime.now(), OrderStatusType.DONE, PaymentMethod.CREDITCARD, o2);
     }
 }
