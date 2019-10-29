@@ -152,9 +152,7 @@ public class CheckoutOrderDialog extends Stage {
                     status == OrderStatusType.DONE) {
                 throw new IllegalStateException("Order can't be both done and pay later");
             }
-            LocalDateTime startDateTime = LocalDateTime.of(startDate.getValue(),
-                    LocalTime.parse(startTime.getText()));
-            controller.updateOrder(startDateTime,
+            controller.updateOrder(
                     status,
                     paymentMethod,
                     order);

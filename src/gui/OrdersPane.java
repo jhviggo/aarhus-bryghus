@@ -13,19 +13,20 @@ import model.OrderStatusType;
 
 import java.time.LocalDateTime;
 
-public class InventoryExportPane extends GridPane {
+public class OrdersPane extends GridPane {
 
     private Controller controller;
 
     private ListView<Order> lstOrders;
 
-    public InventoryExportPane() {
+    public OrdersPane() {
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
-        this.setGridLinesVisible(true);
+        this.setGridLinesVisible(false);
 
         controller = Controller.getController();
+        controller.initializeData();
 
         this.add(new Label("Orders"), 0, 0);
         lstOrders = new ListView<>();
@@ -39,6 +40,7 @@ public class InventoryExportPane extends GridPane {
         btnCreateOrder.setOnAction(event -> this.createOrder());
         buttonBoxLeft.getChildren().add(btnCreateOrder);
         Button btnUpdateOrder = new Button("Update order");
+        btnUpdateOrder.setOnAction(event -> updateOrder());
         buttonBoxLeft.getChildren().add(btnUpdateOrder);
         this.add(buttonBoxLeft, 0, 2);
 
@@ -62,5 +64,23 @@ public class InventoryExportPane extends GridPane {
         CreateUpdateOrderDialog createUpdateOrderDialog =
                 new CreateUpdateOrderDialog(order, controller.getPriceLists().get(0));
         createUpdateOrderDialog.showAndWait();
+        updateContent();
+    }
+
+    private void updateOrder() {
+        Order order = lstOrders.getSelectionModel().getSelectedItem();
+        try {
+            if (order == null) {
+                throw new NullPointerException("You have not chosen an order" +
+                        " to update");
+            }
+            CreateUpdateOrderDialog createUpdateOrderDialog =
+                    new CreateUpdateOrderDialog(order, controller.getPriceLists().get(0));
+            createUpdateOrderDialog.showAndWait();
+            updateContent();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

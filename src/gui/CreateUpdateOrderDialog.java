@@ -4,10 +4,8 @@ import controller.Controller;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import model.*;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -28,10 +26,11 @@ public class CreateUpdateOrderDialog extends Stage {
     private ComboBox<PriceList> cmbPriceLists;
     private ListView<Product> lstProducts;
     private ListView<OrderLine> lstOrderLines;
-    private TextField txfAmount;
-    private Label lblTotal;
+    private TextField txfAmount, txfOverridePrice;
+    private Label lblTotal, lblError;
     private RadioButton rbCreated, rbProgress, rbDone, rbCreditCard, rbCash, rbPayLater;
     private ToggleGroup statusGroup, paymentGroup;
+    private CheckBox chbOverridePrice;
 
     public CreateUpdateOrderDialog(Order order, PriceList prefPriceList) {
         controller = Controller.getController();
@@ -62,6 +61,7 @@ public class CreateUpdateOrderDialog extends Stage {
         pane.add(new Label("Price list:"), 0, 0);
         cmbPriceLists = new ComboBox<>();
         cmbPriceLists.setPrefWidth(prefWidth);
+        cmbPriceLists.setOnAction(event -> updateProducts());
         pane.add(cmbPriceLists, 0, 1);
 
         pane.add(new Label("Choose product:"), 0, 2);
@@ -99,6 +99,7 @@ public class CreateUpdateOrderDialog extends Stage {
 
         Button btnRemove = new Button("Remove");
         btnRemove.setPrefWidth(prefWidthSmall);
+        btnRemove.setOnAction(event -> removeSelectedOrderLine());
         pane.add(btnRemove, 1,9);
 
         HBox parentBox = new HBox();
@@ -149,15 +150,164 @@ public class CreateUpdateOrderDialog extends Stage {
 
         parentBox.getChildren().add(paymentBox);
 
+        VBox priceBox = new VBox();
+        priceBox.setSpacing(10);
+
+        lblTotal = new Label("Total: ");
+        priceBox.getChildren().add(lblTotal);
+
+        chbOverridePrice = new CheckBox("Override price");
+        chbOverridePrice.setOnAction(event -> updatePriceField());
+        priceBox.getChildren().add(chbOverridePrice);
+
+        txfOverridePrice = new TextField();
+        txfOverridePrice.setPrefWidth(prefWidthSmall);
+        priceBox.getChildren().add(txfOverridePrice);
+
+        parentBox.getChildren().add(priceBox);
+
         pane.add(parentBox, 0, 11);
 
         Button btnCheckout = new Button("Checkout");
         btnCheckout.setPrefWidth(prefWidth);
+        btnCheckout.setOnAction(event -> checkout());
         pane.add(btnCheckout, 0, 12);
+
+        lblError = new Label("");
+        lblError.setTextFill(Color.RED);
+        pane.add(lblError, 0, 13);
+
+        updatePriceLists();
+        updateProducts();
+        updateControls();
+        updateOrderLines();
+    }
+
+    private void updatePriceLists() {
+        cmbPriceLists.getItems().setAll(controller.getPriceLists());
+        cmbPriceLists.getSelectionModel().select(prefPriceList);
+    }
+
+    private void updateProducts() {
+        PriceList pl = cmbPriceLists.getSelectionModel().getSelectedItem();
+        lstProducts.getItems().setAll(controller.getProductsInPriceList(pl));
+    }
+
+    private void updateOrderLines() {
+        lstOrderLines.getItems().setAll(controller.getOrderLinesOnOrder(order));
+        lblTotal.setText("Total: " + controller.getTotalPriceForOrder(order));
+    }
+
+    private void updateControls() {
+        rbPayLater.setSelected(true);
+        if (order.getPaymentMethod() != null) {
+            switch (order.getPaymentMethod()) {
+                case CREDITCARD:
+                    rbCreditCard.setSelected(true);
+                    break;
+                case CASH:
+                    rbCash.setSelected(true);
+                    break;
+            }
+        }
+        switch (order.getStatus()) {
+            case CREATED: rbCreated.setSelected(true); break;
+            case PROGRESS: rbProgress.setSelected(true); break;
+            case DONE: rbDone.setSelected(true); break;
+        }
+        if (order.getPriceOverride() != -1) {
+            chbOverridePrice.setSelected(true);
+            txfOverridePrice.setText("" + order.getPriceOverride());
+        }
+        updatePriceField();
+    }
+
+    private void updatePriceField() {
+        if (chbOverridePrice.isSelected()) {
+            txfOverridePrice.setDisable(false);
+        } else {
+            txfOverridePrice.setDisable(true);
+        }
     }
 
     private void addOrderLine() {
+        try {
+            if (lstProducts.getSelectionModel().getSelectedItem() == null) {
+                throw new NullPointerException("You have not chosen a product" +
+                        " to add");
+            }
+            Product product = lstProducts.getSelectionModel().getSelectedItem();
+            if (product instanceof GiftBox) {
+                product = controller.createGiftBox(
+                        "Gift Box",
+                        product.getProductGroup(),
+                        ((GiftBox) product).getType());
+                AddGiftboxDialog addGiftboxDialog = new AddGiftboxDialog(
+                        (GiftBox) product);
+                addGiftboxDialog.showAndWait();
+                if (addGiftboxDialog.getCancelled()) {
+                    return;
+                }
+            }
+            OrderLine orderLine = controller.createOrderLine(
+                    product,
+                    cmbPriceLists.getSelectionModel().getSelectedItem(),
+                    Integer.parseInt(txfAmount.getText()), order);
+            updateOrderLines();
+        }
+        catch (Exception e) {
+            lblError.setText(e.getMessage());
+        }
+    }
 
+    private void removeSelectedOrderLine() {
+        OrderLine orderLine = lstOrderLines.getSelectionModel().getSelectedItem();
+        try {
+            if (orderLine == null) {
+                throw new NullPointerException("You have not selected an" +
+                        "order line to remove");
+            }
+            controller.deleteOrderLineOnOrder(orderLine, order);
+            updateOrderLines();
+        }
+        catch (Exception e) {
+            lblError.setText(e.getMessage());
+        }
+    }
+
+    private void checkout() {
+        try {
+            OrderStatusType status =
+                    (OrderStatusType) statusGroup.getSelectedToggle().getUserData();
+            PaymentMethod paymentMethod =
+                    (PaymentMethod) paymentGroup.getSelectedToggle().getUserData();
+            if (paymentMethod == PaymentMethod.PAYLATER &&
+                    status == OrderStatusType.DONE) {
+                throw new IllegalStateException("Order can't be both done and pay later");
+            }
+            controller.updateOrder(status, paymentMethod, order);
+            if (status == OrderStatusType.DONE) {
+                controller.setEndTimestampOnOrder(order);
+            }
+            if (chbOverridePrice.isSelected()) {
+                double priceOverride =
+                        Double.parseDouble(txfOverridePrice.getText());
+                if (priceOverride >= 0) {
+                    controller.setPriceOverrideOnOrder(priceOverride, order);
+                } else {
+                    throw new IllegalArgumentException(
+                            "You cannot set a negative price override"
+                    );
+                }
+            } else {
+                controller.setPriceOverrideOnOrder(-1, order);
+            }
+        }
+        catch (Exception e) {
+            lblError.setText(e.getMessage());
+            return;
+        }
+        this.hide();
     }
 
 }
