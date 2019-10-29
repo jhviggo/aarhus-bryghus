@@ -209,6 +209,10 @@ public class Controller {
         return Storage.getPriceLists();
     }
 
+    public ArrayList<Product> getProductsInPriceList(PriceList priceList) {
+        return priceList.getProducts();
+    }
+
     public void exportOrders() {
         for(Order o : this.getOrders()) {
             if (o.getStatus() == OrderStatusType.DONE && o.getOrderlines().size() > 0) {
