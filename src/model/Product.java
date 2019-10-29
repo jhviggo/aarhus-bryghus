@@ -1,6 +1,6 @@
 package model;
 
-public class Product {
+public class Product implements Comparable<Product>{
 
 	private String productName;
 	private ProductGroup productGroup;
@@ -43,5 +43,10 @@ public class Product {
 	@Override
 	public String toString() {
 		return productName;
+	}
+
+	@Override
+	public int compareTo(Product product) {
+		return productName.compareTo(product.getProductName());
 	}
 }

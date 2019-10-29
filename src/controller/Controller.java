@@ -334,23 +334,23 @@ public class Controller {
 
         //Kegs
         Product p36 = createProductBeer("Klosterbryg", pg4, 20,
-                "l", 6.0, "India Pale Lager", BeerType.KEG);
+                "L", 6.0, "India Pale Lager", BeerType.KEG);
         Product p37 = createProductBeer("Jazz Classic", pg4, 25,
-                "l", 5.0, "English Mild Ale", BeerType.KEG);
+                "L", 5.0, "English Mild Ale", BeerType.KEG);
         Product p38 = createProductBeer("Extra Pilsner", pg4, 25,
-                "l", 5.0, "Pilsner", BeerType.KEG);
+                "L", 5.0, "Pilsner", BeerType.KEG);
         Product p39 = createProductBeer("Celebration", pg4, 20,
-                "l", 6.5, "Pale Ale", BeerType.KEG);
+                "L", 6.5, "Pale Ale", BeerType.KEG);
         Product p40 = createProductBeer("Blondie", pg4, 25,
-                "l", 5.0, "Pale Ale", BeerType.KEG);
+                "L", 5.0, "Pale Ale", BeerType.KEG);
         Product p41 = createProductBeer("Forårsbryg", pg4, 20,
-                "l", 7.0, "Dortmunder", BeerType.KEG);
+                "L", 7.0, "Dortmunder", BeerType.KEG);
         Product p42 = createProductBeer("India Pale Ale", pg4, 20,
-                "l", 6.0, "India Pale Ale", BeerType.KEG);
+                "L", 6.0, "India Pale Ale", BeerType.KEG);
         Product p43 = createProductBeer("Julebryg", pg4, 20,
-                "l", 6.0, "Spiced / Herbed Beer", BeerType.KEG);
+                "L", 6.0, "Spiced / Herbed Beer", BeerType.KEG);
         Product p44 = createProductBeer("Imperial Stout", pg4, 20,
-                "l", 8.0, "Imperial Stout", BeerType.KEG);
+                "L", 8.0, "Imperial Stout", BeerType.KEG);
 
         //Carbon dioxide
         Product p45 = createProduct("Kulsyre 6kg", pg5);
