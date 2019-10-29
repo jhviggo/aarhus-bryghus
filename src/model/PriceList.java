@@ -1,9 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Set;
 
 public class PriceList {
 
@@ -69,7 +67,10 @@ public class PriceList {
 				.forEach(item -> productPricesList.add(item.getKey().getProductName() + "  -  " + item.getValue() + "kr"));
 
 		return productPricesList;
+	}
 
+	public ArrayList<Product> getProducts() {
+		return new ArrayList<>(this.productsInPriceList.keySet());
 	}
 
 	@Override
