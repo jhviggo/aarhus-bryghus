@@ -10,13 +10,13 @@ import model.ProductGroup;
 public class ProductGrain extends GridPane implements ProductType {
 
 	/**
-	 * Components 
+	 * Components
 	 */
 	private Controller controller;
 	private Label lblWeight;
 	private TextField txtWeight;
 	private GridPane grid;
-	
+
 	/**
 	 * Constructor for productGrain pane.
 	 * @param grid
@@ -26,15 +26,15 @@ public class ProductGrain extends GridPane implements ProductType {
         this.grid = grid;
         // grabs controller
         controller = Controller.getController();
-        
+
         // Label weight
         lblWeight = new Label("Enter weight:");
         grid.add(lblWeight, 0,2);
-        
+
         txtWeight = new TextField();
-        grid.add(txtWeight, 0, 3, 1, 1);
+        grid.add(txtWeight, 0, 3);
 	}
-	
+
 	/**
 	 * Method to create product grain
 	 * @param ProductGroup productgroup, String productName
@@ -51,11 +51,11 @@ public class ProductGrain extends GridPane implements ProductType {
 		}
 		finally {
 			// call createProductGrain method from controller.
-			this.controller.createProductGrain(productName, productgroup, weight);	
+			this.controller.createProductGrain(productName, productgroup, weight);
 		}
-		
+
 	}
-	
+
 	/**
 	 * Method to delete all components, used to cleanse pane.
 	 */

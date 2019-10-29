@@ -14,7 +14,7 @@ import model.ProductGroup;
 public class ProductBeer extends GridPane implements ProductType {
 	/**
 	 * Components
-	 * 
+	 *
 	 * lblSize;
 	   lblUnit;
 	   lblAlcoholPercentage;
@@ -33,7 +33,7 @@ public class ProductBeer extends GridPane implements ProductType {
 	private ComboBox<BeerType> cmbBeerType;
 	private GridPane grid;
 	private Controller controller;
-	
+
 	private BeerType selectedBeerType;
 
 	/**
@@ -46,55 +46,52 @@ public class ProductBeer extends GridPane implements ProductType {
         this.grid = grid;
         // grabs our controller
         this.controller = Controller.getController();
-        
+
         // label for size textfield
         lblSize = new Label("Enter size:");
         grid.add(lblSize, 0, 2);
-        
+
         // input size textfield
         txtSize = new TextField();
-        grid.add(txtSize, 0, 3, 1, 1);
-        
+        grid.add(txtSize, 0, 3);
+
         // Label for unit textfield
         lblUnit = new Label("Enter unit:");
         grid.add(lblUnit, 1, 2);
-        
+
         // input unit textfield
         txtUnit = new TextField();
-        grid.add(txtUnit, 1, 3, 1, 1);
-        
+        grid.add(txtUnit, 1, 3);
+
         // label for AlcoholPercentage textfield
         lblAlcoholPercentage = new Label("Enter alcoholpercentage %:");
         grid.add(lblAlcoholPercentage, 0, 4);
-        
+
         // input AlcoholPercentage textfield
         txtAlcoholPercentage = new TextField();
-        grid.add(txtAlcoholPercentage, 0, 5, 1, 1);
-        
-        
+        grid.add(txtAlcoholPercentage, 0, 5);
+
         // label for Beer type textfield
         lblBeerType = new Label("choose Beer Type:");
         grid.add(lblBeerType, 1, 4);
-        
+
         // combo box hour
         cmbBeerType = new ComboBox<>();
         cmbBeerType.setPrefWidth(175);
         cmbBeerType.getItems().addAll(BeerType.values());
         cmbBeerType.getSelectionModel().selectFirst();
         selectedBeerType = cmbBeerType.getSelectionModel().getSelectedItem();
-        grid.add(cmbBeerType, 1, 5, 1, 1);
-        
+        grid.add(cmbBeerType, 1, 5);
+
         // label for type textfield
         lblType = new Label("enter a type:");
         grid.add(lblType, 0, 6);
-        
+
         // type textfield
         txtType = new TextField();
         grid.add(txtType, 0, 7);
-        
-        
 	}
-	
+
 	/**
 	 * Method to create new product beer.
 	 */
@@ -103,26 +100,26 @@ public class ProductBeer extends GridPane implements ProductType {
 		double alcoholPercentage = 0;
 		String unit = "";
 		String type = "";
-		
+
 		try {
 			// checks if size is a valid number
 			size = Integer.parseInt(txtSize.getText().trim());
-			
+
 			// Checks if an unit has been entered.
 			if (txtUnit.getText().length() >= 1) {
 				unit = txtUnit.getText().trim();
 			}
-		
+
 			// Checks if the alcohoPercentage is a valid decimal number
 			alcoholPercentage = Double.parseDouble(txtAlcoholPercentage.getText().trim());
-			
+
 			// Checks if a type was entered
 			if (txtType.getText().length() >= 1) {
 				type = txtType.getText().trim();
 			}
-			
+
 			selectedBeerType = cmbBeerType.getSelectionModel().getSelectedItem();
-			
+
 		} catch(NumberFormatException error) {
 			System.out.println(error.getMessage() + " input fields must contain a real number");
 		} catch(NullPointerException err) {
@@ -139,7 +136,8 @@ public class ProductBeer extends GridPane implements ProductType {
 		// deleting all elements from grid.
 		grid.getChildren().removeAll(
 				lblSize, lblUnit, lblAlcoholPercentage,
-				lblBeerType, lblType, txtSize, txtUnit, txtAlcoholPercentage, cmbBeerType, txtType
+				lblBeerType, lblType, txtSize, txtUnit,
+				txtAlcoholPercentage, cmbBeerType, txtType
 				);
 	}
 }
