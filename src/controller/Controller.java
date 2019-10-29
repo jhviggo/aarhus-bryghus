@@ -6,7 +6,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.IllegalStateException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import storage.Storage;
@@ -148,6 +152,12 @@ public class Controller {
         Storage.addProduct(product);
         return product;
     }
+    
+    public Product createProductClipCard(String productName, ProductGroup productGroup) {
+    	Product product = new ClipCard(productName, productGroup);
+    	Storage.addProduct(product);
+    	return product;
+    }
 
     public void deleteProduct(Product product) {
         product.removeProductGroup();
@@ -208,6 +218,34 @@ public class Controller {
     public ArrayList<PriceList> getPriceLists() {
         return Storage.getPriceLists();
     }
+    
+    /**
+     * Method to create a ClipCard product
+     * @param amountOfClips, purchaseDate
+     * @return clipCard
+     */
+    public ClipCard createClipCard(String productName, ProductGroup productGroup) {
+    	ClipCard clipCard = new ClipCard(productName, productGroup);
+    	Storage.addClipCard(clipCard);
+		return clipCard;
+    }
+    
+    /**
+     * Method to delete a clipCard
+     * @param clipCard
+     */
+    public void deleteClipCard(ClipCard clipCard) {
+    	Storage.removeClipCard(clipCard);
+    }
+    
+    /**
+     * Method to get all ClipCards from storage.
+     * @return ArrayList clipCards
+     */
+    public ArrayList<ClipCard> getClipCards() {
+    	return Storage.getClipCards();
+    }
+    
 
     public ArrayList<Product> getProductsInPriceList(PriceList priceList) {
         return priceList.getProducts();
@@ -389,8 +427,6 @@ public class Controller {
         //Grains
         Product p61 = createProductRawMaterial("Malt 25kg", pg11, 25);
 
-
-
         PriceList pl1 = createPriceList("Default");
         PriceList pl2 = createPriceList("Fredagsbar");
 
@@ -509,5 +545,59 @@ public class Controller {
         createOrderLine(p2, pl1, 5, o2);
         createOrderLine(p4, pl1, 3, o2);
         updateOrder(LocalDateTime.now(), OrderStatusType.DONE, PaymentMethod.CREDITCARD, o2);
+        
+        // ClipCards
+        Product clip1 = createProductClipCard("klippe kort", pg1);
+        Product clip2 = createProductClipCard("klippe kort", pg2);
+        Product clip3 = createProductClipCard("klippe kort", pg1);
+        Product clip4 = createProductClipCard("klippe kort", pg2);
+        Product clip5 = createProductClipCard("klippe kort", pg1);
+        Product clip6 = createProductClipCard("klippe kort", pg2);
+        
+        addProductToPriceList(clip1, 100, pl2);
+        addProductToPriceList(clip2, 100, pl2);
+        addProductToPriceList(clip3, 100, pl2);
+        addProductToPriceList(clip4, 100, pl2);
+        addProductToPriceList(clip5, 100, pl1);
+        addProductToPriceList(clip6, 100, pl1);
+        
+        addProductToPriceList(p1, 36, pl1);
+        addProductToPriceList(p2, 36, pl1);
+        addProductToPriceList(p3, 36, pl1);
+        addProductToPriceList(p4, 30, pl1);
+        addProductToPriceList(p5, 30, pl1);
+        addProductToPriceList(p6, 30, pl1);
+        addProductToPriceList(p7, 300, pl1);
+        addProductToPriceList(p8, 500, pl1);
+        addProductToPriceList(p9, 775, pl1);
+        addProductToPriceList(p10, 625, pl1);
+        addProductToPriceList(p11, 775, pl1);
+        addProductToPriceList(p12, 400, pl1);
+        addProductToPriceList(p13, 400, pl1);
+        addProductToPriceList(p14, 555, pl1);
+
+        addProductToPriceList(p1, 50, pl2);
+        addProductToPriceList(p2, 50, pl2);
+        addProductToPriceList(p3, 50, pl2);
+        addProductToPriceList(p4, 50, pl2);
+        addProductToPriceList(p5, 50, pl2);
+        addProductToPriceList(p6, 50, pl2);
+        
+        // Orders
+        Order co1 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.AUGUST, 11), LocalTime.of(17, 45)), OrderStatusType.DONE);
+        Order co2 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.AUGUST, 12), LocalTime.of(14, 31)), OrderStatusType.DONE);
+        Order co3 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.AUGUST, 12), LocalTime.of(15, 02)), OrderStatusType.DONE);
+        Order co4 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.OCTOBER, 29), LocalTime.of(9, 54)), OrderStatusType.CREATED);
+        Order co5 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.OCTOBER, 10), LocalTime.of(16, 30)), OrderStatusType.PROGRESS);
+        Order co6 = createOrder(LocalDateTime.of(LocalDate.of(2019, Month.OCTOBER, 10), LocalTime.of(17, 15)), OrderStatusType.PROGRESS);
+        
+        
+        // Orderlins containing order on clipcards
+        OrderLine ol1 = createOrderLine(clip1, pl2, 1, co1);
+        OrderLine ol2 = createOrderLine(clip1, pl2, 3, co2);
+        OrderLine ol3 = createOrderLine(clip1, pl2, 5, co3);
+        OrderLine ol4 = createOrderLine(clip1, pl2, 7, co4);
+        OrderLine ol5 = createOrderLine(clip1, pl1, 2, co5);
+        OrderLine ol6 = createOrderLine(clip1, pl1, 1, co6);
     }
 }
