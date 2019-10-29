@@ -44,15 +44,22 @@ public class Main extends Application {
         Tab tabOrder = new Tab("Orders");
         Tab tabRegister = new Tab("Register new product");
         Tab tabPriceList = new Tab("Manage pricelists");
+        Tab tabExportInventory = new Tab("Export inventory");
+        Tab tabJourneyTicket = new Tab("Journey-ticket");
         //Tab udtræk
         //Tab ikke aflevere produkter
         //Tab rundvisning
 
         tabOrder.setContent(new OrdersPane());
         tabPriceList.setContent(new PriceListPane());
+        tabOrder.setContent(new RegisterSalePane());
+        tabPriceList.setContent(new PriceListPane());
+        tabJourneyTicket.setContent(new TicketPane());
 
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);
         tabPane.getTabs().add(tabPriceList);
+        tabPane.getTabs().add(tabExportInventory);
+        tabPane.getTabs().add(tabJourneyTicket);
     }
 }
