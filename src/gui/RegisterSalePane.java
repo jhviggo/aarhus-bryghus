@@ -53,13 +53,13 @@ public class RegisterSalePane extends GridPane {
         cmbPriceList.getItems().setAll(controller.getPriceLists());
         this.add(cmbPriceList, 0, 2);
         cmbPriceList.getSelectionModel().select(0);
+        cmbPriceList.setOnAction(event -> this.updateProducts());
         btnLockPriceList = new Button("\uD83D\uDD13");
         btnLockPriceList.setOnAction(event -> this.setLockPriceList());
         this.add(btnLockPriceList, 1, 2);
 
         this.add(new Label("Choose product"), 0, 3);
         lstProducts.setPrefSize(400,400);
-        lstProducts.getItems().setAll(controller.getProducts());
         this.add(lstProducts, 0, 4, 1, 3);
 
         this.add(new Label("Amount"), 1, 3);
@@ -99,6 +99,13 @@ public class RegisterSalePane extends GridPane {
         btnExport = new Button("Export all previous orders");
         btnExport.setOnAction(event -> controller.exportOrders());
         this.add(btnExport, 2, 12);
+
+        updateProducts();
+    }
+
+    private void updateProducts() {
+        PriceList pl = this.cmbPriceList.getSelectionModel().getSelectedItem();
+        lstProducts.getItems().setAll(controller.getProductsInPriceList(pl));
     }
 
     private void setLockPriceList() {
