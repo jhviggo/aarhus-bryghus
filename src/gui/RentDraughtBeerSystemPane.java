@@ -16,6 +16,7 @@ public class RentDraughtBeerSystemPane extends GridPane {
 	 * Components
 	 */
 	private Controller controller;
+	private RentDraughtBeerSystemDialog rentDraughtBeerSystemDialog;
 	
 	private Label lblRentedProducts;
 	private Label lblCreateRent;
@@ -24,7 +25,7 @@ public class RentDraughtBeerSystemPane extends GridPane {
 	private TextField txtTotalProducts;
 	private ListView<Product> lvRentedProducts;
 	private ComboBox<PriceList> cmbPriceList;
-	private Button btnCreateRent;
+	private Button btnOpenDialog;
 	
 	/**
 	 * Constructor rent pane
@@ -48,18 +49,20 @@ public class RentDraughtBeerSystemPane extends GridPane {
 		//lvRentedProducts.getItems().setAll();
 		
 		// button to create a rent of product DraughtBeerSystem
-		btnCreateRent = new Button("Create Rent");
-		this.add(btnCreateRent, 3, 1);
+		btnOpenDialog = new Button("Create Rent");
+		this.add(btnOpenDialog, 3, 1);
 		
 		// attaches a click event handler
-		btnCreateRent.setOnAction(e -> this.createRentDraughtBeerSystem());
+		btnOpenDialog.setOnAction(e -> this.openRentDraughtBeerSystemDialog());
 		
 	}
 	
 	/**
-	 * Method to create a rent of a draughtbeersystem
+	 * Method to open DraughtBeerSystemDialog
 	 */
-	public void createRentDraughtBeerSystem() {
-		
+	public void openRentDraughtBeerSystemDialog() {
+		rentDraughtBeerSystemDialog = new RentDraughtBeerSystemDialog();
+		System.out.println(rentDraughtBeerSystemDialog);
+		rentDraughtBeerSystemDialog.showAndWait();
 	}
 }
