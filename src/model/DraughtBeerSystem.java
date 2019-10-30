@@ -19,8 +19,11 @@ public class DraughtBeerSystem extends Product {
      * @param startDate
      * @param endDate
      */
-    public DraughtBeerSystem(String productName, ProductGroup productGroup, int numberOfTaps) {
+    public DraughtBeerSystem(String productName, ProductGroup productGroup, int numberOfTaps, 
+    		LocalDateTime startDate, LocalDateTime endDate) {
         super(productName, productGroup);
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.numberOfTaps = numberOfTaps;
     }
 
