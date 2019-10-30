@@ -46,6 +46,7 @@ public class Main extends Application {
         Tab tabPriceList = new Tab("Manage pricelists");
         Tab tabExportInventory = new Tab("Export inventory");
         Tab tabJourneyTicket = new Tab("Journey-ticket");
+        Tab tabRentDraughtBeerSystem = new Tab("Rent DraughtBeerSystem");
         //Tab udtræk
         //Tab ikke aflevere produkter
         //Tab rundvisning
@@ -54,11 +55,13 @@ public class Main extends Application {
         tabPriceList.setContent(new PriceListPane());
         tabPriceList.setContent(new PriceListPane());
         tabJourneyTicket.setContent(new TicketPane());
+        tabRentDraughtBeerSystem.setContent(new RentDraughtBeerSystemPane());
 
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);
         tabPane.getTabs().add(tabPriceList);
         tabPane.getTabs().add(tabExportInventory);
         tabPane.getTabs().add(tabJourneyTicket);
+        tabPane.getTabs().add(tabRentDraughtBeerSystem);
     }
 }
