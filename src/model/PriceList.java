@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class PriceList {
@@ -9,13 +10,16 @@ public class PriceList {
 	 * Attributes
 	 */
 	private String type;
-	HashMap<Product, Double> productsInPriceList;
-	HashMap<GiftBoxType, Double> giftBoxPrices;
+	private HashMap<Product, Double> productsInPriceList;
+	private HashMap<GiftBoxType, Double> giftBoxPrices;
+	private ArrayList<Product> giftboxes;
+
 
 	public PriceList(String type) {
 		this.type = type;
 		productsInPriceList = new HashMap<>();
 		giftBoxPrices = new HashMap<>();
+		giftboxes = new ArrayList<>();
 	}
 
 	public PriceList(String type, HashMap<Product, Double> productsInPriceList,
@@ -32,6 +36,9 @@ public class PriceList {
 	public void setPrice(Product product, double price) {
 		if (product instanceof GiftBox) {
 			giftBoxPrices.put(((GiftBox) product).getType(), price);
+			if (!giftboxes.contains(product)) {
+				giftboxes.add(product);
+			}
 		} else {
 			productsInPriceList.put(product, price);
 		}
@@ -64,13 +71,17 @@ public class PriceList {
 
 		productsInPriceList
 				.entrySet()
-				.forEach(item -> productPricesList.add(item.getKey().getProductName() + "  -  " + item.getValue() + "kr"));
+				.forEach(item -> productPricesList.add(item.getKey().getProductName()
+						+ "  -  " + item.getValue() + "kr"));
 
 		return productPricesList;
 	}
 
 	public ArrayList<Product> getProducts() {
-		return new ArrayList<>(this.productsInPriceList.keySet());
+		ArrayList<Product> result = new ArrayList<>(this.productsInPriceList.keySet());
+		Collections.sort(result);
+		result.addAll(giftboxes);
+		return result;
 	}
 
 	@Override
