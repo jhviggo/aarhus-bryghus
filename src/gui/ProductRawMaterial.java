@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import model.ProductGroup;
 
-public class ProductGrain extends GridPane implements ProductType {
+public class ProductRawMaterial extends GridPane implements ProductType {
 
 	/**
 	 * Components
@@ -18,16 +18,14 @@ public class ProductGrain extends GridPane implements ProductType {
 	private GridPane grid;
 
 	/**
-	 * Constructor for productGrain pane.
+	 * Constructor for productRawMaterial pane.
 	 * @param grid
 	 */
-	public ProductGrain(GridPane grid) {
+	public ProductRawMaterial(GridPane grid) {
         grid.setPadding(new Insets(20));
         this.grid = grid;
-        // grabs controller
         controller = Controller.getController();
 
-        // Label weight
         lblWeight = new Label("Enter weight:");
         grid.add(lblWeight, 0,2);
 
@@ -36,11 +34,11 @@ public class ProductGrain extends GridPane implements ProductType {
 	}
 
 	/**
-	 * Method to create product grain
-	 * @param ProductGroup productgroup, String productName
+	 * Method to create product raw material
+	 * @param productgroup
+	 * @param productName
 	 */
 	public void create(ProductGroup productgroup, String productName) {
-		// double created to hold weight textfield value.
 		double weight = 0;
 		try {
 			weight = Double.parseDouble(txtWeight.getText().trim());
@@ -50,8 +48,7 @@ public class ProductGrain extends GridPane implements ProductType {
 			System.out.println(err.getMessage());
 		}
 		finally {
-			// call createProductGrain method from controller.
-			this.controller.createProductGrain(productName, productgroup, weight);
+			this.controller.createProductRawMaterial(productName, productgroup, weight);
 		}
 
 	}
@@ -60,7 +57,6 @@ public class ProductGrain extends GridPane implements ProductType {
 	 * Method to delete all components, used to cleanse pane.
 	 */
 	public void delete() {
-		// deleting all elements from grid.
 		grid.getChildren().removeAll(
 				lblWeight, txtWeight
 				);

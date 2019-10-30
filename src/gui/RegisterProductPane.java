@@ -7,18 +7,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.collections.*;
-import javafx.stage.Stage;
-import javafx.scene.text.Text.*;
-import javafx.scene.paint.*;
-import javafx.scene.text.*;
 import model.ProductGroup;
 
 public class RegisterProductPane extends GridPane {
@@ -26,21 +16,19 @@ public class RegisterProductPane extends GridPane {
 	 * Components
 	 */
 	private ComboBox<ProductGroup> cmbProductGroup;
-	private Button btnCancel;
-	private Button btnSave;
 	private TextField txtProductName;
 	private Label lblProductGroup;
 	private Label lblProductName;
+	private Label lblError;
 	private Button btnCreate;
 
 	/**
 	 * Dynamic components.
 	 */
-	private GridPane grid;
 	private ProductBeer productBeerPane;
 	private ProductSpirit productSpiritusPane;
 	private ProductDraughtBeerSystem productDraughtBeerSystem;
-	private ProductGrain productGrain;
+	private ProductRawMaterial productRawMaterial;
 	private ProductType selectedProductType;
 	private ProductGroup selectedProductGroup;
 	private String selectedProductGroupName;
@@ -75,23 +63,9 @@ public class RegisterProductPane extends GridPane {
         // Selected product group index
         selectedProductGroup = cmbProductGroup.getSelectionModel().getSelectedItem();
 
-        // EventHandler to handle selected index changed event.
-        // Create action event
-        EventHandler<ActionEvent> event =
-                  new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e)
-            {
-            	// stores the new selected item product group name
-                selectedProductGroupName = cmbProductGroup.getSelectionModel().getSelectedItem().getType();
-                // Calls buildPane
-                buildPane();
-            }
-        };
-
-        cmbProductGroup.setOnAction(event);
+        cmbProductGroup.setOnAction(event -> buildPane());
         selectedProductGroupName = cmbProductGroup.getSelectionModel().getSelectedItem().getType();
 
-        // cmbProductGroup.getOnMouseClicked(this.openDynamicPane());
         this.add(cmbProductGroup, 0, 1);
 
         // Label product name
@@ -110,13 +84,28 @@ public class RegisterProductPane extends GridPane {
         // Add Click event to button btnOpret.
         btnCreate.setOnAction(e -> this.createSelection());
 
+        this.lblError = new Label();
+        this.add(lblError, 0, 8);
+
         // build pane with current seleted product inputfields.
         buildPane();
 	}
 
 	private void createSelection() {
-		if (this.selectedProductType != null) {
-			this.selectedProductType.create(this.selectedProductGroup, this.productName);
+		try {
+			this.productName = txtProductName.getText();
+
+			if (this.productName.length() < 1) {
+				throw new RuntimeException("Products must have a name");
+			}
+
+			if (this.selectedProductGroupName == null) {
+				throw new RuntimeException("A product group must be selected");
+			}
+
+			this.selectedPane.create(this.selectedProductGroup, this.productName);
+		} catch (RuntimeException e) {
+			this.lblError.setText(e.getMessage());
 		}
 	}
 
@@ -126,6 +115,9 @@ public class RegisterProductPane extends GridPane {
 	 */
 	public void buildPane() {
 		this.clearPane();
+		this.selectedProductGroupName = cmbProductGroup.getSelectionModel().getSelectedItem().getType();
+
+		System.out.println(this.selectedProductGroupName);
 
 		switch(this.selectedProductGroupName) {
 			case "spiritus":
@@ -140,9 +132,9 @@ public class RegisterProductPane extends GridPane {
 
 			break;
 			case "kulsyre":
-				productGrain = new ProductGrain(this);
-				selectedPane = this.productGrain;
-				this.add(productGrain, 0, 5);
+				productRawMaterial = new ProductRawMaterial(this);
+				selectedPane = this.productRawMaterial;
+				this.add(productRawMaterial, 0, 5);
 		    break;
 			case "flaske":
 			case "fadøl":

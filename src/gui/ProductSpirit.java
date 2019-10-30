@@ -34,7 +34,6 @@ public class ProductSpirit extends GridPane implements ProductType {
 	public ProductSpirit(GridPane grid) {
 		grid.setPadding(new Insets(20));
 		this.grid = grid;
-        // grabs controller
         controller = Controller.getController();
 
         // label size input.
@@ -71,7 +70,8 @@ public class ProductSpirit extends GridPane implements ProductType {
 
 	/**
 	 * Method to create an spirit product.
-	 * @param productgroup, productName
+	 * @param productgroup
+	 * @param productName
 	 */
 	public void create(ProductGroup productgroup, String productName) {
 		int size = 0;
@@ -93,15 +93,15 @@ public class ProductSpirit extends GridPane implements ProductType {
 
 			// checks if the input value alcoholpercentage is a valid double
 			alcoholPercentage = Double.parseDouble(txtAlcoholPercentage.getText().trim());
+
+			Product p = this.controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
+			System.out.println(p);
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 		} catch (NumberFormatException err) {
 			System.out.println(err.getMessage());
 		} catch(RuntimeException e) {
 			System.out.println(e.getMessage());
-		} finally {
-			// calls controller method to create product spirit
-			this.controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
 		}
 
 	}
