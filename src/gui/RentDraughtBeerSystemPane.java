@@ -57,12 +57,14 @@ public class RentDraughtBeerSystemPane extends GridPane {
 		
 	}
 	
+	
 	/**
 	 * Method to open DraughtBeerSystemDialog
 	 */
 	public void openRentDraughtBeerSystemDialog() {
 		rentDraughtBeerSystemDialog = new RentDraughtBeerSystemDialog();
-		System.out.println(rentDraughtBeerSystemDialog);
 		rentDraughtBeerSystemDialog.showAndWait();
 	}
+	
+	
 }
