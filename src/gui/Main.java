@@ -8,6 +8,8 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import controller.Controller;
+
 public class Main extends Application {
 
     public static void main(String[] args) {
@@ -16,7 +18,8 @@ public class Main extends Application {
 
     @Override
     public void init() {
-
+    	Controller controller = Controller.getController();
+    	controller.initializeData();
     }
 
     @Override
@@ -54,6 +57,7 @@ public class Main extends Application {
         tabPriceList.setContent(new PriceListPane());
         tabPriceList.setContent(new PriceListPane());
         tabJourneyTicket.setContent(new TicketPane());
+        tabRegister.setContent(new RegisterProductPane());
 
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);

@@ -26,7 +26,6 @@ public class OrdersPane extends GridPane {
         this.setGridLinesVisible(false);
 
         controller = Controller.getController();
-        controller.initializeData();
 
         this.add(new Label("Orders"), 0, 0);
         lstOrders = new ListView<>();

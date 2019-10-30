@@ -120,7 +120,7 @@ public class Controller {
         return product;
     }
 
-    public Product createProductGuidedTour(String productName, ProductGroup productGroup, LocalDateTime dateTime, int duration) {
+    public Product createProductGuidedTour(String productName, ProductGroup productGroup, LocalDateTime dateTime, double duration) {
         Product product = new GuidedTour(productName, productGroup, dateTime, duration);
         Storage.addProduct(product);
         return product;
@@ -423,7 +423,7 @@ public class Controller {
         Product p60 = createGiftBox("Papkasse 12 øl",
                 pg6, GiftBoxType.TWELVEBEERSCARDBOARD);
 
-        //Grains
+        // Raw material
         Product p61 = createProductRawMaterial("Malt 25kg", pg11, 25);
 
         PriceList pl1 = createPriceList("Default");
@@ -465,7 +465,7 @@ public class Controller {
         //Carbon dioxide default
         pl1.setPrice(p45, 400);
 
-        //Grains default
+        //Raw material default
         pl1.setPrice(p61, 300);
 
         //Clothing default
