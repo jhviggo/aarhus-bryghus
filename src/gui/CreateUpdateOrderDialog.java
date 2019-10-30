@@ -255,6 +255,9 @@ public class CreateUpdateOrderDialog extends Stage {
                     Integer.parseInt(txfAmount.getText()), order);
             updateOrderLines();
         }
+        catch (NumberFormatException e) {
+            lblError.setText("Amount must be a number");
+        }
         catch (Exception e) {
             lblError.setText(e.getMessage());
         }
@@ -302,6 +305,10 @@ public class CreateUpdateOrderDialog extends Stage {
             } else {
                 controller.setPriceOverrideOnOrder(-1, order);
             }
+        }
+        catch (NumberFormatException e) {
+            lblError.setText("Price override must be a number");
+            return;
         }
         catch (Exception e) {
             lblError.setText(e.getMessage());
