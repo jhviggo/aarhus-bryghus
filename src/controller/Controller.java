@@ -92,8 +92,7 @@ public class Controller {
 
     public void addProductToGiftBox(GiftBox giftBox, Beer beer) {
         if (!giftBox.addProduct(beer)) {
-            throw new IllegalStateException("The giftbox is either full, or" +
-                    " you tried to add an invalid product.");
+            throw new IllegalStateException("The giftbox is full");
         }
     }
 
