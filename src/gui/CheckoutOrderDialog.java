@@ -1,8 +1,6 @@
 package gui;
 
 import controller.Controller;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

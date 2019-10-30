@@ -17,7 +17,6 @@ import model.BeerType;
 import model.GiftBox;
 import model.Product;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AddGiftboxDialog extends Stage {
