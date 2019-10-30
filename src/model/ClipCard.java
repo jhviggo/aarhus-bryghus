@@ -1,7 +1,5 @@
 package model;
 
-import java.time.LocalDateTime;
-
 public class ClipCard extends Product {
 
 	/**
@@ -11,6 +9,6 @@ public class ClipCard extends Product {
 		super(productName, productGroup);
 	}
 
-	
-	
+
+
 }
