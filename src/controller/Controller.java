@@ -132,8 +132,8 @@ public class Controller {
         return product;
     }
 
-    public Product createProductDraughtBeerSystem(String productName, ProductGroup productGroup, int numberOfTabs) {
-        Product product = new DraughtBeerSystem(productName, productGroup, numberOfTabs);
+    public Product createProductDraughtBeerSystem(String productName, ProductGroup productGroup, int numberOfTabs, LocalDateTime startDate, LocalDateTime endDate) {
+        Product product = new DraughtBeerSystem(productName, productGroup, numberOfTabs, startDate, endDate);
         Storage.addProduct(product);
         return product;
     }
@@ -400,12 +400,13 @@ public class Controller {
         Product p48 = createProductAccessory("T-Shirt", pg8, "L");
         Product p49 = createProductAccessory("Polo", pg8, "L");
         Product p50 = createProductAccessory("Cap", pg8, "One-size");
+        
 
         //Draught Beer Systems
-        Product p51 = createProductDraughtBeerSystem("Fadølsanlæg 1 hane", pg9, 1);
-        Product p52 = createProductDraughtBeerSystem("Fadølsanlæg 2 haner", pg9, 2);
+        Product p51 = createProductDraughtBeerSystem("Fadølsanlæg 1 hane", pg9, 1, LocalDateTime.of(2019, Month.OCTOBER, 1, 13, 30), LocalDateTime.of(2019, Month.DECEMBER, 1, 12, 00));
+        Product p52 = createProductDraughtBeerSystem("Fadølsanlæg 2 haner", pg9, 2, LocalDateTime.of(2019, Month.OCTOBER, 15, 20, 00), LocalDateTime.of(2019, Month.NOVEMBER, 1, 10, 30));
         Product p53 = createProductDraughtBeerSystem("Fadølsanlæg med flere haner",
-                pg9, 0);
+                pg9, 0, LocalDateTime.of(2019, Month.OCTOBER, 10, 18, 00), LocalDateTime.of(2019, Month.NOVEMBER, 3, 12, 45));
 
         //Giftboxes
         Product p54 = createGiftBox("Gaveæske 2 øl, 2 glas",
