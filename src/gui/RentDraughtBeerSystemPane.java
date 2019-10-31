@@ -1,5 +1,9 @@
 package gui;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+
 import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -8,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.DraughtBeerSystem;
 import model.PriceList;
 import model.Product;
 
@@ -17,14 +22,12 @@ public class RentDraughtBeerSystemPane extends GridPane {
 	 */
 	private Controller controller;
 	private RentDraughtBeerSystemDialog rentDraughtBeerSystemDialog;
+	private ArrayList<Product> systems;
 	
 	private Label lblRentedProducts;
-	private Label lblCreateRent;
-	private Label lblPriceList;
-	private Label lblTotalProducts;
-	private TextField txtTotalProducts;
-	private ListView<Product> lvRentedProducts;
-	private ComboBox<PriceList> cmbPriceList;
+	private Label lblProductsNotReturned;
+	private ListView<Product> lvProducts;
+	private ListView<Product> lvProductsNotReturned;
 	private Button btnOpenDialog;
 	
 	/**
@@ -38,19 +41,30 @@ public class RentDraughtBeerSystemPane extends GridPane {
 
 		// grabs controller
 		this.controller = Controller.getController();
+		// fills systems array with products
+		systems = controller.getProducts();
 		
 		// label for rented products
-		lblRentedProducts = new Label("Rented products:");
+		lblRentedProducts = new Label("All products:");
 		this.add(lblRentedProducts, 0, 0);
 		
 		// listView rent products
-		lvRentedProducts = new ListView<>();
-		this.add(lvRentedProducts, 0, 1, 2, 3);
-		//lvRentedProducts.getItems().setAll();
+		lvProducts = new ListView<>();
+		this.add(lvProducts, 0, 1, 2, 3);
+		populateProductsListView();
+		
+		// label products not returned
+		lblProductsNotReturned = new Label("Products not returned:");
+		this.add(lblProductsNotReturned, 2, 0);
+		
+		// listView containing not returned products
+		lvProductsNotReturned = new ListView<>();
+		this.add(lvProductsNotReturned, 2, 1, 2, 3);
+		populateListViewNotReturnedProducts(); 
 		
 		// button to create a rent of product DraughtBeerSystem
 		btnOpenDialog = new Button("Create Rent");
-		this.add(btnOpenDialog, 3, 1);
+		this.add(btnOpenDialog, 0, 5);
 		
 		// attaches a click event handler
 		btnOpenDialog.setOnAction(e -> this.openRentDraughtBeerSystemDialog());
@@ -64,6 +78,62 @@ public class RentDraughtBeerSystemPane extends GridPane {
 	public void openRentDraughtBeerSystemDialog() {
 		rentDraughtBeerSystemDialog = new RentDraughtBeerSystemDialog();
 		rentDraughtBeerSystemDialog.showAndWait();
+	
+		refreshProducts();
+		refreshNotReturnedProducts();
+	}
+	
+	/**
+	 * Method to populate listView with non delivered products
+	 */
+	public void populateListViewNotReturnedProducts() {
+		ArrayList<Product> missingProducts = new ArrayList<>();
+		systems = controller.getProducts();
+		for (Product p : systems) {
+			if (p instanceof DraughtBeerSystem && ((DraughtBeerSystem) p).getEndDate().isBefore(LocalDate.now())) {
+				missingProducts.add(p);
+			}
+		}
+		lvProductsNotReturned.getItems().addAll(missingProducts);
+	}
+	
+	/**
+	 * Method to refresh listView with not returned products
+	 */
+	public void refreshNotReturnedProducts() {
+		ArrayList<Product> missingProducts = new ArrayList<>();
+		systems = controller.getProducts();
+		for (Product p: systems) {
+			if (p instanceof DraughtBeerSystem && ((DraughtBeerSystem) p).getEndDate().isBefore(LocalDate.now())) {
+				missingProducts.add(p);
+			}
+		}
+		lvProductsNotReturned.getItems().setAll(missingProducts);
+	}
+	
+	/**
+	 * Method to refresh DraughtBeerSystems
+	 */
+	public void refreshProducts() {
+		ArrayList<Product> systemProducts = new ArrayList<>();
+		systems = controller.getProducts();
+		for (Product p : systems) {
+			if (p instanceof DraughtBeerSystem) {
+				systemProducts.add(p);
+			}
+		}
+		lvProducts.getItems().setAll(systemProducts);
+	}
+	
+	/**
+	 * Method to populate product listView
+	 */
+	public void populateProductsListView() {
+		for (Product p : systems) {
+			if (p instanceof DraughtBeerSystem) {
+				lvProducts.getItems().add(p);
+			}
+		}
 	}
 	
 	
