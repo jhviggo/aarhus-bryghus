@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DraughtBeerSystem extends Product {
@@ -8,8 +9,8 @@ public class DraughtBeerSystem extends Product {
 	 * Attributes
 	 */
 	private int numberOfTaps;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     
     /**
      * Constructor
@@ -20,7 +21,7 @@ public class DraughtBeerSystem extends Product {
      * @param endDate
      */
     public DraughtBeerSystem(String productName, ProductGroup productGroup, int numberOfTaps, 
-    		LocalDateTime startDate, LocalDateTime endDate) {
+    		LocalDate startDate, LocalDate endDate) {
         super(productName, productGroup);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -39,7 +40,7 @@ public class DraughtBeerSystem extends Product {
      * Method to set value of start date for rent
      * @param startDate
      */
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
     	this.startDate = startDate;
     }
     
@@ -47,7 +48,7 @@ public class DraughtBeerSystem extends Product {
      * Method to get start date of rent
      * @return startDate
      */
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
     	return this.startDate;
     }
     
@@ -55,7 +56,7 @@ public class DraughtBeerSystem extends Product {
      * Method to set end date of rent
      * @param endDate
      */
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
     	this.endDate = endDate;
     }
     
@@ -63,7 +64,7 @@ public class DraughtBeerSystem extends Product {
      * Method to get end date of rent
      * @return
      */
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
     	return this.endDate;
     }
 
