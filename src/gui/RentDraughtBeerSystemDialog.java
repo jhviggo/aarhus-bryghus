@@ -1,5 +1,6 @@
 package gui;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -28,10 +29,6 @@ public class RentDraughtBeerSystemDialog extends Stage {
 	private Label lblProductGroup;
 	private Label lblStartDate;
 	private Label lblEndDate;
-	private Label lblStartMinLeft;
-	private Label lblStartHourLeft;
-	private Label lblStartMinRight;
-	private Label lblStartHourRight;
 	private Label lblNumOfTaps;
 	private ComboBox<ProductGroup> cmbProductGroups;
 	private ComboBox<String>cmbHoursLeft, cmbMinsLeft;
@@ -45,8 +42,8 @@ public class RentDraughtBeerSystemDialog extends Stage {
 	
 	private ProductGroup selectedProductGroup;
 	// variables containing values for date interval.
-	private LocalDateTime selectedStartDate;
-	private LocalDateTime selectedEndDate;
+	private LocalDate selectedStartDate;
+	private LocalDate selectedEndDate;
 	
 	/**
 	 * Constructor for dialog pane
@@ -79,11 +76,6 @@ public class RentDraughtBeerSystemDialog extends Stage {
 
 		// grabs controller
 		this.controller = Controller.getController();
-		
-		String[] hours = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-				,"16","17","18","19","20","21","22","23","23"};
-		String[] minuts = {"0","15","30","45"};
-		
 		
 		// label product name
 		lblProductName = new Label("enter product name:");
@@ -119,75 +111,18 @@ public class RentDraughtBeerSystemDialog extends Stage {
 		dpEndDate = new DatePicker();
 		grid.add(dpEndDate, 1, 3);
 		
-		// boxes containing hour and min selection
-		HBox left = new HBox();
-		HBox right = new HBox();
-		grid.add(left, 0, 4, 2, 2);
-		grid.add(right, 1, 4, 2, 2);
-		
-		// label select start hour
-		lblStartHourLeft = new Label("Hours:");
-		grid.add(lblStartHourLeft, 0, 4);
-		
-		// hours options 
-		cmbHoursLeft = new ComboBox<>();
-		cmbHoursLeft.setPrefWidth(30);
-		cmbHoursLeft.getItems().addAll(hours);
-		grid.add(cmbHoursLeft, 0, 5);
-	
-		// label select start minuts
-		lblStartMinLeft = new Label("Minuts:");
-		grid.add(lblStartMinLeft, 0, 4);
-		
-		// minut options
-		cmbMinsLeft = new ComboBox<>();
-		cmbMinsLeft.setPrefWidth(30);
-		cmbMinsLeft.getItems().addAll(minuts);
-		grid.add(cmbMinsLeft, 0, 5);
-		
-		left.getChildren().add(lblStartHourLeft);
-		left.getChildren().add(cmbHoursLeft);
-		left.getChildren().add(lblStartMinLeft);
-		left.getChildren().add(cmbMinsLeft);
-
-		// label select start hour
-		lblStartHourRight = new Label("Hours:");
-		grid.add(lblStartHourRight, 0, 6);
-	
-		// hours options
-		cmbHoursRight = new ComboBox<>();
-		cmbHoursRight.setPrefWidth(30);
-		cmbHoursRight.getItems().addAll(hours);
-		grid.add(cmbHoursRight, 0, 8);
-		
-		// label select start minuts
-		lblStartMinRight = new Label("Minuts:");
-		grid.add(lblStartMinRight, 0, 6);
-		
-		// minut options
-		cmbMinsRight = new ComboBox<>();
-		cmbMinsLeft.setPrefWidth(30);
-		cmbMinsRight.getItems().addAll(minuts);
-		grid.add(cmbMinsRight, 0, 8);
-		
-		// feeds right container with children .. XD
-		right.getChildren().add(lblStartHourRight);
-		right.getChildren().add(cmbHoursRight);
-		right.getChildren().add(lblStartMinRight);
-		right.getChildren().add(cmbMinsRight);
-		
 		// label number of taps
 		lblNumOfTaps = new Label("Enter number of taps:");
-		grid.add(lblNumOfTaps, 0, 8,1,1);
+		grid.add(lblNumOfTaps, 0, 4,1,1);
 		
 		// textfield number of taps
 		txtNumOfTaps = new TextField();
-		grid.add(txtNumOfTaps, 0, 9, 1, 1);
+		grid.add(txtNumOfTaps, 0, 5, 1, 1);
 		
 		// create button
 		btnCreate = new Button("Create");
-		btnCreate.setPrefWidth(125);
-		grid.add(btnCreate, 1, 9);
+		btnCreate.setPrefWidth(170);
+		grid.add(btnCreate, 1, 5);
 		
 		
 		// attaches click event on create button
@@ -203,12 +138,6 @@ public class RentDraughtBeerSystemDialog extends Stage {
 		int amountOfTaps = 0;
 		// String to hold productName entered value
 		String productName = "";
-	
-		
-		// timestamps for each date
-		LocalTime selectedHBoxLeft;
-		LocalTime selectedHBoxRight;
-		
 		
 		// checks if the received data is correct format
 		try {
@@ -216,26 +145,17 @@ public class RentDraughtBeerSystemDialog extends Stage {
 			selectedProductGroup = cmbProductGroups.getSelectionModel().getSelectedItem();
 			
 			amountOfTaps = Integer.parseInt(txtNumOfTaps.getText().trim());
-
-			// Time value from Hbox left.
-			selectedHBoxLeft = LocalTime.of(Integer.parseInt(cmbHoursLeft.getSelectionModel().getSelectedItem().trim()),
-					Integer.parseInt(cmbMinsLeft.getSelectionModel().getSelectedItem().trim()));
-			
-			// Time value from Hbox right.
-			selectedHBoxRight = LocalTime.of(Integer.parseInt(cmbHoursRight.getSelectionModel().getSelectedItem().trim()),
-					Integer.parseInt(cmbMinsRight.getSelectionModel().getSelectedItem().trim()));
 			
 			// checks if user selected dates
 			if (dpStartDate.getValue() != null && dpEndDate.getValue() != null) {
 				
 				// selected startDate value
-				selectedStartDate = LocalDateTime.of(dpStartDate.getValue().getYear(), 
-						dpStartDate.getValue().getMonth(), dpStartDate.getValue().getDayOfMonth(),
-						selectedHBoxLeft.getHour(), selectedHBoxLeft.getMinute());
+				selectedStartDate = LocalDate.of(dpStartDate.getValue().getYear(), 
+						dpStartDate.getValue().getMonth(), dpStartDate.getValue().getDayOfMonth());
 				
 				// selected endDate value
-				selectedEndDate = LocalDateTime.of(dpEndDate.getValue().getYear(), dpEndDate.getValue().getMonth(),
-						dpEndDate.getValue().getDayOfMonth(), selectedHBoxRight.getHour(), selectedHBoxRight.getMinute());
+				selectedEndDate = LocalDate.of(dpEndDate.getValue().getYear(), dpEndDate.getValue().getMonth(),
+						dpEndDate.getValue().getDayOfMonth());
 			}
 			
 			
