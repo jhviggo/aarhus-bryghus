@@ -403,7 +403,7 @@ public class Controller {
         
 
         //Draught Beer Systems
-        Product p51 = createProductDraughtBeerSystem("Fadølsanlæg 1 hane", pg9, 2, LocalDate.of(2019, Month.OCTOBER, 10), LocalDate.of(201,Month.NOVEMBER, 10));
+        Product p51 = createProductDraughtBeerSystem("Fadølsanlæg 1 hane", pg9, 2, LocalDate.of(2019, Month.OCTOBER, 10), LocalDate.of(2019,Month.OCTOBER, 30));
         Product p52 = createProductDraughtBeerSystem("Fadølsanlæg 2 haner", pg9, 2, LocalDate.of(2019, Month.OCTOBER, 15), LocalDate.of(2019, Month.DECEMBER, 1));
         Product p53 = createProductDraughtBeerSystem("Fadølsanlæg med flere haner",
                 pg9, 0,LocalDate.of(2019, Month.OCTOBER, 12) ,LocalDate.of(2020,Month.FEBRUARY, 28));
