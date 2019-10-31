@@ -165,7 +165,6 @@ public class RentDraughtBeerSystemDialog extends Stage {
 			System.out.println(error + "missing value");
 		} finally {
 			controller.createProductDraughtBeerSystem(productName, selectedProductGroup, amountOfTaps, selectedStartDate, selectedEndDate);
-			
 		}
 		// closes the dialog widget
 		this.hide();
