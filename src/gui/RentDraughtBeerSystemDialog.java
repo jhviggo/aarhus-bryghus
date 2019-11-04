@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.DraughtBeerSystem;
 import model.Product;
 import model.ProductGroup;
 
@@ -38,18 +39,45 @@ public class RentDraughtBeerSystemDialog extends Stage {
 	private TextField txtHour;
 	private TextField txtMin;
 	private DatePicker dpStartDate, dpEndDate;
-	private Button btnCreate;
 	
+	// Constructor with no Arguments.
+	private Button btnCreate;
 	private ProductGroup selectedProductGroup;
 	// variables containing values for date interval.
 	private LocalDate selectedStartDate;
 	private LocalDate selectedEndDate;
 	
+	
+	// constructor with Arguments.
+	private Button btnSave;
+	private DraughtBeerSystem selectedDraughtBeerSystem;
+	
 	/**
-	 * Constructor for dialog pane
+	 * Constructor Create RentDraughtBeerySystem dialog pane
 	 */
 	public RentDraughtBeerSystemDialog() {
         controller = Controller.getController();
+       
+        this.initStyle(StageStyle.UTILITY);
+        this.initModality(Modality.APPLICATION_MODAL);
+        this.setResizable(false);
+        this.setTitle("Rent draughtbeersystem");
+
+        GridPane pane = new GridPane();
+        Scene scene = new Scene(pane);
+        this.initContent(pane);
+        this.setScene(scene);
+	}
+	
+	/**
+	 * Constructor Update RentDraughtBeerySystem dialog pane
+	 */
+	public RentDraughtBeerSystemDialog(DraughtBeerSystem product) {
+		// grabs controller
+        controller = Controller.getController();
+        
+        // stores product
+        selectedDraughtBeerSystem = product;
 
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
@@ -61,6 +89,7 @@ public class RentDraughtBeerSystemDialog extends Stage {
         this.initContent(pane);
         this.setScene(scene);
 	}
+	
 	
 	/**
 	 * Method to create content inside dialog
@@ -78,7 +107,7 @@ public class RentDraughtBeerSystemDialog extends Stage {
 		this.controller = Controller.getController();
 		
 		// label product name
-		lblProductName = new Label("enter product name:");
+		lblProductName = new Label("Enter product name:");
 		grid.add(lblProductName, 0, 0);
 		
 		// text field product name
@@ -119,16 +148,29 @@ public class RentDraughtBeerSystemDialog extends Stage {
 		txtNumOfTaps = new TextField();
 		grid.add(txtNumOfTaps, 0, 5, 1, 1);
 		
-		// create button
-		btnCreate = new Button("Create");
-		btnCreate.setPrefWidth(170);
-		grid.add(btnCreate, 1, 5);
 		
-		
-		// attaches click event on create button
-		btnCreate.setOnAction(e -> this.createRentDraughtBeerSystem());
+		// checks if a product was given as argument in constructor
+		if (selectedDraughtBeerSystem != null) {
+			// save button
+			btnSave = new Button("Save");
+			btnSave.setPrefWidth(170);
+			grid.add(btnSave, 1, 5);
+			// attaches click event to save new changes in selected value
+			btnSave.setOnAction(e -> this.updateSelectedRentDraughtBeerSystem());
+		} 
+		else {
+			// create button
+			btnCreate = new Button("Create");
+			btnCreate.setPrefWidth(170);
+			grid.add(btnCreate, 1, 5);
+			
+			
+			// attaches click event on create button
+			btnCreate.setOnAction(e -> this.createRentDraughtBeerSystem());
+		}
 	}
-
+	
+	
 	
 	/**
 	 * Method to create a new rent of draught beer system
@@ -168,6 +210,21 @@ public class RentDraughtBeerSystemDialog extends Stage {
 		}
 		// closes the dialog widget
 		this.hide();
+	}
+	
+	/**
+	 * Method to setValue in each dialog widget element 
+	 * with the selected product, values in each component
+	 */
+	private void updateSelectedRentDraughtBeerSystem() {
+		txtProductName.setText(selectedDraughtBeerSystem.getProductName());
+		cmbProductGroups.setValue(selectedDraughtBeerSystem.getProductGroup());
+		
+		dpStartDate.setValue(selectedDraughtBeerSystem.getStartDate());
+		dpEndDate.setValue(selectedDraughtBeerSystem.getEndDate());
+		
+		txtNumOfTaps.setText(" " + selectedDraughtBeerSystem.getNumberOfTaps());
+		
 	}
 
 }
