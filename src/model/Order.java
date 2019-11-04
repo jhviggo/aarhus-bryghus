@@ -150,6 +150,13 @@ public class Order {
 	 * @return a new instance of OrderLine.
 	 */
 	public OrderLine createOrderLine(Product product, PriceList priceList, int amount) {
+		if (product == null || priceList == null) {
+			throw new IllegalArgumentException("Product and priceList must not be null");
+		}
+		if (amount < 0) {
+			throw new IllegalArgumentException("amount must be positive");
+		}
+
 		OrderLine orderLine = new OrderLine(product, priceList, amount);
 		orderlines.add(orderLine);
 		return orderLine;
