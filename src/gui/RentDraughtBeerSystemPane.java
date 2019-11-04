@@ -92,6 +92,11 @@ public class RentDraughtBeerSystemPane extends GridPane {
 			selectedProduct = lvProducts.getSelectionModel().getSelectedItem();
 		});
 		
+		lvProductsNotReturned.setOnMousePressed(e -> {
+			btnUpdate.setDisable(false); 
+			// stores selected product
+			selectedProduct = lvProducts.getSelectionModel().getSelectedItem();
+		});
 	}
 	
 	/**

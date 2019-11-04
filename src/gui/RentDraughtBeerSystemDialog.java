@@ -176,7 +176,7 @@ public class RentDraughtBeerSystemDialog extends Stage {
 	 * Method to create a new rent of draught beer system
 	 */
 	private void createRentDraughtBeerSystem() {
-		// integer containing textfield value
+		// integer containing text field value
 		int amountOfTaps = 0;
 		// String to hold productName entered value
 		String productName = "";
