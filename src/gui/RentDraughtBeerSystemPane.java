@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import javax.swing.event.DocumentEvent.EventType;
+
 import controller.Controller;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -28,7 +31,10 @@ public class RentDraughtBeerSystemPane extends GridPane {
 	private Label lblProductsNotReturned;
 	private ListView<Product> lvProducts;
 	private ListView<Product> lvProductsNotReturned;
-	private Button btnOpenDialog;
+	private Button btnCreate;
+	
+	private Button btnUpdate;
+	private Product selectedProduct;
 	
 	/**
 	 * Constructor rent pane
@@ -53,6 +59,7 @@ public class RentDraughtBeerSystemPane extends GridPane {
 		this.add(lvProducts, 0, 1, 2, 3);
 		populateProductsListView();
 		
+		
 		// label products not returned
 		lblProductsNotReturned = new Label("Products not returned:");
 		this.add(lblProductsNotReturned, 2, 0);
@@ -63,22 +70,58 @@ public class RentDraughtBeerSystemPane extends GridPane {
 		populateListViewNotReturnedProducts(); 
 		
 		// button to create a rent of product DraughtBeerSystem
-		btnOpenDialog = new Button("Create Rent");
-		this.add(btnOpenDialog, 0, 5);
+		btnCreate = new Button("Create Rent");
+		this.add(btnCreate, 0, 5);
 		
 		// attaches a click event handler
-		btnOpenDialog.setOnAction(e -> this.openRentDraughtBeerSystemDialog());
+		btnCreate.setOnAction(e -> this.openCreateRentDraughtBeerSystemDialog());
 		
+		// update button
+		btnUpdate = new Button("Update");
+		btnUpdate.setDisable(true);
+		this.add(btnUpdate, 1, 5);
+		
+		// attaches click event on update button
+		btnUpdate.setOnAction(ev -> this.updateRentDraughtBeerSystemDialog());
+		
+		
+		// mouse pressed event handler listView product
+		lvProducts.setOnMousePressed(event -> {
+			btnUpdate.setDisable(false); 
+			// stores selected product
+			selectedProduct = lvProducts.getSelectionModel().getSelectedItem();
+		});
+		
+	}
+	
+	/**
+	 * Method to update selected draught beer system
+	 */
+	public void updateRentDraughtBeerSystemDialog() {
+		if (selectedProduct != null) {
+			// stores selected product
+			selectedProduct = lvProducts.getSelectionModel().getSelectedItem();
+			
+			// creates a new instance of dialog pane with argument
+			rentDraughtBeerSystemDialog = new RentDraughtBeerSystemDialog(selectedProduct);
+			rentDraughtBeerSystemDialog.showAndWait();
+			
+			// refresh view
+			refreshProducts();
+			refreshNotReturnedProducts();
+		}
 	}
 	
 	
 	/**
 	 * Method to open DraughtBeerSystemDialog
 	 */
-	public void openRentDraughtBeerSystemDialog() {
+	public void openCreateRentDraughtBeerSystemDialog() {
+		// creates a new instance of dialog pane
 		rentDraughtBeerSystemDialog = new RentDraughtBeerSystemDialog();
 		rentDraughtBeerSystemDialog.showAndWait();
 	
+		// refresh view
 		refreshProducts();
 		refreshNotReturnedProducts();
 	}
