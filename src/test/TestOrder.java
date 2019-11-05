@@ -8,6 +8,7 @@ import java.time.Month;
 import org.junit.Test;
 
 import model.Order;
+import model.OrderLine;
 import model.OrderStatusType;
 import model.PriceList;
 import model.Product;
@@ -18,6 +19,11 @@ public class TestOrder {
 	private Order testOrder1;
 	private Order testOrder2;
 	private Order testOrder3;
+	
+	private OrderLine testOrderline1;
+	private OrderLine testOrderline2;
+	private OrderLine testOrderline3;
+	private OrderLine testOrderline4;
 	
 	private int amount;
 	private Product product;
@@ -39,9 +45,13 @@ public class TestOrder {
 		// TestCase CreateOrderLine Basic Data 8.1.2
 		productgroup = new ProductGroup("spiritus", 0);
 		product = new Product("Spirit of Aarhus", productgroup);
+		priceList = new PriceList("test price list");
 		amount = 3;
+		
+		
 	}
 
+	
 	/**
 	 * TestCases 8.1 Order: Basic Data 
 	 * id = 1
@@ -65,7 +75,7 @@ public class TestOrder {
 
 	@Test
 	public void testCreateOrderLineSuccesTC1() {
-		testOrder1.createOrderLine(product, priceList, amount);
+		testOrderline1 = testOrder1.createOrderLine(product, priceList, amount);
 		assertEquals(1.0, testOrder1.getID(), 0.001);
 	}
 	
@@ -74,7 +84,7 @@ public class TestOrder {
 	public void testCreateOrderLineFailTC2() {
 		try {
 			
-			testOrder2.createOrderLine(null, new PriceList("Test"), 3);
+			testOrderline2 = testOrder1.createOrderLine(null, new PriceList("Test"), 3);
 			
 		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "Product and priceList must not be null");
@@ -85,7 +95,7 @@ public class TestOrder {
 	public void testCreateOrderLineFailTC3() {
 		try {
 			
-			testOrder2.createOrderLine(product, null, 3);
+			testOrderline3 = testOrder1.createOrderLine(product, null, 3);
 			
 		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "Product and priceList must not be null");
@@ -96,9 +106,33 @@ public class TestOrder {
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateOrderLineFailTC4() {
 		try {
-			testOrder2.createOrderLine(product, new PriceList("Test"), -1);
+			testOrderline4 = testOrder1.createOrderLine(product, new PriceList("Test"), -1);
 		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "amount must be positive");
 		}
 	}
+	
+	@Test
+	public void testDeleteOrderline() {
+		testOrderline1 = testOrder1.createOrderLine(product, priceList, amount);
+		
+		System.out.println(testOrder1.getOrderlines().size());
+		testOrder1.deleteOrderline(testOrderline1);
+		System.out.println(testOrder1.getOrderlines().size());
+		assertEquals(0, testOrder1.getOrderlines().size(),0.001);
+	}
+	
+	@Test
+	public void testGetTotalPrice() {
+		Product p1 = new Product("klosterbryg",productgroup);
+		Product p2 = new Product("julebryg", productgroup);
+		priceList = new PriceList("Test Price List");
+		priceList.setPrice(p1, 50.0);
+		priceList.setPrice(p2, 30.0);
+		testOrderline2 = testOrder2.createOrderLine(p1, priceList, 2);
+		testOrderline3 = testOrder2.createOrderLine(p2, priceList, 1);
+		
+		assertEquals(130.0,testOrder2.getTotalPrice(), 0.001);
+	}
+	
 }
