@@ -250,16 +250,25 @@ public class Controller {
     }
 
     public void exportOrders() {
+        String csvToExport = "ID,STATUS,DATE,PAYMENT METHOD,PRODUCT,AMOUNT,SINGLE PRICE,TOTAL PRICE;\n";
+
         for(Order o : this.getOrders()) {
             if (o.getStatus() == OrderStatusType.DONE && o.getOrderlines().size() > 0) {
-                this.exportOrderAsCSV(o);
+                csvToExport += this.exportOrderAsCSV(o);
             }
+        }
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("orders" + ".csv"));
+            writer.write(csvToExport);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Failed to write file");
         }
     }
 
-    public void exportOrderAsCSV(Order order) {
+    public String exportOrderAsCSV(Order order) {
         StringBuilder csvOutput = new StringBuilder();
-        csvOutput.append("ID,STATUS,DATE,PAYMENT METHOD,PRODUCT,AMOUNT,SINGLE PRICE,TOTAL PRICE;\n");
         for (OrderLine ol : order.getOrderlines()) {
             csvOutput
                 .append(order.getID()).append(',')
@@ -272,13 +281,7 @@ public class Controller {
                 .append(ol.getPrice()).append(";\n");
         }
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("order" + order.getID() + ".csv"));
-            writer.write(csvOutput.toString());
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Failed to write file");
-        }
+        return csvOutput.toString();
     }
 
     public void initializeData() {

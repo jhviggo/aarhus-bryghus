@@ -46,7 +46,8 @@ public class OrdersPane extends GridPane {
         HBox buttonBoxRight = new HBox();
         buttonBoxRight.setSpacing(10);
         buttonBoxRight.setAlignment(Pos.BASELINE_RIGHT);
-        Button btnExport = new Button("Export to CSV");
+        Button btnExport = new Button("Export DONE orders");
+        btnExport.setOnAction(event -> controller.exportOrders());
         buttonBoxRight.getChildren().add(btnExport);
         this.add(buttonBoxRight, 1, 2);
 
