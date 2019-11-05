@@ -232,7 +232,7 @@ public class Controller {
             throw new IllegalArgumentException("Product and PriceList must not be null");
         }
         if (price < 0) {
-            throw new RuntimeException("Price must not be negative");
+            throw new IllegalArgumentException("Price must not be negative");
         }
         priceList.setPrice(product, price);
     }
@@ -292,7 +292,7 @@ public class Controller {
             writer.write(csvToExport);
             writer.close();
         } catch (IOException e) {
-            System.out.println("Failed to write file");
+            throw new RuntimeException("Failed to write file");
         }
     }
 
