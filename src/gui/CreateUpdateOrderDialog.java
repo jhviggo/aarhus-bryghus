@@ -91,9 +91,11 @@ public class CreateUpdateOrderDialog extends Stage {
 
         Button btnDecrease = new Button("-");
         btnDecrease.prefWidthProperty().bind(increaseDecreaseBox.prefWidthProperty());
+        btnDecrease.setOnAction(event -> decreaseAmount());
         increaseDecreaseBox.getChildren().add(btnDecrease);
         Button btnIncrease = new Button("+");
         btnIncrease.prefWidthProperty().bind(increaseDecreaseBox.prefWidthProperty());
+        btnIncrease.setOnAction(event -> increaseAmount());
         increaseDecreaseBox.getChildren().add(btnIncrease);
         pane.add(increaseDecreaseBox, 1, 8);
 
@@ -228,6 +230,42 @@ public class CreateUpdateOrderDialog extends Stage {
         } else {
             txfOverridePrice.setDisable(true);
         }
+    }
+
+    private void increaseAmount() {
+        try {
+            OrderLine orderLine =
+                    lstOrderLines.getSelectionModel().getSelectedItem();
+            if (orderLine == null) {
+                throw new NullPointerException("You need to choose an orderline" +
+                        " to perform this action");
+            }
+            controller.adjustOrderLineAmount(orderLine, 1);
+        }
+        catch (Exception e) {
+            lblError.setText(e.getMessage());
+        }
+        updateOrderLines();
+    }
+
+    private void decreaseAmount() {
+        try {
+            OrderLine orderLine =
+                    lstOrderLines.getSelectionModel().getSelectedItem();
+            if (orderLine == null) {
+                throw new NullPointerException("You need to choose an orderline" +
+                        " to perform this action");
+            }
+            if (orderLine.getAmount() <= 1) {
+                throw new IllegalStateException("You cannot reduce the amount " +
+                        "to less than one");
+            }
+            controller.adjustOrderLineAmount(orderLine, -1);
+        }
+        catch (Exception e) {
+            lblError.setText(e.getMessage());
+        }
+        updateOrderLines();
     }
 
     private void addOrderLine() {

@@ -79,6 +79,10 @@ public class Controller {
         return line;
     }
 
+    public void adjustOrderLineAmount(OrderLine orderLine, int amount) {
+        orderLine.setAmount(orderLine.getAmount()+amount);
+    }
+
     public void deleteOrderLineOnOrder(OrderLine orderLine, Order order) {
         order.deleteOrderline(orderLine);
         Storage.removeOrderLine(orderLine);
