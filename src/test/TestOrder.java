@@ -66,7 +66,7 @@ public class TestOrder {
 	@Test
 	public void testCreateOrderLineSuccesTC1() {
 		testOrder1.createOrderLine(product, priceList, amount);
-		assertEqual(1.0, (double) testOrder1.getID(), 0.001);
+		assertEquals(1.0, testOrder1.getID(), 0.001);
 	}
 	
 	
