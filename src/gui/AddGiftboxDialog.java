@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Modality;
@@ -28,7 +29,7 @@ public class AddGiftboxDialog extends Stage {
     private int maxAmount;
     private boolean cancelled;
 
-    private Label lblMax, lblCurrent;
+    private Label lblMax, lblCurrent, lblError;
     private ListView<Beer> lstBeers;
     private ListView<Beer> lstBeersInGiftBox;
 
@@ -91,6 +92,10 @@ public class AddGiftboxDialog extends Stage {
         btnConfirm.setOnAction(event -> this.confirmAndAdd());
         confirmBox.getChildren().add(btnConfirm);
         pane.add(confirmBox, 0, 6, 2 ,1);
+
+        lblError = new Label("");
+        lblError.setTextFill(Color.RED);
+        pane.add(lblError, 0, 7);
     }
 
     private void updateBeerList() {
@@ -118,11 +123,14 @@ public class AddGiftboxDialog extends Stage {
 
     private void addBeer() {
         try {
+            if (lstBeers.getSelectionModel().getSelectedItem() == null) {
+                throw new NullPointerException("Select a beer to add");
+            }
             controller.addProductToGiftBox(giftBox,
                     lstBeers.getSelectionModel().getSelectedItem());
         }
         catch (Exception e) {
-            System.out.println(e);
+            lblError.setText(e.getMessage());
             return;
         }
         currentAmount++;
@@ -131,11 +139,14 @@ public class AddGiftboxDialog extends Stage {
 
     private void removeBeer() {
         try {
+            if (lstBeersInGiftBox.getSelectionModel().getSelectedItem() == null) {
+                throw new NullPointerException("Select a beer to remove");
+            }
             controller.removeProductFromGiftBox(giftBox,
                     lstBeersInGiftBox.getSelectionModel().getSelectedItem());
         }
         catch (Exception e) {
-            System.out.println(e);
+            lblError.setText(e.getMessage());
             return;
         }
         currentAmount--;
@@ -149,7 +160,7 @@ public class AddGiftboxDialog extends Stage {
             }
         }
         catch (Exception e) {
-            System.out.println(e);
+            lblError.setText(e.getMessage());
             return;
         }
         cancelled = false;
