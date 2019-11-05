@@ -28,13 +28,20 @@ public class TestOrderLine {
 	}
 	
 	@Test
-	public void testConstructor() {
+	public void testConstructorTC1() {
 		assertEquals(4, testOrderline1.getAmount(), 0.001);
 	}
 	
 	@Test
-	public void testGetPrice() {
+	public void testGetPriceTC1() {
 		pricelist.setPrice(p1, 50);
 		assertEquals(200.0, testOrderline1.getPrice(), 0.001);
+	}
+	
+	@Test
+	public void testGetPriceTC2() {
+		testOrderline1.setAmount(1);
+		pricelist.setPrice(p1, 50);
+		assertEquals(50.0, testOrderline1.getPrice(), 0.001);
 	}
 }
