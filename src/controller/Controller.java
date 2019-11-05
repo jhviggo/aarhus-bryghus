@@ -30,6 +30,9 @@ public class Controller {
 
     public Order createOrder(LocalDateTime startTimeStamp,
                              OrderStatusType status) {
+        if (startTimeStamp == null) {
+            throw new IllegalArgumentException("startTimeStamp must not be null");
+        }
         Order order = new Order(nextOrderId, startTimeStamp, status);
         Storage.addOrder(order);
         nextOrderId++;
@@ -65,6 +68,12 @@ public class Controller {
 
     public OrderLine createOrderLine(Product product, PriceList priceList,
                                      int amount, Order order) {
+        if (product == null || priceList == null || order == null) {
+            throw new IllegalArgumentException("Product, order and priceList must not be null");
+        }
+        if (amount < 1) {
+            throw new IllegalArgumentException("Amount must be above 0");
+        }
         OrderLine line = order.createOrderLine(product, priceList, amount);
         Storage.addOrderLine(line);
         return line;
@@ -85,6 +94,12 @@ public class Controller {
 
     public GiftBox createGiftBox(String productName, ProductGroup productGroup,
                                  GiftBoxType type) {
+        if (productName.length() == 0) {
+            throw new IllegalArgumentException("Product must have a name");
+        }
+        if (productGroup == null) {
+            throw new IllegalArgumentException("productGroup must not be null");
+        }
         GiftBox giftBox = new GiftBox(productName, productGroup, type);
         Storage.addProduct(giftBox);
         return giftBox;
@@ -109,6 +124,12 @@ public class Controller {
 
     // Product
     public Product createProduct(String productName, ProductGroup productGroup) {
+        if (productName.length() == 0) {
+            throw new IllegalArgumentException("Product must have a name");
+        }
+        if (productGroup == null) {
+            throw new IllegalArgumentException("ProductGroup must not be null");
+        }
         Product product = new Product(productName, productGroup);
         Storage.addProduct(product);
         return product;
@@ -171,6 +192,9 @@ public class Controller {
 
     // ProductGroup
     public ProductGroup createProductGroup(String type, double tax) {
+        if (type.length() == 0) {
+            throw new IllegalArgumentException("Type must not be empty");
+        }
         ProductGroup productGroup = new ProductGroup(type, tax);
         Storage.addProductGroup(productGroup);
         return productGroup;
@@ -196,14 +220,20 @@ public class Controller {
     }
 
     public PriceList createPriceList(String type) {
+        if (type.length() == 0) {
+            throw new IllegalArgumentException("Type must not be empty");
+        }
         PriceList priceList = new PriceList(type);
         Storage.addPriceList(priceList);
         return priceList;
     }
 
     public void addProductToPriceList(Product product, double price, PriceList priceList) {
-        if (price <= 0) {
-            throw new RuntimeException("Produckpriser må ikke være negative");
+        if (product == null || priceList == null) {
+            throw new IllegalArgumentException("Product and PriceList must not be null");
+        }
+        if (price < 0) {
+            throw new RuntimeException("Price must not be negative");
         }
         priceList.setPrice(product, price);
     }
