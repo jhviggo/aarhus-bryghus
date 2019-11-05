@@ -576,6 +576,8 @@ public class Controller {
         createOrderLine(p2, pl1, 5, o2);
         createOrderLine(p4, pl1, 3, o2);
         updateOrder(OrderStatusType.DONE, PaymentMethod.CREDITCARD, o2);
+
+
         // ClipCards
         Product clip1 = createProductClipCard("klippe kort", pg1);
         Product clip2 = createProductClipCard("klippe kort", pg2);

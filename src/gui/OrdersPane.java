@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import model.Order;
 import model.OrderStatusType;
 
@@ -18,6 +19,7 @@ public class OrdersPane extends GridPane {
     private Controller controller;
 
     private ListView<Order> lstOrders;
+    private Label lblError;
 
     public OrdersPane() {
         this.setPadding(new Insets(20));
@@ -51,6 +53,10 @@ public class OrdersPane extends GridPane {
         buttonBoxRight.getChildren().add(btnExport);
         this.add(buttonBoxRight, 1, 2);
 
+        lblError = new Label("");
+        lblError.setTextFill(Color.RED);
+        this.add(lblError, 0, 3);
+
         updateContent();
     }
 
@@ -80,7 +86,11 @@ public class OrdersPane extends GridPane {
             updateContent();
         }
         catch (Exception e) {
-            System.out.println(e);
+            lblError.setText(e.getMessage());
         }
+    }
+
+    private void exportData() {
+
     }
 }
