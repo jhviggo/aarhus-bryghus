@@ -138,51 +138,51 @@ INSERT INTO PriceList VALUES
     ('Fredagsbar')
 
 INSERT INTO ProductInPriceList VALUES
-    (1, 'Default', 36.0),
-    (1, 'Fredagsbar', 50.0),
-    (2, 'Default', 36.0),
-    (2, 'Fredagsbar', 50.0)
-    (3, 'Default', 36.0),
-    (3, 'Fredagsbar', 50.0),
-    (4, 'Default', 46.0),
-    (4, 'Fredagsbar', 50.0),
-    (5, 'Default', 36.0),
-    (5, 'Fredagsbar', 50.0),
-    (6, 'Default', 36.0),
-    (6, 'Fredagsbar', 50.0),
-    (7, 'Default', 36.0),
-    (7, 'Fredagsbar', 50.0),
-    (8, 'Default', 36.0),
-    (8, 'Fredagsbar', 50.0),
-    (9, 'Default', 36.0),
-    (9, 'Fredagsbar', 50.0),
-    (10, 'Default', 36.0),
-    (10, 'Fredagsbar', 50.0),
-    (11, 'Default', 36.0),
-    (11, 'Fredagsbar', 50.0),
-    (12, 'Default', 36.0),
-    (12, 'Fredagsbar', 50.0),
-    (13, 'Default', 36.0),
-    (13, 'Fredagsbar', 50.0),
-    (14, 'Default', 50.0),
-    (14, 'Fredagsbar', 50.0)
+    (1, 'Default', 36.0, 1),
+    (1, 'Fredagsbar', 50.0, 1),
+    (2, 'Default', 36.0, 1),
+    (2, 'Fredagsbar', 50.0, 1),
+    (3, 'Default', 36.0, 1),
+    (3, 'Fredagsbar', 50.0, 1),
+    (4, 'Default', 46.0, 1),
+    (4, 'Fredagsbar', 50.0, 1),
+    (5, 'Default', 36.0, 1),
+    (5, 'Fredagsbar', 50.0, 1),
+    (6, 'Default', 36.0, 1),
+    (6, 'Fredagsbar', 50.0, 1),
+    (7, 'Default', 36.0, 1),
+    (7, 'Fredagsbar', 50.0, 1),
+    (8, 'Default', 36.0, 1),
+    (8, 'Fredagsbar', 50.0, 1),
+    (9, 'Default', 36.0, 1),
+    (9, 'Fredagsbar', 50.0, 1),
+    (10, 'Default', 36.0, 1),
+    (10, 'Fredagsbar', 50.0, 1),
+    (11, 'Default', 36.0, 1),
+    (11, 'Fredagsbar', 50.0, 1),
+    (12, 'Default', 36.0, 1),
+    (12, 'Fredagsbar', 50.0, 1),
+    (13, 'Default', 36.0, 1),
+    (13, 'Fredagsbar', 50.0, 1),
+    (14, 'Default', 50.0, 1),
+    (14, 'Fredagsbar', 50.0, 1)
 
 INSERT INTO ProductInPriceList VALUES
-    (15, 'Fredagsbar', 30.0),
-    (16, 'Fredagsbar', 30.0),
-    (17, 'Fredagsbar', 30.0),
-    (18, 'Fredagsbar', 30.0),
-    (19, 'Fredagsbar', 30.0),
-    (20, 'Fredagsbar', 30.0),
-    (21, 'Fredagsbar', 30.0),
-    (22, 'Fredagsbar', 30.0),
-    (23, 'Fredagsbar', 30.0),
-    (24, 'Fredagsbar', 30.0),
-    (25, 'Fredagsbar', 15.0),
-    (26, 'Fredagsbar', 15.0),
-    (27, 'Fredagsbar', 15.0),
-    (28, 'Fredagsbar', 15.0),
-    (29, 'Fredagsbar', 10.0)
+    (15, 'Fredagsbar', 30.0, 1),
+    (16, 'Fredagsbar', 30.0, 1),
+    (17, 'Fredagsbar', 30.0, 1),
+    (18, 'Fredagsbar', 30.0, 1),
+    (19, 'Fredagsbar', 30.0, 1),
+    (20, 'Fredagsbar', 30.0, 1),
+    (21, 'Fredagsbar', 30.0, 1),
+    (22, 'Fredagsbar', 30.0, 1),
+    (23, 'Fredagsbar', 30.0, 1),
+    (24, 'Fredagsbar', 30.0, 1),
+    (25, 'Fredagsbar', 15.0, 1),
+    (26, 'Fredagsbar', 15.0, 1),
+    (27, 'Fredagsbar', 15.0, 1),
+    (28, 'Fredagsbar', 15.0, 1),
+    (29, 'Fredagsbar', 10.0, 1)
 
 INSERT INTO Orders VALUES
     ('2019-11-4 15:00:00', '2019-11-4 15:15:00', 'DONE'),
@@ -211,9 +211,3 @@ FROM ProductInPriceList pl
 INNER JOIN Product p
 ON pl.product = p.id
 
-INSERT INTO ProductGroup VALUES
-    ('Test', 0)
-
-INSERT INTO Product VALUES
-    ('Test1', 'Test'),
-    ('Test2', 'Test')
