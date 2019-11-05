@@ -29,37 +29,25 @@ public class TestOrder {
 	}
 
 	/**
-	 * TestCase 1: Basic Data 
+	 * TestCases: Basic Data 
 	 * id = 1
 	 * startTimeStamp = ”2019-01-01”
-	 */
+	 * endTimeStamp = "2019-01-01"	 
+	 * */
 	@Test
-	public void testCase1() {
+	public void testOrderConstructor() {
+		// TestCase 1:
 		assertEquals(1.0 , testOrder1.getID(), 0.001);
 		// State : OK
-	}
-	
-	/**
-	 * TestCase 2: Basic Data
-	 * id = 1
-	 * startTimeStamp = ”2019-01-01”
-	 */
-	@Test
-	public void testCase2() {
+		
+		// TestCase 2:
 		assertEquals(1.0, testOrder2.getID(), 0.001);
 		// State : OK
-	}
-	
-	/**
-	 * TestCase 3: Basic Data
-	 * id = 1
-	 * startTimeStamp = ”2019-01-01”
-	 * endTimeStamp = "2019-01-01"
-	 */
-	@Test
-	public void testCase3() {
+		
+		// TestCase 3:
 		assertEquals(1.0, testOrder3.getID(), 0.001);
 		// State : OK
 	}
+
 
 }
