@@ -76,9 +76,9 @@ INSERT INTO Product VALUES
     ('2 Haner','Draught beer systems'),
     ('Bar med flere haner','Draught beer systems')
 
-    SELECT * FROM Product
+SELECT * FROM Product
 
-    INSERT INTO Consumable VALUES
+INSERT INTO Consumable VALUES
     (60, 'cl', 6.0, 'India Pale Lager', 'BOTTLE', 1),
     (60, 'cl', 5.5, 'Brown Ale', 'BOTTLE', 2),
     (60, 'cl', 5.0, 'Pilsner', 'BOTTLE', 3),
@@ -94,7 +94,7 @@ INSERT INTO Product VALUES
     (60, 'cl', 9.0, 'Barley Wine', 'BOTTLE', 13),
     (60, 'cl', 10.0, 'Porter', 'BOTTLE', 14)
 
-    INSERT INTO Consumable VALUES
+INSERT INTO Consumable VALUES
     (40, 'cl', 6.0, 'India Pale Lager', 'DRAUGHT', 15),
     (40, 'cl', 5.0, 'English Mild Ale', 'DRAUGHT', 16),
     (40, 'cl', 5.0, 'Pilsner', 'DRAUGHT', 17),
@@ -111,13 +111,13 @@ INSERT INTO Product VALUES
     (40, 'cl', 0.0, 'Soda', 'DRAUGHT', 28),
     (40, 'cl', 0.0, 'Water', 'DRAUGHT', 29)
 
-    INSERT INTO Consumable VALUES
+INSERT INTO Consumable VALUES
     (50, 'cl', 40.0, 'Whisky', null, 30),
     (50, 'cl', 40.0, 'Whisky', null, 31),
     (50, 'cl', 45.0, 'Whisky', null, 32),
     (35, 'cl', 30.0, 'Liquor', null, 33)
 
-    INSERT INTO Consumable VALUES
+INSERT INTO Consumable VALUES
     (20, 'L', 6.0, 'India Pale Lager', 'KEG', 34),
     (25, 'L', 5.0, 'English Mild Ale', 'KEG', 35),
     (25, 'L', 5.0, 'Pilsner', 'KEG', 36),
@@ -128,16 +128,16 @@ INSERT INTO Product VALUES
     (20, 'L', 6.0, 'Spiced / Herbed Beer', 'KEG', 41),
     (20, 'L', 8.0, 'Imperial Stout', 'KEG', 42),
 
-    SELECT *
-    FROM Product p
-    INNER JOIN Consumable c
-    ON p.id = c.productId
+SELECT *
+FROM Product p
+INNER JOIN Consumable c
+ON p.id = c.productId
 
-    INSERT INTO PriceList VALUES
+INSERT INTO PriceList VALUES
     ('Default'),
     ('Fredagsbar')
 
-    INSERT INTO ProductInPriceList VALUES
+INSERT INTO ProductInPriceList VALUES
     (1, 'Default', 36.0),
     (1, 'Fredagsbar', 50.0),
     (2, 'Default', 36.0),
@@ -167,7 +167,7 @@ INSERT INTO Product VALUES
     (14, 'Default', 50.0),
     (14, 'Fredagsbar', 50.0)
 
-    INSERT INTO ProductInPriceList VALUES
+INSERT INTO ProductInPriceList VALUES
     (15, 'Fredagsbar', 30.0),
     (16, 'Fredagsbar', 30.0),
     (17, 'Fredagsbar', 30.0),
@@ -184,30 +184,36 @@ INSERT INTO Product VALUES
     (28, 'Fredagsbar', 15.0),
     (29, 'Fredagsbar', 10.0)
 
-    INSERT INTO Orders VALUES
+INSERT INTO Orders VALUES
     ('2019-11-4 15:00:00', '2019-11-4 15:15:00', 'DONE'),
     ('2019-11-5 15:00:00', '2019-11-5 15:15:00', 'DONE')
 
-    SELECT * FROM Orders
+SELECT * FROM Orders
 
-    INSERT INTO OrderLine VALUES
+INSERT INTO OrderLine VALUES
     (2, 1, 1, 'Default'),
     (3, 2, 1, 'Default'),
     (1, 3, 1, 'Default'),
     (1, 4, 1, 'Fredagsbar'),
     (2, 1, 2, 'Fredagsbar')
 
-    INSERT INTO OrderLine VALUES
+INSERT INTO OrderLine VALUES
     (5, 4, 1, 'Fredagsbar')
 
-    INSERT INTO Orders VALUES
+INSERT INTO Orders VALUES
     ('2019-11-6 15:00:00', '2019-11-6 15:15:00', 'DONE')
 
-    INSERT INTO OrderLine VALUES
+INSERT INTO OrderLine VALUES
     (1, 4, 3, 'Fredagsbar')
 
-    SELECT * 
-    FROM ProductInPriceList pl
-    INNER JOIN Product p
-    ON pl.product = p.id
+SELECT * 
+FROM ProductInPriceList pl
+INNER JOIN Product p
+ON pl.product = p.id
 
+INSERT INTO ProductGroup VALUES
+    ('Test', 0)
+
+INSERT INTO Product VALUES
+    ('Test1', 'Test'),
+    ('Test2', 'Test')

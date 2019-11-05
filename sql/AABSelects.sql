@@ -58,10 +58,92 @@ FROM
 ) AS orders
 
 --Opgave 3
+GO
 
+CREATE VIEW productSales
+AS
+SELECT p.productName, p.productGroup, (
+        SELECT COUNT(DISTINCT ol.orderId)
+        FROM OrderLine ol
+        WHERE ol.product = p.id
+    ) AS orderCount
+FROM Product p, OrderLine ol
+GROUP BY p.productName, p.productGroup, p.id
+
+GO
+
+SELECT * FROM productSales
 
 --Opgave 4a
+GO
+
+CREATE PROCEDURE getPricelist
+@priceList VARCHAR(100),
+@rebate FLOAT
+AS
+SELECT p.productName, pip.price*(@rebate)
+FROM Product p, ProductInPriceList pip
+WHERE p.id IN 
+(
+    SELECT pl.product
+    FROM ProductInPriceList pl
+    WHERE pl.priceList = @priceList
+)
+AND p.id = pip.product
+
+GO
+
+EXECUTE getPricelist 'Fredagsbar', 0.8
 
 --Opgave 4b
+GO
+
+
+GO
 
 --Opgave 5
+GO
+
+CREATE TRIGGER deleteProductGroup on Product
+AFTER DELETE
+AS
+DECLARE @productGroup VARCHAR(64) = 
+(
+    SELECT d.ProductGroup FROM deleted d, ProductGroup pg where pg.productType = d.productGroup
+)
+BEGIN
+    IF NOT EXISTS
+    (
+        SELECT *
+        FROM Product p
+        WHERE p.productGroup = @productGroup
+    )
+    BEGIN
+        DELETE FROM ProductGroup
+        WHERE productType = @productGroup
+    END
+END
+
+GO
+
+INSERT INTO ProductGroup VALUES
+    ('Test', 0)
+
+INSERT INTO Product VALUES
+    ('Test1', 'Test'),
+    ('Test2', 'Test')
+
+SELECT * 
+FROM Product p
+WHERE p.productGroup = 'Test'
+
+DELETE
+FROM Product
+WHERE productName = 'Test1'
+
+DELETE
+FROM Product
+WHERE productName = 'Test2'
+
+SELECT *
+FROM ProductGroup
