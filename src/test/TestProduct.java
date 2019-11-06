@@ -18,25 +18,28 @@ public class TestProduct {
 	
 	
 	public TestProduct() {
-		this.productgroup1 = new ProductGroup("flaske øl", 0);
-		this.productgroup2 = new ProductGroup("fustage", 0);
-		this.product1 = new Product("flaske øl", productgroup1);
-		this.product2 = new Product("fustage", productgroup2);
+		
 	}
 	
 	@Test
 	public void testSetProductGroupTC1() {
+		productgroup1 = new ProductGroup("flaske øl", 0);
+		productgroup2 = new ProductGroup("fustage", 0);
+		product1 = new Product("flaske øl", productgroup1);
+		product2 = new Product("fustage", productgroup2);
 		product2.setProductGroup(productgroup1);
+
 		assertEquals(productgroup1.getType(), product2.getProductGroup().getType());
 	}
 
 	@Test
 	public void testSetProductGroupTC2() {
+		productgroup1 = new ProductGroup("flaske øl", 0);
+		productgroup2 = new ProductGroup("fustage", 0);
+		product1 = new Product("fustage", productgroup1);
+		product1.setProductGroup(productgroup2);
+		assertEquals(productgroup2.getType(), product1.getProductGroup().getType());
 		
 	}
 	
-	@Test
-	public void testSetProductGroupTC3() {
-		
-	}
 }
