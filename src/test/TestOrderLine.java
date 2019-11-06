@@ -34,8 +34,9 @@ public class TestOrderLine {
 	
 	@Test
 	public void testGetPriceTC1() {
+		testOrderline1.setAmount(3);
 		pricelist.setPrice(p1, 50);
-		assertEquals(200.0, testOrderline1.getPrice(), 0.001);
+		assertEquals(150.0, testOrderline1.getPrice(), 0.001);
 	}
 	
 	@Test
