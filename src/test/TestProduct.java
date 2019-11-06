@@ -26,7 +26,8 @@ public class TestProduct {
 	
 	@Test
 	public void testSetProductGroupTC1() {
-		
+		product2.setProductGroup(productgroup1);
+		assertEquals(productgroup1.getType(), product2.getProductGroup().getType());
 	}
 
 	@Test
