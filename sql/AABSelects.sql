@@ -13,22 +13,22 @@ WHERE p.product = 1 AND p.priceList = 'Default'
 --Opgave 2c
 SELECT SUM(ol.amount*pl.price)
 FROM OrderLine ol
-INNER JOIN Orders o
-ON ol.orderId = o.id
-INNER JOIN ProductInPriceList pl
-ON pl.product = ol.product AND pl.priceList = ol.priceList
+    INNER JOIN Orders o
+    ON ol.orderId = o.id
+    INNER JOIN ProductInPriceList pl
+    ON pl.product = ol.product AND pl.priceList = ol.priceList
 WHERE o.id = 1
 
 --Opgave 2d
 SELECT productName, amount
 FROM
-(
+    (
     SELECT p.productName AS productName, SUM(ol.amount) AS amount
     FROM OrderLine ol
-    INNER JOIN Orders o
-    ON ol.orderId = o.id
-    INNER JOIN Product p
-    ON p.id = ol.product
+        INNER JOIN Orders o
+        ON ol.orderId = o.id
+        INNER JOIN Product p
+        ON p.id = ol.product
     GROUP BY p.productName
 ) AS productAmount
 WHERE amount > 5
@@ -38,21 +38,21 @@ SELECT p.productName, p.productGroup
 FROM Product p
 WHERE p.id NOT IN 
 (
-    SELECT pl.product 
-    FROM ProductInPriceList pl
-    WHERE pl.priceList = 'Fredagsbar'
+    SELECT pl.product
+FROM ProductInPriceList pl
+WHERE pl.priceList = 'Fredagsbar'
 )
 
 --Opgave 2f
 SELECT AVG(price)
-FROM 
-(
+FROM
+    (
     SELECT SUM(ol.amount*pl.price) AS price
     FROM OrderLine ol
-    INNER JOIN Orders o
-    ON ol.orderId = o.id
-    INNER JOIN ProductInPriceList pl
-    ON pl.product = ol.product AND pl.priceList = ol.priceList
+        INNER JOIN Orders o
+        ON ol.orderId = o.id
+        INNER JOIN ProductInPriceList pl
+        ON pl.product = ol.product AND pl.priceList = ol.priceList
     WHERE o.id = ol.orderId
     GROUP BY o.id
 ) AS orders
@@ -62,28 +62,29 @@ GO
 
 CREATE VIEW productSales
 AS
-SELECT p.productName, p.productGroup, (
+    SELECT p.productName, p.productGroup, (
         SELECT COUNT(DISTINCT ol.orderId)
         FROM OrderLine ol
         WHERE ol.product = p.id
     ) AS orderCount
-FROM Product p, OrderLine ol
-GROUP BY p.productName, p.productGroup, p.id
+    FROM Product p, OrderLine ol
+    GROUP BY p.productName, p.productGroup, p.id
 
 GO
 
-SELECT * FROM productSales
+SELECT *
+FROM productSales
 
 --Opgave 4a
 GO
 
 CREATE PROCEDURE getPricelist
-@priceList VARCHAR(100)
+    @priceList VARCHAR(100)
 AS
 SELECT p.productName, pip.price*pip.rebate
 FROM Product p, ProductInPriceList pip
 WHERE pip.priceList = @priceList
-AND p.id = pip.product
+    AND p.id = pip.product
 
 GO
 
@@ -93,8 +94,8 @@ EXECUTE getPricelist 'Fredagsbar'
 GO
 
 CREATE PROCEDURE changeRebate
-@priceList VARCHAR(100),
-@rebate FLOAT
+    @priceList VARCHAR(100),
+    @rebate FLOAT
 AS
 UPDATE ProductInPriceList
 SET rebate = @rebate
@@ -104,7 +105,7 @@ GO
 
 EXECUTE changeRebate 'Fredagsbar', 0.8
 
-SELECT * 
+SELECT *
 FROM ProductInPriceList
 WHERE priceList = 'Fredagsbar'
 
@@ -116,14 +117,16 @@ AFTER DELETE
 AS
 DECLARE @productGroup VARCHAR(64) = 
 (
-    SELECT d.ProductGroup FROM deleted d, ProductGroup pg where pg.productType = d.productGroup
+    SELECT d.ProductGroup
+FROM deleted d, ProductGroup pg
+where pg.productType = d.productGroup
 )
 BEGIN
     IF NOT EXISTS
     (
         SELECT *
-        FROM Product p
-        WHERE p.productGroup = @productGroup
+    FROM Product p
+    WHERE p.productGroup = @productGroup
     )
     BEGIN
         DELETE FROM ProductGroup
@@ -133,14 +136,16 @@ END
 
 GO
 
-INSERT INTO ProductGroup VALUES
+INSERT INTO ProductGroup
+VALUES
     ('Test', 0)
 
-INSERT INTO Product VALUES
+INSERT INTO Product
+VALUES
     ('Test1', 'Test'),
     ('Test2', 'Test')
 
-SELECT * 
+SELECT *
 FROM Product p
 WHERE p.productGroup = 'Test'
 
@@ -155,12 +160,14 @@ WHERE productName = 'Test2'
 SELECT *
 FROM ProductGroup
 
-
---Opgave 6a
-
-
 --Opgave 6b
-
+SELECT SUM(pip.price * ol.amount)
+FROM ProductInPriceList pip, OrderLine ol, Orders o
+WHERE ol.orderId = o.id
+    AND ol.product = pip.product
+    AND pip.priceList = ol.priceList
+    AND DATEDIFF(dd, o.startTimeStamp, '2019-11-4') = 0
+    AND pip.product = 1
 
 
 
