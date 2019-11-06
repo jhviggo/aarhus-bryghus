@@ -37,7 +37,7 @@ public class ProductGroup {
             throw new RuntimeException("Produktet skal flyttes til en ny produktgruppe før det kan fjernes fra " + type);
         }
         if(products.contains(p)) {
-        	p.removeProductGroup();
+        	// p.removeProductGroup();
             products.remove(p);
         }
     }

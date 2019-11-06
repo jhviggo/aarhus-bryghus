@@ -35,13 +35,6 @@ public class Product implements Comparable<Product>{
 		}
 	}
 
-	public void removeProductGroup() {
-		if (this.productGroup != null) {
-			ProductGroup old = this.productGroup;
-			this.productGroup = null;
-			old.removeProduct(this);
-		}
-	}
 
 	@Override
 	public String toString() {
