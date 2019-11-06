@@ -12,6 +12,8 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+
 import storage.Storage;
 
 public class Controller {
@@ -296,6 +298,48 @@ public class Controller {
 
     public ArrayList<Product> getProductsInPriceList(PriceList priceList) {
         return priceList.getProducts();
+    }
+
+    private ArrayList<Order> getOrdersBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return Storage.getAllOrders()
+                .stream()
+                .filter(order -> startDate.compareTo(order.getStartTimestamp().toLocalDate()) < 0
+                        && order.getEndTimestamp() != null
+                        && endDate.compareTo(order.getEndTimestamp().toLocalDate()) > 0)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Order> getOrdersWithSoldClips(LocalDate startDate, LocalDate endDate) {
+        return this.getOrdersBetweenDates(startDate, endDate)
+                .stream()
+                .filter(order -> this.amountOfContainedClipsInOrder(order) > 0)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int getUsedClipsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return (int) this.getOrdersBetweenDates(startDate, endDate)
+                .stream()
+                .filter(order -> order.getPaymentMethod() == PaymentMethod.CLIPCARD)
+                .mapToInt(order -> order.getOrderlines()
+                        .stream()
+                        .mapToInt(OrderLine::getAmount)
+                        .reduce(0, Integer::sum))
+                .reduce(0, Integer::sum);
+    }
+
+    public int getBoughtClipsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return this.getOrdersBetweenDates(startDate, endDate)
+                .stream()
+                .mapToInt(this::amountOfContainedClipsInOrder)
+                .reduce(0, Integer::sum);
+    }
+
+    private int amountOfContainedClipsInOrder(Order order) {
+        return order.getOrderlines()
+                .stream()
+                .filter(line -> line.getProduct().getProductName().equals("klippe kort"))
+                .mapToInt(OrderLine::getAmount)
+                .reduce(0, Integer::sum);
     }
 
     public void exportOrders() {
@@ -629,5 +673,7 @@ public class Controller {
         co4.createOrderLine(clip4, pl2, 4);
         co5.createOrderLine(clip5, pl1, 2);
         co6.createOrderLine(clip6, pl1, 2);
+
+        co1.setPaymentMethod(PaymentMethod.CLIPCARD);
     }
 }

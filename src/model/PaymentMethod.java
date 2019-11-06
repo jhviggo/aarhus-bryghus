@@ -4,5 +4,6 @@ public enum PaymentMethod {
     CREDITCARD,
     CASH,
     PAYLATER,
-    RENTED
+    RENTED,
+    CLIPCARD
 }
