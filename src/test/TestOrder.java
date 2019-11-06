@@ -80,18 +80,19 @@ public class TestOrder {
 	}
 	
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testCreateOrderLineFailTC2() {
 		try {
 			
 			testOrderline2 = testOrder1.createOrderLine(null, new PriceList("Test"), 3);
+			fail();
 			
 		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "Product and priceList must not be null");
 		}
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testCreateOrderLineFailTC3() {
 		try {
 			
@@ -103,7 +104,7 @@ public class TestOrder {
 	}
 	
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testCreateOrderLineFailTC4() {
 		try {
 			testOrderline4 = testOrder1.createOrderLine(product, new PriceList("Test"), -1);
