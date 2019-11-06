@@ -2,13 +2,11 @@ package gui;
 
 import controller.Controller;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import model.Product;
 import model.ProductGroup;
-import model.Spirit;
 
 public class ProductSpirit extends GridPane implements ProductType {
 

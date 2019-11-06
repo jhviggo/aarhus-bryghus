@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 
 public class GuidedTour extends Product {
 
-    //Date and time of start of the guided tour
     private LocalDateTime dateTime;
-    //Duration in minutes
     private double duration;
 
     public GuidedTour(String productName, ProductGroup productGroup, LocalDateTime dateTime,

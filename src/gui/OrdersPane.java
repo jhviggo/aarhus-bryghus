@@ -104,8 +104,4 @@ public class OrdersPane extends GridPane {
             lblError.setText(e.getMessage());
         }
     }
-
-    private void exportData() {
-
-    }
 }
