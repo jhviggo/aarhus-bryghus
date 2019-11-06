@@ -356,13 +356,13 @@ public class CreateUpdateOrderDialog extends Stage {
             if (status == OrderStatusType.DONE) {
                 controller.setEndTimestampOnOrder(order);
             }
-            if (status == OrderStatusType.RENTED && dpRentStart.getValue() == null && dpRentEnd.getValue() == null) {
+            if (status == OrderStatusType.RENTED && (dpRentStart.getValue() == null || dpRentEnd.getValue() == null)) {
                 throw new NullPointerException("Start and end date must be selected for rental");
             }
             else if (status == OrderStatusType.RENTED && dpRentStart.getValue().compareTo(dpRentEnd.getValue()) > 0) {
                 throw new RuntimeException("Start date must be before end date");
             }
-            else {
+            else if (status == OrderStatusType.RENTED) {
                 controller.setStartTimestampOnOrder(order, dpRentStart.getValue());
                 controller.setEndTimestampOnOrder(order, dpRentEnd.getValue());
             }

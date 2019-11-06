@@ -295,6 +295,16 @@ public class Controller {
     	return Storage.getClipCards();
     }
 
+    public ArrayList<Order> getNotReturnedOrders() {
+        return Storage.getAllOrders()
+                .stream()
+                .filter(order -> order.getStatus() == OrderStatusType.RENTED)
+                .filter(order -> LocalDate.now().compareTo(order.getStartTimestamp().toLocalDate()) > 0
+                        && order.getEndTimestamp() != null
+                        && LocalDate.now().compareTo(order.getEndTimestamp().toLocalDate()) < 0)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
 
     public ArrayList<Product> getProductsInPriceList(PriceList priceList) {
         return priceList.getProducts();
