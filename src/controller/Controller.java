@@ -27,6 +27,10 @@ public class Controller {
         }
         return controller;
     }
+    
+    public static Controller getTestController() {
+    	return new Controller();
+    }
 
     public Order createOrder(LocalDateTime startTimeStamp,
                              OrderStatusType status) {
