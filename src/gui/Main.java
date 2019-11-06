@@ -48,9 +48,6 @@ public class Main extends Application {
         Tab tabRegister = new Tab("Register new product");
         Tab tabPriceList = new Tab("Manage pricelists");
         Tab tabJourneyTicket = new Tab("Journey-ticket");
-        //Tab udtræk
-        //Tab ikke aflevere produkter
-        //Tab rundvisning
 
         tabOrder.setContent(new OrdersPane());
         tabPriceList.setContent(new PriceListPane());

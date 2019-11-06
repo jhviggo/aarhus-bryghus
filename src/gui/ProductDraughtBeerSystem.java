@@ -39,7 +39,8 @@ public class ProductDraughtBeerSystem extends GridPane implements ProductType {
 
 	/**
 	 * Method to create a new instance of product draught beer system
-	 * @param productgroup, productName
+	 * @param productgroup
+	 * @param productName
 	 */
 	public void create(ProductGroup productgroup, String productName) {
 		// creates an integer to hold txtNumberOfTaps value.

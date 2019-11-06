@@ -117,8 +117,6 @@ public class RegisterProductPane extends GridPane {
 		this.clearPane();
 		this.selectedProductGroupName = cmbProductGroup.getSelectionModel().getSelectedItem().getType();
 
-		System.out.println(this.selectedProductGroupName);
-
 		switch(this.selectedProductGroupName) {
 			case "spiritus":
 				productSpiritusPane = new ProductSpirit(this);

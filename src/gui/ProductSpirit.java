@@ -2,13 +2,11 @@ package gui;
 
 import controller.Controller;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import model.Product;
 import model.ProductGroup;
-import model.Spirit;
 
 public class ProductSpirit extends GridPane implements ProductType {
 
@@ -74,9 +72,9 @@ public class ProductSpirit extends GridPane implements ProductType {
 	 * @param productName
 	 */
 	public void create(ProductGroup productgroup, String productName) {
-		int size = 0;
+		int size;
 		String unit = "";
-		double alcoholPercentage = 0;
+		double alcoholPercentage;
 
 		try {
 			// checks if the input value size is a valid Integer
@@ -95,7 +93,6 @@ public class ProductSpirit extends GridPane implements ProductType {
 			alcoholPercentage = Double.parseDouble(txtAlcoholPercentage.getText().trim());
 
 			Product p = this.controller.createProductSpirit(productName, productgroup, size, unit, alcoholPercentage, selectedType);
-			System.out.println(p);
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 		} catch (NumberFormatException err) {

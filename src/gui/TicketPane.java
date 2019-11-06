@@ -1,7 +1,6 @@
 package gui;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import controller.Controller;
 import javafx.geometry.Insets;
@@ -11,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import model.Order;
-import model.OrderLine;
 
 public class TicketPane extends GridPane {
 
