@@ -62,8 +62,24 @@ public class Controller {
         return Storage.getAllOrders();
     }
 
+    public LocalDateTime getStartTimestampOnOrder(Order order) {
+        return order.getStartTimestamp();
+    }
+
+    public LocalDateTime getEndTimestampOnOrder(Order order) {
+        return order.getEndTimestamp();
+    }
+
     public void setEndTimestampOnOrder(Order order) {
         order.setEndTimestamp(LocalDateTime.now().withNano(0));
+    }
+
+    public void setEndTimestampOnOrder(Order order, LocalDate date) {
+        order.setEndTimestamp(LocalDateTime.of(date, LocalTime.of(12,0)));
+    }
+
+    public void setStartTimestampOnOrder(Order order, LocalDate date) {
+        order.setStartTimestamp(LocalDateTime.of(date, LocalTime.of(12, 0)));
     }
 
     public OrderLine createOrderLine(Product product, PriceList priceList,
