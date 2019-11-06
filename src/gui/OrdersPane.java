@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import model.Order;
 import model.OrderStatusType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class OrdersPane extends GridPane {
@@ -68,7 +69,7 @@ public class OrdersPane extends GridPane {
     }
 
     private void showRented() {
-        lstOrders.getItems().setAll(controller.getNotReturnedOrders());
+        lstOrders.getItems().setAll(controller.getNotReturnedOrders(LocalDate.now()));
     }
 
     private void showAllOrders() {

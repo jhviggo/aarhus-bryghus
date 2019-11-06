@@ -33,9 +33,11 @@ public class Controller {
         }
         return controller;
     }
-    
+
     public static Controller getTestController() {
-    	return new Controller();
+        Storage.resetStorage();
+        nextOrderId = 0;
+        return new Controller();
     }
 
     public Order createOrder(LocalDateTime startTimeStamp,
@@ -307,13 +309,13 @@ public class Controller {
      * returns orders that are rented out and have not been returned yet
      * @return rentals that have not been returned
      */
-    public ArrayList<Order> getNotReturnedOrders() {
+    public ArrayList<Order> getNotReturnedOrders(LocalDate date) {
         return Storage.getAllOrders()
                 .stream()
                 .filter(order -> order.getStatus() == OrderStatusType.RENTED)
-                .filter(order -> LocalDate.now().compareTo(order.getStartTimestamp().toLocalDate()) > 0
+                .filter(order -> date.compareTo(order.getStartTimestamp().toLocalDate()) > 0
                         && order.getEndTimestamp() != null
-                        && LocalDate.now().compareTo(order.getEndTimestamp().toLocalDate()) < 0)
+                        && date.compareTo(order.getEndTimestamp().toLocalDate()) < 0)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

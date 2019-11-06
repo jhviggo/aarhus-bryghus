@@ -2,8 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.Product;
@@ -15,12 +13,12 @@ public class TestProduct {
 	private ProductGroup productgroup2;
 	private Product product1;
 	private Product product2;
-	
-	
+
+
 	public TestProduct() {
-		
+
 	}
-	
+
 	@Test
 	public void testSetProductGroupTC1() {
 		productgroup1 = new ProductGroup("flaske øl", 0);
@@ -39,7 +37,7 @@ public class TestProduct {
 		product1 = new Product("fustage", productgroup1);
 		product1.setProductGroup(productgroup2);
 		assertEquals(productgroup2.getType(), product1.getProductGroup().getType());
-		
+
 	}
-	
+
 }
