@@ -1,5 +1,6 @@
 package gui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import controller.Controller;
@@ -20,9 +21,11 @@ public class TicketPane extends GridPane {
 	private Label lblDateFrom;
 	private Label lblDateTill;
 	private Label lblShowClipBoardStatus;
+	private Label lblClipsInfo;
+	private Label lblError;
 	private DatePicker dpFrom;
 	private DatePicker dpTill;
-	private ListView<OrderLine> lvShowClipBoardStatus;
+	private ListView<Order> lvShowClipBoardStatus;
 	private Button btnExport;
 	private Button btnHent;
 	private Controller controller;
@@ -56,8 +59,17 @@ public class TicketPane extends GridPane {
 		this.add(dpTill, 1, 1);
 
 		// label for clipboard status
-		lblShowClipBoardStatus = new Label("ClipBoard status");
+		lblShowClipBoardStatus = new Label("Clips were sold in these Orders");
 		this.add(lblShowClipBoardStatus, 0, 2);
+
+		lblClipsInfo = new Label(
+				"Clips sold today is "
+						+ controller.getBoughtClipsBetweenDates(LocalDate.now(), LocalDate.now())
+						+ " and "
+						+ controller.getUsedClipsBetweenDates(LocalDate.now(), LocalDate.now())
+						+ " order used"
+		);
+		this.add(lblClipsInfo, 1, 2);
 
 		// listView clipboard status
 		lvShowClipBoardStatus = new ListView<>();
@@ -72,6 +84,9 @@ public class TicketPane extends GridPane {
 
 		// EventHandler selected date in DatePicker
 		btnHent.setOnAction(e -> this.populateClipBoard());
+
+		lblError = new Label();
+		this.add(lblError, 0, 7);
 
 		// button export
 		btnExport = new Button("Export");
@@ -92,24 +107,21 @@ public class TicketPane extends GridPane {
 	 * populate ClipBoard with clipboard status
 	 */
 	public void populateClipBoard() {
-		// Arraylist orders & arrayList result containing matching objects
-		ArrayList<Order> orders = controller.getOrders();
-		ArrayList<OrderLine> results = new ArrayList<OrderLine>();
-		// iteration over each oder
-		for (int i = 0; i < orders.size(); i++) {
-			// checks to find orders within the selected date interval
-			if (orders.get(i).getEndTimestamp() != null && dpFrom.getValue().compareTo(orders.get(i).getStartTimestamp().toLocalDate()) < 0 &&
-					dpTill.getValue().compareTo(orders.get(i).getEndTimestamp().toLocalDate()) > 0) {
-				// Arraylist orderlines within interval
-				ArrayList<OrderLine> orderlines = controller.getOrders().get(i).getOrderlines();
-				// iteration over each oderline
-				for (int j = 0; j < orderlines.size(); j++) {
-					results.add(orderlines.get(j));
-				}
-			}
-			// fills listView.
-			lvShowClipBoardStatus.getItems().setAll(results);
+		if (dpFrom.getValue() == null && dpTill.getValue() == null) {
+			this.lblError.setText("Please select start and end date");
+			return;
 		}
+
+		lblClipsInfo.setText(
+		"Clips sold between selected dates is "
+				+ controller.getBoughtClipsBetweenDates(dpFrom.getValue(), dpTill.getValue())
+				+ " and "
+				+ controller.getUsedClipsBetweenDates(dpFrom.getValue(), dpTill.getValue())
+				+ " was used"
+		);
+
+		lvShowClipBoardStatus.getItems().setAll(controller.getOrdersWithSoldClips(dpFrom.getValue(), dpTill.getValue()));
+
 
 	}
 }
