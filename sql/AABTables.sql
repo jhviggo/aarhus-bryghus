@@ -72,6 +72,10 @@ CREATE TABLE Orders(
         orderStatus IN('CREATED', 'PROGRESS', 'DONE'))
 )
 
+CREATE TABLE PriceList(
+    listName VARCHAR(100) NOT NULL PRIMARY KEY,
+)
+
 DROP TABLE OrderLine
 CREATE TABLE OrderLine(
     id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -79,10 +83,6 @@ CREATE TABLE OrderLine(
     product INT NOT NULL FOREIGN KEY REFERENCES Product(id),
     orderId INT NOT NULL FOREIGN KEY REFERENCES Orders(id),
     priceList VARCHAR(100) FOREIGN KEY REFERENCES PriceList(listName)
-)
-
-CREATE TABLE PriceList(
-    listName VARCHAR(100) NOT NULL PRIMARY KEY,
 )
 
 DROP TABLE ProductInPriceList
