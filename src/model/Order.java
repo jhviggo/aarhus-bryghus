@@ -5,9 +5,6 @@ import java.util.ArrayList;
 
 public class Order {
 
-	/**
-	 * Attributes.
-	 */
 	private int ID;
 	private LocalDateTime startTimestamp;
 	private LocalDateTime endTimestamp;
@@ -19,7 +16,9 @@ public class Order {
 
 	/**
 	 * Constructor
-	 * @param id, startTimestamp, endTimestamp, status
+	 * @param id
+	 * @param startTimestamp
+	 * @param status
 	 */
 	public Order(int id, LocalDateTime startTimestamp, OrderStatusType status) {
 		this.ID = id;
@@ -35,7 +34,7 @@ public class Order {
 
 	/**
 	 * Returns delivery date
-	 * @return LocalDate
+	 * @return delivery date
 	 */
 	public LocalDateTime getDeliveryDate() {
 		return deliveryDate;
@@ -68,12 +67,6 @@ public class Order {
 	}
 
 	/**
-	 * Get method
-	 * Method to get order status
-	 * @return status
-	 */
-
-	/**
 	 * Set method
 	 * sets startTimestamp attribute value
 	 * @param startTimeStamp
@@ -82,6 +75,11 @@ public class Order {
 		this.startTimestamp = startTimeStamp;
 	}
 
+	/**
+	 * Get method
+	 * Method to get order status
+	 * @return status
+	 */
 	public OrderStatusType getStatus() {
 		return status;
 	}
@@ -172,10 +170,18 @@ public class Order {
 		}
 	}
 
+	/**
+	 * returns orderlines
+	 * @return order lines
+	 */
 	public ArrayList<OrderLine> getOrderlines() {
 		return new ArrayList<>(orderlines);
 	}
 
+	/**
+	 * returns total price
+	 * @return total price
+	 */
 	public double getTotalPrice() {
 		return orderlines
 				.stream()

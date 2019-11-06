@@ -6,15 +6,15 @@ import java.util.HashMap;
 
 public class PriceList {
 
-	/**
-	 * Attributes
-	 */
 	private String type;
 	private HashMap<Product, Double> productsInPriceList;
 	private HashMap<GiftBoxType, Double> giftBoxPrices;
 	private ArrayList<Product> giftboxes;
 
-
+	/**
+	 * construcs a price list with a type
+	 * @param type
+	 */
 	public PriceList(String type) {
 		this.type = type;
 		productsInPriceList = new HashMap<>();
@@ -22,6 +22,12 @@ public class PriceList {
 		giftboxes = new ArrayList<>();
 	}
 
+	/**
+	 * constructs a price list with a type, products and gift boxes
+	 * @param type
+	 * @param productsInPriceList
+	 * @param giftBoxPrices
+	 */
 	public PriceList(String type, HashMap<Product, Double> productsInPriceList,
 					 HashMap<GiftBoxType, Double> giftBoxPrices) {
 		this.type = type;
@@ -66,6 +72,10 @@ public class PriceList {
 		return this.type;
 	}
 
+	/**
+	 * returns a list of strings with product name and price
+	 * @return product names and prices
+	 */
 	public ArrayList<String> getProductsWithPriceInPriceList() {
 		ArrayList<String> productPricesList = new ArrayList<>();
 
@@ -77,6 +87,10 @@ public class PriceList {
 		return productPricesList;
 	}
 
+	/**
+	 * returns products
+	 * @return products
+	 */
 	public ArrayList<Product> getProducts() {
 		ArrayList<Product> result = new ArrayList<>(this.productsInPriceList.keySet());
 		Collections.sort(result);

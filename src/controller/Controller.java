@@ -23,6 +23,10 @@ public class Controller {
 
     private Controller() {}
 
+    /**
+     * returns the singleton Controller
+     * @return controller
+     */
     public static Controller getController() {
         if (controller == null) {
             controller = new Controller();
@@ -295,6 +299,10 @@ public class Controller {
     	return Storage.getClipCards();
     }
 
+    /**
+     * returns orders that are rented out and have not been returned yet
+     * @return rentals that have not been returned
+     */
     public ArrayList<Order> getNotReturnedOrders() {
         return Storage.getAllOrders()
                 .stream()
@@ -310,6 +318,12 @@ public class Controller {
         return priceList.getProducts();
     }
 
+    /**
+     * returns all orders between a start and an end date
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     private ArrayList<Order> getOrdersBetweenDates(LocalDate startDate, LocalDate endDate) {
         return Storage.getAllOrders()
                 .stream()
@@ -319,6 +333,12 @@ public class Controller {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * returns all orders between a start date and an end date where a clip card was sold
+     * @param startDate
+     * @param endDate
+     * @return orders with clip cards sold
+     */
     public ArrayList<Order> getOrdersWithSoldClips(LocalDate startDate, LocalDate endDate) {
         return this.getOrdersBetweenDates(startDate, endDate)
                 .stream()
@@ -326,6 +346,15 @@ public class Controller {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * returns the amount of clip cards used between a start and an end date.
+     * it finds orders with the payment method of CLIPCARD and counts the
+     * amount of items in the order, assuming all the items have been payed
+     * for by clip card
+     * @param startDate
+     * @param endDate
+     * @return amount of clips used between two dates
+     */
     public int getUsedClipsBetweenDates(LocalDate startDate, LocalDate endDate) {
         return (int) this.getOrdersBetweenDates(startDate, endDate)
                 .stream()
@@ -337,6 +366,12 @@ public class Controller {
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * returns the total amount of sold clip cards between a start and an end date
+     * @param startDate
+     * @param endDate
+     * @return total amount of sold clip cards between two dates
+     */
     public int getBoughtClipsBetweenDates(LocalDate startDate, LocalDate endDate) {
         return this.getOrdersBetweenDates(startDate, endDate)
                 .stream()
@@ -344,6 +379,11 @@ public class Controller {
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * calculates the amount of clip cards bought in a single order
+     * @param order
+     * @return amount of clip cards bought
+     */
     private int amountOfContainedClipsInOrder(Order order) {
         return order.getOrderlines()
                 .stream()
@@ -352,6 +392,9 @@ public class Controller {
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * writes the CSV formatted orders into a file located at the root folder of the program
+     */
     public void exportOrders() {
         String csvToExport = "ID,STATUS,DATE,PAYMENT METHOD,PRODUCT,AMOUNT,SINGLE PRICE,TOTAL PRICE;\n";
 
@@ -370,6 +413,11 @@ public class Controller {
         }
     }
 
+    /**
+     * creates a string formatted as a CSV file so it is ready to be exported
+     * @param order
+     * @return CSV formatted string
+     */
     public String exportOrderAsCSV(Order order) {
         StringBuilder csvOutput = new StringBuilder();
         for (OrderLine ol : order.getOrderlines()) {
