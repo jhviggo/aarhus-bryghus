@@ -43,6 +43,13 @@ public class OrdersPane extends GridPane {
         Button btnUpdateOrder = new Button("Update order");
         btnUpdateOrder.setOnAction(event -> updateOrder());
         buttonBoxLeft.getChildren().add(btnUpdateOrder);
+        Button btnShowRented = new Button("Show still rented");
+        btnShowRented.setOnAction(event -> showRented());
+        buttonBoxLeft.getChildren().add(btnShowRented);
+        Button btnShowAll = new Button("Show all orders");
+        btnShowAll.setOnAction(event -> showAllOrders());
+        buttonBoxLeft.getChildren().add(btnShowAll);
+
         this.add(buttonBoxLeft, 0, 2);
 
         HBox buttonBoxRight = new HBox();
@@ -58,6 +65,14 @@ public class OrdersPane extends GridPane {
         this.add(lblError, 0, 3);
 
         updateContent();
+    }
+
+    private void showRented() {
+        lstOrders.getItems().setAll(controller.getNotReturnedOrders());
+    }
+
+    private void showAllOrders() {
+        lstOrders.getItems().setAll(controller.getOrders());
     }
 
     private void updateContent() {
