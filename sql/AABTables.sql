@@ -89,5 +89,6 @@ DROP TABLE ProductInPriceList
 CREATE TABLE ProductInPriceList(
     product INT NOT NULL FOREIGN KEY REFERENCES Product(id),
     priceList VARCHAR(100) NOT NULL FOREIGN KEY REFERENCES PriceList(listName),
-    price FLOAT NOT NULL
+    price FLOAT NOT NULL,
+    rebate FLOAT DEFAULT 1.0
 )

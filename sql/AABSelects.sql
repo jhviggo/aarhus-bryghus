@@ -78,28 +78,35 @@ SELECT * FROM productSales
 GO
 
 CREATE PROCEDURE getPricelist
-@priceList VARCHAR(100),
-@rebate FLOAT
+@priceList VARCHAR(100)
 AS
-SELECT p.productName, pip.price*(@rebate)
+SELECT p.productName, pip.price*pip.rebate
 FROM Product p, ProductInPriceList pip
-WHERE p.id IN 
-(
-    SELECT pl.product
-    FROM ProductInPriceList pl
-    WHERE pl.priceList = @priceList
-)
+WHERE pip.priceList = @priceList
 AND p.id = pip.product
 
 GO
 
-EXECUTE getPricelist 'Fredagsbar', 0.8
+EXECUTE getPricelist 'Fredagsbar'
 
 --Opgave 4b
 GO
 
+CREATE PROCEDURE changeRebate
+@priceList VARCHAR(100),
+@rebate FLOAT
+AS
+UPDATE ProductInPriceList
+SET rebate = @rebate
+WHERE priceList = @priceList
 
 GO
+
+EXECUTE changeRebate 'Fredagsbar', 0.8
+
+SELECT * 
+FROM ProductInPriceList
+WHERE priceList = 'Fredagsbar'
 
 --Opgave 5
 GO
@@ -147,3 +154,16 @@ WHERE productName = 'Test2'
 
 SELECT *
 FROM ProductGroup
+
+
+--Opgave 6a
+
+
+--Opgave 6b
+
+
+
+
+
+
+
