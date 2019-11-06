@@ -181,7 +181,7 @@ public class Controller {
     }
 
     public void deleteProduct(Product product) {
-        product.removeProductGroup();
+    	product.getProductGroup().removeProduct(product);
         Storage.removeProduct(product);
     }
 
