@@ -1,10 +1,6 @@
 package model;
 
 public class OrderLine {
-
-	/**
-	 * Attributes
-	 */
 	private PriceList priceList;
 	private Product product;
 	private int amount;

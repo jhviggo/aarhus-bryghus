@@ -11,6 +11,12 @@ public class GiftBox extends Product {
     private int maxAmountOfProducts;
     private GiftBoxType type;
 
+    /**
+     * constructs a new gift box
+     * @param productName
+     * @param productGroup
+     * @param type
+     */
     public GiftBox(String productName, ProductGroup productGroup, GiftBoxType type) {
         super(productName, productGroup);
         productsInGiftCase = new HashMap<>();
@@ -29,10 +35,19 @@ public class GiftBox extends Product {
         }
     }
 
+    /**
+     * returns max amount of products allowed in gift box
+     * @return maxAmountOfProducts
+     */
     public int getMaxAmountOfProducts() {
         return maxAmountOfProducts;
     }
 
+    /**
+     * adds a beer to the gift box
+     * @param beer
+     * @return boolean
+     */
     public boolean addProduct(Beer beer) {
         if (amountOfProducts == maxAmountOfProducts ||
                 beer.getBeerType() != BOTTLE) {
@@ -48,6 +63,11 @@ public class GiftBox extends Product {
         return true;
     }
 
+    /**
+     * removed a beer from the gift box
+     * @param beer
+     * @return boolean
+     */
     public boolean removeProduct(Beer beer) {
         if (!productsInGiftCase.containsKey(beer)) {
             return false;
@@ -62,10 +82,18 @@ public class GiftBox extends Product {
         return true;
     }
 
+    /**
+     * returns type as defined in enum GiftBoxType
+     * @return type
+     */
     public GiftBoxType getType() {
         return type;
     }
 
+    /**
+     * returns products in gift box
+     * @return products
+     */
     public HashMap<Beer, Integer> getProductsInGiftCase() {
         return new HashMap(productsInGiftCase);
     }
