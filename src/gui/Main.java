@@ -47,7 +47,6 @@ public class Main extends Application {
         Tab tabOrder = new Tab("Orders");
         Tab tabRegister = new Tab("Register new product");
         Tab tabPriceList = new Tab("Manage pricelists");
-        Tab tabExportInventory = new Tab("Export inventory");
         Tab tabJourneyTicket = new Tab("Journey-ticket");
         //Tab udtræk
         //Tab ikke aflevere produkter
@@ -62,7 +61,6 @@ public class Main extends Application {
         tabPane.getTabs().add(tabOrder);
         tabPane.getTabs().add(tabRegister);
         tabPane.getTabs().add(tabPriceList);
-        tabPane.getTabs().add(tabExportInventory);
         tabPane.getTabs().add(tabJourneyTicket);
     }
 }
