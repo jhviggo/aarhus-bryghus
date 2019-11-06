@@ -27,10 +27,11 @@ public class CreateUpdateOrderDialog extends Stage {
     private ListView<Product> lstProducts;
     private ListView<OrderLine> lstOrderLines;
     private TextField txfAmount, txfOverridePrice;
-    private Label lblTotal, lblError;
-    private RadioButton rbCreated, rbProgress, rbDone, rbCreditCard, rbCash, rbPayLater;
+    private Label lblTotal, lblError, lblRentStart, lblRentEnd;
+    private RadioButton rbCreated, rbProgress, rbDone, rbRented, rbCreditCard, rbCash, rbPayLater;
     private ToggleGroup statusGroup, paymentGroup;
     private CheckBox chbOverridePrice;
+    private DatePicker dpRentStart, dpRentEnd;
 
     public CreateUpdateOrderDialog(Order order, PriceList prefPriceList) {
         controller = Controller.getController();
@@ -120,12 +121,16 @@ public class CreateUpdateOrderDialog extends Stage {
         rbProgress = new RadioButton("In progress");
         rbProgress.setUserData(OrderStatusType.PROGRESS);
         rbProgress.setToggleGroup(statusGroup);
+        rbRented = new RadioButton("Rented");
+        rbRented.setUserData(OrderStatusType.RENTED);
+        rbRented.setToggleGroup(statusGroup);
         rbDone = new RadioButton("Done");
         rbDone.setUserData(OrderStatusType.DONE);
         rbDone.setToggleGroup(statusGroup);
 
         statusBox.getChildren().add(rbCreated);
         statusBox.getChildren().add(rbProgress);
+        statusBox.getChildren().add(rbRented);
         statusBox.getChildren().add(rbDone);
 
         parentBox.getChildren().add(statusBox);
@@ -166,23 +171,43 @@ public class CreateUpdateOrderDialog extends Stage {
         txfOverridePrice.setPrefWidth(prefWidthSmall);
         priceBox.getChildren().add(txfOverridePrice);
 
+        lblRentStart = new Label("Start rental date");
+        lblRentEnd = new Label("End rental date");
+        dpRentStart = new DatePicker();
+        dpRentEnd = new DatePicker();
+
+        pane.add(lblRentStart, 1, 11);
+        pane.add(dpRentStart, 1, 12);
+        pane.add(lblRentEnd, 1, 13);
+        pane.add(dpRentEnd, 1, 14);
+
         parentBox.getChildren().add(priceBox);
 
-        pane.add(parentBox, 0, 11);
+        pane.add(parentBox, 0, 11, 1, 5);
 
         Button btnCheckout = new Button("Checkout");
         btnCheckout.setPrefWidth(prefWidth);
         btnCheckout.setOnAction(event -> checkout());
-        pane.add(btnCheckout, 0, 12);
+        pane.add(btnCheckout, 0, 16);
 
         lblError = new Label("");
         lblError.setTextFill(Color.RED);
-        pane.add(lblError, 0, 13);
+        pane.add(lblError, 0, 17);
 
         updatePriceLists();
         updateProducts();
         updateControls();
         updateOrderLines();
+        updateDates();
+    }
+
+    private void updateDates() {
+        if (controller.getStartTimestampOnOrder(order) != null) {
+            dpRentStart.setValue(controller.getStartTimestampOnOrder(order).toLocalDate());
+        }
+        if (controller.getEndTimestampOnOrder(order) != null) {
+            dpRentEnd.setValue(controller.getEndTimestampOnOrder(order).toLocalDate());
+        }
     }
 
     private void updatePriceLists() {
@@ -216,6 +241,7 @@ public class CreateUpdateOrderDialog extends Stage {
             case CREATED: rbCreated.setSelected(true); break;
             case PROGRESS: rbProgress.setSelected(true); break;
             case DONE: rbDone.setSelected(true); break;
+            case RENTED: rbRented.setSelected(true); break;
         }
         if (order.getPriceOverride() != -1) {
             chbOverridePrice.setSelected(true);
@@ -329,6 +355,16 @@ public class CreateUpdateOrderDialog extends Stage {
             controller.updateOrder(status, paymentMethod, order);
             if (status == OrderStatusType.DONE) {
                 controller.setEndTimestampOnOrder(order);
+            }
+            if (status == OrderStatusType.RENTED && dpRentStart.getValue() == null && dpRentEnd.getValue() == null) {
+                throw new NullPointerException("Start and end date must be selected for rental");
+            }
+            else if (status == OrderStatusType.RENTED && dpRentStart.getValue().compareTo(dpRentEnd.getValue()) > 0) {
+                throw new RuntimeException("Start date must be before end date");
+            }
+            else {
+                controller.setStartTimestampOnOrder(order, dpRentStart.getValue());
+                controller.setEndTimestampOnOrder(order, dpRentEnd.getValue());
             }
             if (chbOverridePrice.isSelected()) {
                 double priceOverride =
