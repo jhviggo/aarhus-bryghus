@@ -20,24 +20,28 @@ public class TestProduct {
 	}
 
 	@Test
-	public void testSetProductGroupTC1() {
-		productgroup1 = new ProductGroup("flaske øl", 0);
-		productgroup2 = new ProductGroup("fustage", 0);
-		product1 = new Product("flaske øl", productgroup1);
-		product2 = new Product("fustage", productgroup2);
-		product2.setProductGroup(productgroup1);
-
-		assertEquals(productgroup1.getType(), product2.getProductGroup().getType());
+	public void testRemoveProductTC1() {
+		productgroup1 = new ProductGroup("test 1", 0);
+		productgroup2 = new ProductGroup("test 2", 0);
+		Product superProduct = new Product("Flaske øl", productgroup1);
+		productgroup2.addProduct(superProduct);
+		productgroup1.removeProduct(superProduct);
+		assertEquals(0.0, productgroup1.getTax(), 0.01);
+		
 	}
 
 	@Test
-	public void testSetProductGroupTC2() {
-		productgroup1 = new ProductGroup("flaske øl", 0);
-		productgroup2 = new ProductGroup("fustage", 0);
-		product1 = new Product("fustage", productgroup1);
-		product1.setProductGroup(productgroup2);
-		assertEquals(productgroup2.getType(), product1.getProductGroup().getType());
-
+	public void testRemoveProductTC2() {
+		ProductGroup pg3 = new ProductGroup("flaske øl", 0);
+		Product p = new Product("Bajer", pg3);
+		try {
+			p.setProductGroup(pg3);
+			pg3.removeProduct(p);
+			
+		} catch (RuntimeException e) {
+			assertEquals(e.getMessage(), "Produktet skal flyttes til en ny produktgruppe før det kan fjernes fra flaske øl");
+		}
+		
 	}
 
 }
