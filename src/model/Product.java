@@ -49,17 +49,13 @@ public class Product implements Comparable<Product>{
 			this.productGroup = productGroup;
 			this.productGroup.addProduct(this);
 		} else if (this.productGroup != productGroup) {
-			this.productGroup.removeProduct(this);
+			ProductGroup pg = this.productGroup;
 			this.productGroup = productGroup;
-			productGroup.addProduct(this);
+			this.productGroup.addProduct(this);
+			pg.removeProduct(this);
 		}
 	}
 
-	public void removeProductGroup() {
-		ProductGroup old = productGroup;
-		productGroup = null;
-		old.removeProduct(this);
-	}
 
 	@Override
 	public String toString() {

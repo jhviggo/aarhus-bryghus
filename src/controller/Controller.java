@@ -33,6 +33,10 @@ public class Controller {
         }
         return controller;
     }
+    
+    public static Controller getTestController() {
+    	return new Controller();
+    }
 
     public Order createOrder(LocalDateTime startTimeStamp,
                              OrderStatusType status) {
@@ -203,7 +207,7 @@ public class Controller {
     }
 
     public void deleteProduct(Product product) {
-        product.removeProductGroup();
+    	product.getProductGroup().removeProduct(product);
         Storage.removeProduct(product);
     }
 
