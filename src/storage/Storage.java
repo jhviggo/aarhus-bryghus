@@ -14,8 +14,18 @@ public class Storage {
 	private static final ArrayList<Product> products = new ArrayList<>();
 	private static final ArrayList<ProductGroup> productGroups = new ArrayList<>();
 	private static final ArrayList<GiftBox> giftBoxes = new ArrayList<>();
-	private static final ArrayList<PriceList> priceLists = new ArrayList<PriceList>();
-	private static final ArrayList<ClipCard> clipCards = new ArrayList<ClipCard>();
+	private static final ArrayList<PriceList> priceLists = new ArrayList<>();
+	private static final ArrayList<ClipCard> clipCards = new ArrayList<>();
+
+	public static void resetStorage() {
+		orders.clear();
+		orderLines.clear();
+		products.clear();
+		productGroups.clear();
+		giftBoxes.clear();
+		priceLists.clear();
+		clipCards.clear();
+	}
 
 	/**
 	 * Get method.
